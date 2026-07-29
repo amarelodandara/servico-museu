@@ -1,0 +1,13 @@
+{
+  "LocaleSwitcher": {
+    "label": "Idioma",
+    "pt-BR": "Português",
+    "en": "English"
+  },
+  "Digest": {
+    "kicker": "A serviço do museu",
+    "title": "Conteúdo do museu, explicado",
+    "intro": "Este é o rascunho do digest — o conteúdo completo entra na Bite 2.",
+    "downloadPdf": "Baixar a versão acadêmica (.pdf)"
+  }
+}

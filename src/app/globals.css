@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/*
+ * Placeholder design tokens. Values here are intentionally neutral —
+ * the font/color pass is reserved for later and should only require
+ * editing this block, not hunting through components.
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --color-accent: #2563eb; /* placeholder for the "added content" blue from the pitch doc */
+  --color-added-tint: #dbeafe;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--color-accent);
+  --color-added-tint: var(--color-added-tint);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
