@@ -1,14 +1,26 @@
 {
   "LocaleSwitcher": {
     "label": "Language",
-    "pt-BR": "Português",
-    "en": "English"
+    "switchToPtBR": "Leia em português",
+    "switchToEn": "Read in English"
   },
   "Digest": {
-    "kicker": "In service of the museum",
-    "title": "The museum's content, explained",
+    "logoAlt": "Site icon (coming soon)",
+    "title": "In service of the museum",
+    "titleSubtitle": "Experience guidelines for the museum-educational institution",
+    "introParagraph1": "A friendlier explanation of the research project for the 2026 Graphic Design capstone at UEMG. The project is conceived and carried out by Nicoly Dandara and Letícia França, advised by Simone Souza.",
+    "introParagraph2": "Here we strip out the academic jargon and give you a calmer way into the subject.",
     "downloadPdf": "Download the academic version (.pdf)",
-    "glossaryLink": "Glossary"
+    "readDigest": "Read digest",
+    "glossaryLink": "Glossary",
+    "collaborateLink": "Collaborate",
+    "researcher": "Researcher",
+    "advisor": "Advisor",
+    "institution": "Minas Gerais State University (UEMG)",
+    "institutionAlt": "Photo of the UEMG building (coming soon)",
+    "wordCountDigest": "This digest",
+    "wordCountAcademic": "Academic version",
+    "wordCountCaption": "Word count — the digest is measured from the current text and updates as the content changes; the academic version is a fixed figure from the TCC."
   },
   "Sidenote": {
     "back": "Back"
@@ -16,6 +28,11 @@
   "Glossary": {
     "title": "Glossary",
     "back": "Back to the digest"
+  },
+  "Collaborate": {
+    "title": "Collaborate",
+    "back": "Back to the digest",
+    "body": "This page will gather the ways to collaborate with the research. The contact form is still on its way — for now, this is just a placeholder for where it'll live."
   },
   "Outline": {
     "label": "Outline",

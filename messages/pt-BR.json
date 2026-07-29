@@ -1,14 +1,26 @@
 {
   "LocaleSwitcher": {
     "label": "Idioma",
-    "pt-BR": "Português",
-    "en": "English"
+    "switchToPtBR": "Leia em português",
+    "switchToEn": "Read in English"
   },
   "Digest": {
-    "kicker": "A serviço do museu",
-    "title": "Conteúdo do museu, explicado",
+    "logoAlt": "Ícone do site (em breve)",
+    "title": "A serviço do museu",
+    "titleSubtitle": "Diretrizes de experiência para a instituição museo-educativa",
+    "introParagraph1": "Uma explicação mais amigável do projeto de pesquisa para a conclusão do curso de Design Gráfico da UEMG em 2026. O projeto é idealizado e executado por Nicoly Dandara e Letícia França e orientado por Simone Souza.",
+    "introParagraph2": "Aqui nós tiramos o \"academiquês\" e apresentamos a base para você entrar no assunto com mais calma.",
     "downloadPdf": "Baixar a versão acadêmica (.pdf)",
-    "glossaryLink": "Glossário"
+    "readDigest": "Ler resumo",
+    "glossaryLink": "Glossário",
+    "collaborateLink": "Colaborar",
+    "researcher": "Pesquisadora",
+    "advisor": "Orientadora",
+    "institution": "Universidade do Estado de Minas Gerais (UEMG)",
+    "institutionAlt": "Foto do prédio da UEMG (em breve)",
+    "wordCountDigest": "Este resumo",
+    "wordCountAcademic": "Versão acadêmica",
+    "wordCountCaption": "Contagem de palavras — o resumo é medido a partir do texto atual e se atualiza conforme o conteúdo muda; a versão acadêmica é um número fixo do TCC."
   },
   "Sidenote": {
     "back": "Voltar"
@@ -16,6 +28,11 @@
   "Glossary": {
     "title": "Glossário",
     "back": "Voltar ao resumo"
+  },
+  "Collaborate": {
+    "title": "Colaborar",
+    "back": "Voltar ao resumo",
+    "body": "Essa página vai reunir as formas de colaborar com a pesquisa. O formulário de contato ainda está a caminho — por enquanto, essa é só uma marcação do lugar onde ele vai morar."
   },
   "Outline": {
     "label": "Sumário",

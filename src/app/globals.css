@@ -11,6 +11,10 @@
 
   --color-accent: #2563eb; /* placeholder for the "added content" blue from the pitch doc */
   --color-added-tint: #dbeafe;
+
+  /* dataviz categorical slots 1/2 (blue/orange), validated for CVD + contrast */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
 }
 
 @theme inline {
@@ -18,21 +22,25 @@
   --color-foreground: var(--foreground);
   --color-accent: var(--color-accent);
   --color-added-tint: var(--color-added-tint);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-neuton);
+  --font-lato: var(--font-lato);
+  --font-inter: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-neuton), serif;
 }
 
 /*
