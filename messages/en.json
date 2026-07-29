@@ -7,7 +7,18 @@
   "Digest": {
     "kicker": "In service of the museum",
     "title": "The museum's content, explained",
-    "intro": "This is the digest scaffold — full content lands in Bite 2. (Rough placeholder translation.)",
-    "downloadPdf": "Download the academic version (.pdf)"
+    "downloadPdf": "Download the academic version (.pdf)",
+    "glossaryLink": "Glossary"
+  },
+  "Sidenote": {
+    "back": "Back"
+  },
+  "Glossary": {
+    "title": "Glossary",
+    "back": "Back to the digest"
+  },
+  "Outline": {
+    "label": "Outline",
+    "toggle": "Outline"
   }
 }

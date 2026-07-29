@@ -7,7 +7,18 @@
   "Digest": {
     "kicker": "A serviço do museu",
     "title": "Conteúdo do museu, explicado",
-    "intro": "Este é o rascunho do digest — o conteúdo completo entra na Bite 2.",
-    "downloadPdf": "Baixar a versão acadêmica (.pdf)"
+    "downloadPdf": "Baixar a versão acadêmica (.pdf)",
+    "glossaryLink": "Glossário"
+  },
+  "Sidenote": {
+    "back": "Voltar"
+  },
+  "Glossary": {
+    "title": "Glossário",
+    "back": "Voltar ao resumo"
+  },
+  "Outline": {
+    "label": "Sumário",
+    "toggle": "Sumário"
   }
 }

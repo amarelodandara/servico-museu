@@ -1,0 +1,34 @@
+{
+  "ibram": {
+    "term": "IBRAM",
+    "definition": "Instituto Brasileiro de Museus, autarquia federal responsável por políticas museológicas nacionais, incluindo o Cadastro Nacional de Museus."
+  },
+  "cadastro-nacional-de-museus": {
+    "term": "Cadastro Nacional de Museus",
+    "definition": "Ferramenta quantitativa monitorada pelo IBRAM que registra as instituições museológicas do Brasil — fonte dos números de museus citados neste resumo."
+  },
+  "plano-museologico": {
+    "term": "Plano Museológico",
+    "definition": "Documento de escopo estratégico, obrigatório pelo Estatuto Brasileiro de Museus (Lei nº 11.904/2009), que caracteriza o museu — sua missão, valores e posição nos programas previstos em lei."
+  },
+  "pnem": {
+    "term": "Política Nacional de Educação Museal (PNEM)",
+    "definition": "Normativa do IBRAM (Resolução Normativa nº 40/2025) que sistematiza as diretrizes do setor educativo dos museus brasileiros, organizada em três eixos: Gestão; Profissionais, Formação e Pesquisa; e Museus, Comunidades e Territórios."
+  },
+  "museologia": {
+    "term": "Museologia",
+    "definition": "Campo de estudo do museu. Ainda uma ciência emergente, sem reconhecimento consolidado nas interfaces com outras disciplinas, tanto no Brasil quanto no mundo."
+  },
+  "educacao-museal": {
+    "term": "Educação museal",
+    "definition": "Processo de aprendizagem não formal, desvinculado da educação escolar e da Base Nacional Comum Curricular, por meio do qual o museu exerce sua função social e de mediação com diferentes públicos."
+  },
+  "design-de-servicos": {
+    "term": "Design de serviços",
+    "definition": "Abordagem que integra as necessidades dos usuários finais com as capacidades e objetivos das organizações que prestam o serviço, usando ferramentas visuais, processos colaborativos e uma mentalidade centrada no humano."
+  },
+  "estatuto-dos-museus": {
+    "term": "Estatuto Brasileiro de Museus",
+    "definition": "Lei nº 11.904, de 14 de janeiro de 2009, que define juridicamente o que é considerado museu no Brasil e estabelece obrigações para essas instituições."
+  }
+}

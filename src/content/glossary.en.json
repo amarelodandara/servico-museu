@@ -1,0 +1,34 @@
+{
+  "ibram": {
+    "term": "IBRAM",
+    "definition": "The Brazilian Institute of Museums, the federal agency responsible for national museum policy, including the National Museum Registry."
+  },
+  "cadastro-nacional-de-museus": {
+    "term": "National Museum Registry",
+    "definition": "A quantitative tool maintained by IBRAM that registers Brazil's museum institutions — the source of the museum counts cited in this digest."
+  },
+  "plano-museologico": {
+    "term": "Museological Plan",
+    "definition": "A strategic-scope document, mandatory under the Brazilian Museum Statute (Law 11,904/2009), that characterizes a museum — its mission, values, and position within the programs set out by law."
+  },
+  "pnem": {
+    "term": "National Museum Education Policy (PNEM)",
+    "definition": "An IBRAM directive (Normative Resolution No. 40/2025) that systematizes the guidelines for the educational sector of Brazilian museums, organized into three axes: Management; Professionals, Training and Research; and Museums, Communities and Territories."
+  },
+  "museologia": {
+    "term": "Museology",
+    "definition": "The field of study of the museum. Still an emerging science, without consolidated recognition at the interfaces with other disciplines, in Brazil or elsewhere."
+  },
+  "educacao-museal": {
+    "term": "Museum education",
+    "definition": "A non-formal learning process, decoupled from school education and Brazil's national curriculum, through which the museum carries out its social role and mediates with different publics."
+  },
+  "design-de-servicos": {
+    "term": "Service design",
+    "definition": "An approach that integrates end users' needs with the capabilities and goals of the organizations providing the service, using visual tools, collaborative processes, and a human-centered mindset."
+  },
+  "estatuto-dos-museus": {
+    "term": "Brazilian Museum Statute",
+    "definition": "Law No. 11,904 of January 14, 2009, which legally defines what counts as a museum in Brazil and sets obligations for these institutions."
+  }
+}

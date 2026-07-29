@@ -34,3 +34,27 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/*
+ * Sidenote margin column (desktop only). `.with-sidenotes` is the reading
+ * column; `.sidenote-desktop` floats out into the reserved gutter to its
+ * right via a negative margin. Below 1024px the Sidenote component itself
+ * switches to a fixed tap-to-jump panel instead of rendering this class.
+ */
+@media (min-width: 1024px) {
+  .with-sidenotes {
+    max-width: 40rem;
+  }
+
+  .sidenote-desktop {
+    display: block;
+    float: right;
+    clear: right;
+    width: 14rem;
+    margin-right: -16.5rem;
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    opacity: 0.75;
+  }
+}

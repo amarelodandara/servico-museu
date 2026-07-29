@@ -6,7 +6,13 @@ const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-const withMDX = createMDX({});
+// Turbopack can't accept plugin functions directly (JS functions can't cross
+// into Rust) — plugin names must be passed as strings instead.
+const withMDX = createMDX({
+  options: {
+    rehypePlugins: ["rehype-slug"],
+  },
+});
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 export default withNextIntl(withMDX(nextConfig));
