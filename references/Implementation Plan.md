@@ -118,18 +118,39 @@ gaps are easy to find and swap later, rather than silently inventing numbers.
   digest page. The real TCC PDF lives at `public/academic.pdf`, linked as a
   plain download. `npm run build` and `npm run lint` both pass clean.
 
-- [ ] **Bite 1 — Reading-experience components**
+- [x] **Bite 1 — Reading-experience components**
   Build `Sidenote`, `GlossaryTerm` (+ glossary data + `/glossario` page), the
   scroll-synced outline widget, and `Figure` (with the blue-tint "added"
   treatment as a CSS class, color TBD). Register all in the MDX component
   map.
 
-- [ ] **Bite 2 — Content migration**
-  Port the "Conteúdo do Museu Explicado" draft into `content/pt-BR/index.mdx`,
-  replacing placeholders with real TCC figures per the Gaps table above, and
-  marking genuinely missing numbers with `<TodoNote>`. Copy the actual TCC
-  PDF into `public/` and wire the two download links (plain `<a download>`,
-  no viewer/preview).
+  `Sidenote` uses a single component with matchMedia: floats into a margin
+  column via CSS (`.with-sidenotes` / `.sidenote-desktop` in `globals.css`)
+  on desktop, collapses to a tap-to-jump fixed panel with a back button on
+  mobile. `GlossaryTerm` reads `content/glossary.{locale}.json` and opens a
+  panel positioned at the term's own offset on desktop, a bottom sheet on
+  mobile. `Outline` scans `h2`/`h3` elements (ids from `rehype-slug`, wired
+  into `next.config.ts` as a string plugin name — Turbopack can't accept
+  plugin functions directly) inside `#digest-content` and highlights the
+  active section via `IntersectionObserver`, rendered as a corner popover.
+  Content lives at `src/content/{locale}/index.mdx`, not the top-level
+  `content/` path floated earlier in this doc.
+
+- [x] **Bite 2 — Content migration**
+  Port the "Conteúdo do Museu Explicado" draft into
+  `src/content/{locale}/index.mdx`, replacing placeholders with real TCC
+  figures per the Gaps table above, and marking genuinely missing numbers
+  with `<TodoNote>`. Copy the actual TCC PDF into `public/` and wire the two
+  download links (plain `<a download>`, no viewer/preview).
+
+  Done together with Bite 1 in one combined pass, since the content needed
+  `TodoNote` (and benefited from `Sidenote`/`GlossaryTerm`) to land at all.
+  A rough English translation went into `src/content/en/index.mdx` at the
+  same time, reusing the same components. `npm run build` and
+  `npm run lint` both pass clean; interactive testing of Sidenote/Glossary/
+  Outline at different viewport widths is still outstanding (browser
+  automation wasn't available this session) — worth a manual check before
+  Bite 3.
 
 - [ ] **Bite 3 — Document viewer**
   Build `DocumentPile`. Extract the Anexo A/B/C screenshots from the TCC PDF
