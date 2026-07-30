@@ -8,10 +8,13 @@ import { Aside } from "@/components/aside";
 import { Stat } from "@/components/stat";
 import { TodoNote } from "@/components/todo-note";
 import { WordCountBars } from "@/components/word-count-bars";
+import { DocumentPile } from "@/components/document-pile";
+import { PlanningLevels } from "@/components/planning-levels";
+import { TuftePrinciples } from "@/components/tufte-principles";
+import { Cronograma } from "@/components/cronograma";
 
 // Global MDX component overrides, registered here so every .mdx file in
-// src/content can use them without per-file imports. DocumentPile joins
-// this map in Bite 3.
+// src/content can use them without per-file imports.
 const components: MDXComponents = {
   h1: H1,
   h2: H2,
@@ -27,6 +30,10 @@ const components: MDXComponents = {
   Stat,
   TodoNote,
   WordCountBars,
+  DocumentPile,
+  PlanningLevels,
+  TuftePrinciples,
+  Cronograma,
 };
 
 export function useMDXComponents(): MDXComponents {

@@ -15,6 +15,21 @@
   /* dataviz categorical slots 1/2 (blue/orange), validated for CVD + contrast */
   --series-1: #2a78d6;
   --series-2: #eb6834;
+
+  /*
+   * IBRAM-figure palette: source-faithful pink/yellow/black/magenta from the
+   * TCC's Figuras 2 e 4, darkened from the originals to pass the dataviz
+   * validator's CVD + normal-vision checks against this surface. The ink
+   * slot is a deliberate neutral (the source genuinely uses black); every
+   * mark using these is direct-labeled, never color-alone. Final hues are
+   * part of the user's reserved palette pass.
+   */
+  --fig-pink: #e0559d;
+  --fig-yellow: #c2930f;
+  --fig-ink: #3d3a35;
+  --fig-magenta: #a8156b;
+  --fig-card: #ffffff;
+  --fig-grid: #e2e6e8;
 }
 
 @theme inline {
@@ -34,6 +49,14 @@
 
     --series-1: #3987e5;
     --series-2: #d95926;
+
+    /* Dark-mode steps of the figure palette; ink flips to a light neutral. */
+    --fig-pink: #ea75b1;
+    --fig-yellow: #d4a41f;
+    --fig-ink: #cfcac2;
+    --fig-magenta: #d13a92;
+    --fig-card: #1c1c1c;
+    --fig-grid: #2e2e2e;
   }
 }
 

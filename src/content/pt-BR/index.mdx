@@ -73,11 +73,25 @@ principais recursos que encontramos vem direto do{" "}
 <GlossaryTerm id="ibram">IBRAM</GlossaryTerm>: um curso gratuito sobre a
 montagem do <GlossaryTerm id="plano-museologico">Plano Museológico</GlossaryTerm>.
 
-<TodoNote>
-  O documento-viewer que vai exibir as capturas reais do curso do IBRAM
-  (Anexos A/B/C) chega na Bite 3 — os assets já existem, só falta o
-  componente que os apresenta.
-</TodoNote>
+<DocumentPile
+  documents={[
+    {
+      src: "/documents/anexo-a.jpeg",
+      alt: "Página do material do curso do IBRAM sobre a definição e abrangência do Programa Educativo e Cultural",
+      meta: "Material do curso SaberMuseu (IBRAM). Das nove páginas do documento de apoio, cinco são dedicadas à definição e à abrangência do Programa Educativo e Cultural.",
+    },
+    {
+      src: "/documents/anexo-b.jpeg",
+      alt: "Página do material do curso do IBRAM com perguntas diagnósticas para o programa",
+      meta: "Três páginas trazem as possíveis perguntas diagnósticas para o estado atual do programa na instituição.",
+    },
+    {
+      src: "/documents/anexo-c.jpeg",
+      alt: "Página do material do curso do IBRAM sobre estudo de públicos, atividades e ferramentas",
+      meta: "As quatro páginas finais mencionam a importância do estudo de públicos e exemplos de atividades e ferramentas.",
+    },
+  ]}
+/>
 
 Outro documento super pertinente nesse escopo é a{" "}
 <GlossaryTerm id="pnem">Política Nacional de Educação Museal</GlossaryTerm>.
@@ -103,15 +117,7 @@ prático e evidente das coisas que estamos propondo.
 E sabemos também que há ainda outros dois níveis que fazem uma organização
 exercer seu papel: o nível tático e o operacional.
 
-- **Estratégico** — o que deve ser feito
-- **Tático** — como deve ser feito
-- **Operacional** — os passos necessários para realizar
-
-<TodoNote>
-  A esquematização visual dos três níveis de planejamento (com a codificação
-  de cor preto/amarelo/rosa do curso do IBRAM) chega como componente
-  codificado na Bite 4 — por ora, a lista acima carrega a informação real.
-</TodoNote>
+<PlanningLevels />
 
 Não há hoje uma documentação ou ferramenta que auxilie o trabalhador museal
 a operar um serviço de qualidade e que ainda coloque os receptores do
@@ -142,11 +148,7 @@ design para concretizar: descoberta de julho a setembro, ideação entre
 setembro e outubro, prototipação de outubro a novembro, e entrega final em
 dezembro de 2026.
 
-<TodoNote>
-  O cronograma completo (Figura 4 do TCC) chega como componente de timeline
-  codificado na Bite 4 — o parágrafo acima já carrega as fases e meses
-  reais.
-</TodoNote>
+<Cronograma />
 
 ## Quem vem com a gente
 
@@ -154,6 +156,12 @@ Isso é pesquisa, ou seja, nada é criado na nossa cabeça. Esse trabalho é uma
 junção dos conteúdos já disponíveis sobre serviços de qualidade,
 instituições museológicas e a habilidade do <GlossaryTerm id="design-de-servicos">design de serviços</GlossaryTerm> de
 tornar tudo mais fácil de entender e aplicar.
+
+E, do lado do design da informação, seguimos os princípios de Edward Tufte —
+a premissa de que boas visualizações revelam estruturas e relações que, de
+outra forma, permaneceriam ocultas na complexidade do conteúdo:
+
+<TuftePrinciples />
 
 É a culminância de toda a nossa formação pela instituição, com grandes
 professores e também grandes autores e referências. Se quiser seguir algum

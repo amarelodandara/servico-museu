@@ -92,11 +92,25 @@ resources we found comes straight from{" "}
 together a{" "}
 <GlossaryTerm id="plano-museologico">Museological Plan</GlossaryTerm>.
 
-<TodoNote>
-  The document viewer that will display the real screenshots from the IBRAM
-  course (Annexes A/B/C) lands in Bite 3 — the assets already exist, the
-  component to present them is what's missing.
-</TodoNote>
+<DocumentPile
+  documents={[
+    {
+      src: "/documents/anexo-a.jpeg",
+      alt: "Page from the IBRAM course material on the definition and scope of the Educational and Cultural Program",
+      meta: "SaberMuseu course material (IBRAM). Of the nine pages in the support document, five are dedicated to the definition and scope of the Educational and Cultural Program.",
+    },
+    {
+      src: "/documents/anexo-b.jpeg",
+      alt: "Page from the IBRAM course material with diagnostic questions for the program",
+      meta: "Three pages carry the possible diagnostic questions about the program's current state at a given institution.",
+    },
+    {
+      src: "/documents/anexo-c.jpeg",
+      alt: "Page from the IBRAM course material on audience research, activities and tools",
+      meta: "The four final pages mention the importance of audience research, with examples of activities and tools.",
+    },
+  ]}
+/>
 
 Another highly relevant document in this scope is the{" "}
 <GlossaryTerm id="pnem">National Museum Education Policy</GlossaryTerm>.
@@ -121,15 +135,7 @@ the things we're proposing.
 And we also know there are two more levels that make an organization carry
 out its role: the tactical level and the operational level.
 
-- **Strategic** — what needs to be done
-- **Tactical** — how it should be done
-- **Operational** — the steps needed to make it happen
-
-<TodoNote>
-  The visual schematic of the three planning levels (with the IBRAM course's
-  black/yellow/pink color coding) arrives as a coded component in Bite 4 —
-  for now, the list above carries the real information.
-</TodoNote>
+<PlanningLevels />
 
 There's no documentation or tool today that helps museum workers operate a
 quality service, or that puts the recipients of the museum's service at the
@@ -160,11 +166,7 @@ conversations, workshops, study, and design ahead of us: discovery from July
 through September, ideation between September and October, prototyping from
 October through November, and final delivery in December 2026.
 
-<TodoNote>
-  The complete schedule (Figure 4 in the source thesis) arrives as a coded
-  timeline component in Bite 4 — the paragraph above already carries the
-  real phases and months.
-</TodoNote>
+<Cronograma />
 
 ## Who's coming with us
 
@@ -172,6 +174,12 @@ This is research — meaning none of it is invented out of thin air. This
 work brings together existing knowledge about quality services, museum
 institutions, and design's ability to make everything easier to understand
 and apply.
+
+And, on the information-design side, we follow Edward Tufte's principles —
+the premise that good visualizations reveal structures and relations that
+would otherwise stay hidden in the complexity of the content:
+
+<TuftePrinciples />
 
 It's the culmination of our whole education at this institution, with
 great professors and great authors and references. If you want to follow

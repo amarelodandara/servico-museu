@@ -65,8 +65,15 @@ export default async function LocaleLayout({
                 aria-hidden="true"
               />
               <div className="flex items-center gap-4 tracking-wide">
-
-
+                <Link href="/glossario" className="text-sm hover:underline">
+                  {t("glossaryLink")}
+                </Link>
+                <Link href="/panorama" className="text-sm hover:underline">
+                  {t("panoramaLink")}
+                </Link>
+                <Link href="/colaborar" className="text-sm hover:underline">
+                  {t("collaborateLink")}
+                </Link>
               </div>
             </div>
             <div className="flex items-center gap-4">
