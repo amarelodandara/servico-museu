@@ -152,30 +152,62 @@ gaps are easy to find and swap later, rather than silently inventing numbers.
   automation wasn't available this session) — worth a manual check before
   Bite 3.
 
-- [ ] **Bite 3 — Document viewer**
+- [x] **Bite 3 — Document viewer**
   Build `DocumentPile`. Extract the Anexo A/B/C screenshots from the TCC PDF
   as image assets and use them as the first real content for the Plano
   Museológico section (replacing that placeholder for real, since the asset
   already exists). PNEM screenshot stays a flagged TODO — no source asset
   exists yet.
 
-- [ ] **Bite 4 — Data visualization components**
+  Anexo A/B/C extracted losslessly (embedded 1448×2048 JPEGs) into
+  `public/documents/`. `DocumentPile` is a depth-stacked cyclical pile with
+  swipe + arrow-key navigation, click-to-expand overlay, and the annotation
+  column that hides while sheets flip, per the pitch. Wired into both
+  locales' content with real per-anexo annotations from the TCC's own
+  description of the course material.
+
+- [x] **Bite 4 — Data visualization components**
   Build Fig. 2 (three planning levels), Fig. 3 (Tufte principles), Fig. 4
   (cronograma) as coded components with the `dataviz` skill's placeholder
   palette. Build the Venn diagram + its `/panorama` route, OG image, and PNG
   download.
 
-- [ ] **Bite 5 — Outreach & sharing**
+  All three figures rebuilt as coded components on `--fig-*` tokens: the
+  source pink/yellow/black IBRAM coding, darkened to pass the dataviz
+  validator's CVD/normal-vision checks (see "Decisions Needed" #2).
+  `Cronograma` is a real month-grid gantt with the eight tasks + three
+  milestones read off the TCC's Figura 4. Fig. 3 is a reinterpretation
+  (glyphs, not the third-party scan). `/panorama` ships the three-field
+  Venn with PNG download, its own OG image, and the bibliography mapped
+  onto fields.
+
+- [x] **Bite 5 — Outreach & sharing**
   Build the standalone shareable stat graphic for cold-email outreach, wire
   per-route OG images, add share/download actions to the data viz pieces.
 
-- [ ] **Bite 6 — i18n content, contact, packaging**
+  Framed four-stat outreach graphic (223 / 61,5% / 87% / 68,3%) lives on
+  `/colaborar` with PNG download. Root-level `opengraph-image.tsx` covers
+  all routes; `/panorama` keeps its own. `ShareLink` (native share sheet →
+  clipboard fallback) sits on the digest, the Venn, and the outreach
+  graphic. `metadataBase` reads `NEXT_PUBLIC_SITE_URL` — real domain TBD.
+
+- [x] **Bite 6 — i18n content, contact, packaging** *(partially — the parts
+  reserved for the user are catalogued in `references/Decisions Needed.md`)*
   Real English translation pass, contact form (Route Handler + Resend),
   `manifest.json`/`robots.txt`/`sitemap.ts`, the 404 copy ("oops, {x} is not
   the theme of our research"), bibliography carousel with real book covers,
   hero shader effect (`@paper-design/shaders-react`). This bite is explicitly
   last since it's the most aesthetic/polish-heavy and depends on decisions
   the user reserved for themselves.
+
+  Shipped: manifest/robots/sitemap via metadata conventions; frame-workflow
+  icons (SVG + 192/512 PNG); localized 404 catch-all interpolating the
+  attempted path into the pitch copy; contact form + `/api/contact` hitting
+  Resend's REST API directly (mailto fallback while `RESEND_API_KEY` is
+  unset); bibliography as a scroll-snap shelf of typographic placeholder
+  covers keyed to panorama fields, `cover`-prop-ready for real images.
+  Deliberately left for the user: real EN translation pass, hero shader,
+  real book covers, Resend key, production domain.
 
 ## Verification
 
