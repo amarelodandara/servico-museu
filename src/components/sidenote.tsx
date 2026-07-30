@@ -64,7 +64,7 @@ export function Sidenote({ children }: { children: ReactNode }) {
             if (!isDesktop) setOpen(true);
           }}
           className={
-            "ml-0.5 rounded px-0.5 text-[0.7em] font-medium text-[var(--color-accent)] " +
+            "inline appearance-none ml-0.5 rounded px-0.5 text-[0.7em] font-medium text-[var(--color-accent)] " +
             (isDesktop
               ? "cursor-default"
               : "cursor-pointer underline decoration-dotted underline-offset-2")
@@ -75,7 +75,7 @@ export function Sidenote({ children }: { children: ReactNode }) {
       </sup>
 
       {isDesktop ? (
-        <span className="sidenote-desktop" role="note">
+        <span className="aside-float sidenote-desktop" role="note">
           <span className="mr-1 font-medium text-[var(--color-accent)]">
             {number}.
           </span>

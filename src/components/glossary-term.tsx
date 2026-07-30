@@ -65,7 +65,7 @@ export function GlossaryTerm({
         aria-expanded={open}
         aria-controls={panelId}
         onClick={handleOpen}
-        className="cursor-help underline decoration-[var(--color-accent)] decoration-dotted underline-offset-2"
+        className="inline appearance-none cursor-help underline decoration-[var(--color-accent)] decoration-dotted underline-offset-2"
       >
         {children}
       </button>

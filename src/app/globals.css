@@ -6,7 +6,7 @@
  * editing this block, not hunting through components.
  */
 :root {
-  --background: #ffffff;
+  --background: #F2F6F7;
   --foreground: #171717;
 
   --color-accent: #2563eb; /* placeholder for the "added content" blue from the pitch doc */
@@ -44,22 +44,60 @@ body {
 }
 
 /*
- * Sidenote margin column (desktop only). `.with-sidenotes` is the reading
- * column; `.sidenote-desktop` floats out into the reserved gutter to its
- * right via a negative margin. Below 1024px the Sidenote component itself
- * switches to a fixed tap-to-jump panel instead of rendering this class.
+ * Recessed photo display: page surface sinks down into a white paper
+ * "paspateur" (mat/passe-partout), grained with an SVG noise texture so
+ * it reads as paper rather than flat color, then down again into the
+ * image itself.
+ */
+.paspateur-bg {
+  background-color: #ffffff;
+}
+
+.paspateur-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+/* Finer, tighter grain on the photo itself, distinct from the mat's paper noise. */
+.photo-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+}
+
+/*
+ * Margin column (desktop only). The reading column sits in a `grid-cols-5`
+ * track (col-span-3, matching the header grid), leaving cols 4-5 empty.
+ * `.aside-float` pulls an element out of that col-span-3 track into the
+ * empty space via a negative margin sized as a percentage of its own
+ * containing block (the col-span-3 track) — 2/3 of that track's width is
+ * exactly the width of the remaining 2/5 of the full grid, so this tracks
+ * the grid's actual ratio instead of a fixed rem guess that drifts out of
+ * alignment as the viewport (and so the column's px width) changes.
+ *
+ * `#digest-content` is plain block flow (not flex), specifically so this
+ * works: flex/grid items ignore `float` entirely per spec, so anything
+ * meant to float into the margin — `Sidenote`, `Figure` — must either be
+ * nested inside a normal-flow ancestor (Sidenote, inside its paragraph) or
+ * itself be a plain block-flow child (Figure, direct child of
+ * `#digest-content`).
+ *
+ * Below 1024px neither applies: Sidenote falls back to a tap-to-jump
+ * panel via its own `isDesktop` check, and Figure just renders inline at
+ * full width, since `.aside-float` only exists inside this query.
  */
 @media (min-width: 1024px) {
-  .with-sidenotes {
-    max-width: 40rem;
+  .aside-float {
+    float: right;
+    clear: right;
+    width: 66.6667%;
+    margin-right: -66.6667%;
   }
 
   .sidenote-desktop {
     display: block;
-    float: right;
-    clear: right;
-    width: 14rem;
-    margin-right: -16.5rem;
+    padding-left: 1.5rem;
     margin-top: 0.25rem;
     font-size: 0.8125rem;
     line-height: 1.5;

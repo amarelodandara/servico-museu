@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Neuton, Lato, Inter } from "next/font/google";
 import { Agentation } from "agentation";
 import { routing } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import "../globals.css";
 
 const neuton = Neuton({
@@ -46,13 +49,33 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const t = await getTranslations("Digest");
+
   return (
     <html
       lang={locale}
       className={`${neuton.variable} ${lato.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <nav className="flex items-center justify-between px-6 py-4">
+            <div className="flex items-center gap-6">
+              <div
+                className="h-6 w-6 rounded bg-blue-200"
+                aria-hidden="true"
+              />
+              <div className="flex items-center gap-4 tracking-wide">
+
+
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <LocaleSwitcher />
+            </div>
+          </nav>
+
+          {children}
+        </NextIntlClientProvider>
         {process.env.NODE_ENV === "development" && (
           <Agentation endpoint="http://localhost:4747" />
         )}
