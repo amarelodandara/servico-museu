@@ -75,11 +75,11 @@ export default function DigestPage() {
 
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
-      {/* `overflow-x-clip` (not hidden) lets the carousel bleed to 100vw
-          without a horizontal scrollbar, while keeping this a normal
-          non-scrolling box. */}
-      <main className="mx-auto flex w-10/12 flex-1 flex-col gap-6 overflow-x-clip px-6 py-16">
-        <header className="grid grid-cols-5">
+      {/* `main` spans the full width and each section opts into the reading
+          column itself, so the carousel can simply be 100% wide instead of
+          fighting its way out of a centered container. */}
+      <main className="flex flex-1 flex-col gap-6 py-16">
+        <header className="mx-auto grid w-10/12 grid-cols-5 px-6">
           <div className="flex flex-col gap-2 col-span-3 justify-end">
             <div className="space-y-6">
 
@@ -181,18 +181,26 @@ export default function DigestPage() {
 
         <MuseumCarousel />
 
-        <SidenoteProvider>
-          <div className="grid grid-cols-1 lg:grid-cols-5">
-            <div
-              id="digest-content"
-              className="col-span-1 space-y-6 lg:col-span-3"
-            >
-              <Content />
+        {/* Same reading column as the header — the `grid-cols-5` track
+            inside is what the sidenote margin column measures against, so
+            its width has to match. */}
+        <div className="mx-auto flex w-10/12 flex-col gap-6 px-6">
+          <SidenoteProvider>
+            <div className="grid grid-cols-1 lg:grid-cols-5">
+              <div
+                id="digest-content"
+                className="col-span-1 space-y-6 lg:col-span-3"
+              >
+                <Content />
+              </div>
             </div>
-          </div>
-        </SidenoteProvider>
+          </SidenoteProvider>
 
-        <DownloadPdfLink label={t("downloadPdf")} note={t("downloadPdfNote")} />
+          <DownloadPdfLink
+            label={t("downloadPdf")}
+            note={t("downloadPdfNote")}
+          />
+        </div>
       </main>
 
       <Outline containerId="digest-content" />

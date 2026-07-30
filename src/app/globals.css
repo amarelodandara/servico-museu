@@ -133,9 +133,8 @@ body {
  * which lands the next set precisely where the previous one started — so
  * the loop has no seam and needs no JS.
  *
- * The viewport fades out at both edges rather than cutting hard, so plates
- * arrive and leave instead of popping. Motion pauses on hover and on
- * keyboard focus so a caption can actually be read, and under
+ * Plates enter and leave on a hard edge, no fade. Motion pauses on hover
+ * and on keyboard focus so a caption can actually be read, and under
  * prefers-reduced-motion the drift stops entirely and the band becomes a
  * plain horizontal scroller — still browsable, just not animated.
  *
@@ -149,16 +148,6 @@ body {
   to {
     transform: translateX(var(--marquee-shift, -50%));
   }
-}
-
-.museum-marquee-viewport {
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 6%,
-    #000 94%,
-    transparent
-  );
 }
 
 .museum-marquee {

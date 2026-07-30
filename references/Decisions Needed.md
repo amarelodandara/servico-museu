@@ -87,8 +87,15 @@ says exactly where to plug the answer in.
     attachment, so tell me if you want it on its own route instead.
 18. **Stats 61,5% / 68,3%** — added to the digest under "Como essa pesquisa
     serve ao museu" with a short connecting sentence I wrote.
-19. **Nav links** — glossário/panorama/colaborar are plain text links in the
-    top nav; purely structural, restyle at will.
+19. **Nav is now just the language switcher** — you removed the
+    glossário/panorama/colaborar links and the logo placeholder. Worth
+    knowing what that orphaned: `/colaborar` is still reachable from an
+    inline link near the end of the digest, but **`/glossario` and
+    `/panorama` currently have no entry point anywhere in the UI** (glossary
+    terms open inline panels rather than linking to the page). All three
+    stay in the sitemap and remain directly addressable. Not fixed on my
+    side, since presumably the nav is mid-redesign — but they need a way in
+    before launch.
 
 ## Verification still owed (needs a browser)
 

@@ -25,8 +25,8 @@ const ARTWORKS: { id: string; src: StaticImageData }[] = [
  * How many identical sets ride the track. The animation shifts by exactly
  * one set (100/COPIES percent), so any count wraps seamlessly — but the
  * screen only stays filled while `viewport <= (COPIES - 1) * setWidth`. One
- * set is roughly 1700px at desktop height, so four sets cover displays up
- * to ~5000px wide; two would leave a gap at the right edge on anything
+ * set is roughly 1900px at desktop height, so four sets cover displays up
+ * to ~5700px wide; two would leave a gap at the right edge on anything
  * wider than a laptop. The duplicates are decorative and cost no extra
  * downloads — same five sources, cached.
  */
@@ -60,7 +60,9 @@ function Plate({
       aria-hidden={decorative || undefined}
     >
       <div
-        className="relative h-48 overflow-hidden rounded-sm sm:h-56 lg:h-64"
+        // `isolate` keeps the grain's overlay blend against this image
+        // rather than whatever sits behind the track.
+        className="relative isolate h-56 overflow-hidden rounded-sm sm:h-64 lg:h-72"
         // A definite height plus the image's own ratio resolves the width,
         // so `fill` has a box to fill without any circular sizing.
         style={{ aspectRatio: `${src.width} / ${src.height}` }}
@@ -69,9 +71,13 @@ function Plate({
           src={src}
           alt={decorative ? "" : t(`alt_${id}`)}
           fill
-          sizes="(max-width: 640px) 50vw, 400px"
+          sizes="(max-width: 640px) 60vw, 460px"
           placeholder="blur"
           className="object-cover"
+        />
+        <div
+          className="photo-grain pointer-events-none absolute inset-0"
+          aria-hidden="true"
         />
         {/* Recessed edge, as its own layer: an inset shadow on the parent
             would paint underneath the image. */}
@@ -99,10 +105,10 @@ export function MuseumCarousel() {
     <section
       aria-label={t("label")}
       aria-roledescription="carousel"
-      // Full bleed out of the centered reading column. `main` carries
-      // `overflow-x-clip` so the scrollbar's share of 100vw is swallowed
-      // instead of producing a horizontal scrollbar.
-      className="relative left-1/2 w-screen -translate-x-1/2 py-4 my-24"
+      // Edge to edge: `main` is full width and its other sections centre
+      // themselves, so this just takes the whole line box — no 100vw, no
+      // negative offsets, and nothing to clip.
+      className="my-24 w-full py-4"
     >
       <div className="museum-marquee-viewport overflow-hidden">
         <div

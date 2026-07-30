@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Neuton, Lato, Inter } from "next/font/google";
 import { Agentation } from "agentation";
 import { routing } from "@/i18n/routing";
-import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import "../globals.css";
 
@@ -54,8 +52,6 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const t = await getTranslations("Digest");
-
   return (
     <html
       lang={locale}
@@ -63,24 +59,8 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
-          <nav className="flex items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-6">
-              <div
-                className="h-6 w-6 rounded bg-blue-200"
-                aria-hidden="true"
-              />
-              <div className="flex items-center gap-4 tracking-wide">
-                <Link href="/glossario" className="text-sm hover:underline">
-                  {t("glossaryLink")}
-                </Link>
-                <Link href="/panorama" className="text-sm hover:underline">
-                  {t("panoramaLink")}
-                </Link>
-                <Link href="/colaborar" className="text-sm hover:underline">
-                  {t("collaborateLink")}
-                </Link>
-              </div>
-            </div>
+          <nav className="flex items-center justify-end px-6 py-4">
+
             <div className="flex items-center gap-4">
               <LocaleSwitcher />
             </div>
