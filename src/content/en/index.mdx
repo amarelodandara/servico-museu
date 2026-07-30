@@ -193,6 +193,18 @@ any of the threads presented here further, in design or in{" "}
 <GlossaryTerm id="museologia">museology</GlossaryTerm>, take a look at the
 core bibliography behind our study:
 
+<BookCarousel
+  books={[
+    { title: "Law No. 11,904/2009", author: "Brazil", year: "2009", field: "museology" },
+    { title: "National Museum Education Policy", author: "IBRAM", year: "2025", field: "museology" },
+    { title: "Key Concepts of Museology", author: "Desvallées & Mairesse", year: "2013", field: "museology" },
+    { title: "Good Services", author: "Lou Downe", year: "2020", field: "serviceDesign" },
+    { title: "This is Service Design Doing", author: "Stickdorn et al.", year: "2018", field: "serviceDesign" },
+    { title: "Envisioning Information", author: "Edward R. Tufte", year: "1990", field: "informationDesign" },
+    { title: "The Design of Everyday Things", author: "Don Norman", year: "2013", field: "intersection" },
+  ]}
+/>
+
 - BRAZIL. **Law No. 11,904, of January 14, 2009.** Diário Oficial da União,
   Brasília, DF, 2009.
 - BRAZIL. Brazilian Institute of Museums. **Normative Resolution Ibram No.
@@ -210,9 +222,9 @@ core bibliography behind our study:
   Edition.** Basic Books, 2013.
 
 <TodoNote>
-  The carousel with real book covers for the list above is Bite 6's
-  asset-gathering task — the list itself is already complete and correct,
-  only the cover images are missing.
+  The covers above are typographic placeholders — the real cover images
+  still need to be gathered (asset-gathering task). The component already
+  accepts a <code>cover</code> prop per book once they arrive.
 </TodoNote>
 
 ## Closing thoughts
@@ -232,12 +244,8 @@ But **you**, museum worker, can contribute to this research right now!
 During the second half of 2026 we'll take all this theoretical knowledge
 and put it up against field research. We want to understand more about the
 school-visit journey in Belo Horizonte's museum institutions. Can you help
-us? Get in touch.
+us? [Get in touch](/en/colaborar).
 
-<TodoNote>
-  The contact form (Route Handler + Resend) lands in Bite 6, alongside the
-  site's final packaging.
-</TodoNote>
 
 If you're not sure whether the place you work fits our profile, just check
 whether its name is on our list.

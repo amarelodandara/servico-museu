@@ -1,0 +1,38 @@
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+
+/**
+ * Locale-aware 404 catch-all. Rendered as a page (not not-found.tsx) so it
+ * can read the attempted path and put it inside the pitch's required copy:
+ * "oops, {x} is not the theme of our research".
+ */
+export default async function NotFoundCatchAll({
+  params,
+}: {
+  params: Promise<{ locale: string; rest: string[] }>;
+}) {
+  const { rest } = await params;
+  const t = await getTranslations("NotFound");
+  const attempted = decodeURIComponent(rest.join("/")).replaceAll("-", " ");
+
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center gap-6 bg-[var(--background)] px-6 py-24 text-center text-[var(--foreground)]">
+      <p className="font-lato text-sm tracking-wide text-neutral-500 uppercase">
+        404
+      </p>
+      <h1 className="max-w-xl text-3xl text-balance">
+        {t.rich("message", {
+          x: () => (
+            <em className="text-[var(--color-accent)]">{attempted}</em>
+          ),
+        })}
+      </h1>
+      <Link
+        href="/"
+        className="font-lato rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+      >
+        {t("backHome")}
+      </Link>
+    </div>
+  );
+}

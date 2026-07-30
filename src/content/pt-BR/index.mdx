@@ -175,6 +175,18 @@ dos fios apresentados aqui mais a fundo, no design ou na{" "}
 <GlossaryTerm id="museologia">museologia</GlossaryTerm>, dá uma olhada na
 bibliografia principal que ampara o nosso estudo:
 
+<BookCarousel
+  books={[
+    { title: "Lei nº 11.904/2009", author: "Brasil", year: "2009", field: "museology" },
+    { title: "Política Nacional de Educação Museal", author: "IBRAM", year: "2025", field: "museology" },
+    { title: "Conceitos-chave de museologia", author: "Desvallées & Mairesse", year: "2013", field: "museology" },
+    { title: "Good Services", author: "Lou Downe", year: "2020", field: "serviceDesign" },
+    { title: "Isto é design de serviço na prática", author: "Stickdorn et al.", year: "2019", field: "serviceDesign" },
+    { title: "Envisioning Information", author: "Edward R. Tufte", year: "1990", field: "informationDesign" },
+    { title: "The Design of Everyday Things", author: "Don Norman", year: "2013", field: "intersection" },
+  ]}
+/>
+
 - BRASIL. **Lei nº 11.904, de 14 de janeiro de 2009.** Diário Oficial da
   União, Brasília, DF, 2009.
 - BRASIL. Instituto Brasileiro de Museus. **Resolução Normativa Ibram nº 40,
@@ -192,9 +204,9 @@ bibliografia principal que ampara o nosso estudo:
   Edition.** Basic Books, 2013.
 
 <TodoNote>
-  O carrossel com as capas reais dos livros acima é tarefa de asset-gathering
-  da Bite 6 — a lista de obras já está completa e correta, só falta a
-  imagem de cada capa.
+  As capas acima são placeholders tipográficos — as imagens reais das capas
+  ainda precisam ser reunidas (tarefa de asset-gathering). O componente já
+  aceita uma prop <code>cover</code> por livro quando elas chegarem.
 </TodoNote>
 
 ## Considerações finais
@@ -214,12 +226,8 @@ Mas **você**, trabalhador museal, pode contribuir para essa pesquisa já!
 Durante o segundo semestre de 2026 nós iremos levar todo esse conhecimento
 teórico pra bater de frente com pesquisas em campo. Queremos entender mais
 sobre a jornada de visitação escolar nas instituições museais de Belo
-Horizonte. Pode nos ajudar? Entra em contato.
+Horizonte. Pode nos ajudar? [Entra em contato](/colaborar).
 
-<TodoNote>
-  O formulário de contato (Route Handler + Resend) chega na Bite 6, junto
-  com a embalagem final do site.
-</TodoNote>
 
 Se não tem certeza se o lugar que você trabalha entra no nosso perfil, é só
 checar se o nome dele está na nossa lista.

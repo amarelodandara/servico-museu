@@ -99,7 +99,20 @@
     "back": "Voltar ao resumo",
     "body": "Trabalha em um museu de Belo Horizonte? Queremos conversar. Durante o segundo semestre de 2026 vamos levar essa pesquisa a campo, e ela só funciona com gente que faz museu no dia a dia.",
     "graphicTitle": "A pesquisa em uma imagem",
-    "graphicIntro": "Se quiser apresentar a pesquisa para alguém do seu museu, essa imagem resume os números mais fortes do estudo — baixe e encaminhe à vontade."
+    "graphicIntro": "Se quiser apresentar a pesquisa para alguém do seu museu, essa imagem resume os números mais fortes do estudo — baixe e encaminhe à vontade.",
+    "formTitle": "Entre em contato",
+    "formIntro": "Conta pra gente onde você trabalha e como podemos conversar. Respondemos todo mundo."
+  },
+  "Contact": {
+    "name": "Nome",
+    "email": "Email",
+    "institution": "Instituição (opcional)",
+    "message": "Mensagem",
+    "send": "Enviar",
+    "sending": "Enviando…",
+    "sent": "Mensagem enviada — obrigada!",
+    "notConfigured": "O formulário ainda não está no ar. Enquanto isso, escreva direto para",
+    "error": "Não foi possível enviar agora. Tenta de novo em instantes?"
   },
   "Outreach": {
     "title": "Museus de Belo Horizonte em números",
@@ -115,6 +128,10 @@
   "Share": {
     "share": "Compartilhar",
     "copied": "Link copiado!"
+  },
+  "NotFound": {
+    "message": "oops, <x></x> não é o tema da nossa pesquisa",
+    "backHome": "Voltar para a pesquisa"
   },
   "Outline": {
     "label": "Sumário",

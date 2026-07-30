@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { OutreachGraphic } from "@/components/outreach-graphic";
+import { ContactForm } from "@/components/contact-form";
 
 export default async function CollaboratePage({
   params,
@@ -21,6 +22,14 @@ export default async function CollaboratePage({
       <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 px-6 py-16">
         <h1 className="text-3xl font-semibold">{t("title")}</h1>
         <p className="text-neutral-700 dark:text-neutral-300">{t("body")}</p>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-xl font-semibold">{t("formTitle")}</h2>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            {t("formIntro")}
+          </p>
+          <ContactForm />
+        </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="text-xl font-semibold">{t("graphicTitle")}</h2>

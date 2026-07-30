@@ -13,6 +13,7 @@ import { PlanningLevels } from "@/components/planning-levels";
 import { TuftePrinciples } from "@/components/tufte-principles";
 import { Cronograma } from "@/components/cronograma";
 import { ShareLink } from "@/components/share-link";
+import { BookCarousel } from "@/components/book-carousel";
 
 // Global MDX component overrides, registered here so every .mdx file in
 // src/content can use them without per-file imports.
@@ -36,6 +37,7 @@ const components: MDXComponents = {
   TuftePrinciples,
   Cronograma,
   ShareLink,
+  BookCarousel,
 };
 
 export function useMDXComponents(): MDXComponents {

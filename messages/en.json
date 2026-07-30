@@ -99,7 +99,20 @@
     "back": "Back to the digest",
     "body": "Do you work at a museum in Belo Horizonte? We want to talk. During the second half of 2026 we're taking this research into the field, and it only works with the people who run museums day to day.",
     "graphicTitle": "The research in one image",
-    "graphicIntro": "If you want to present the research to someone at your museum, this image sums up the study's strongest numbers — download and forward it freely."
+    "graphicIntro": "If you want to present the research to someone at your museum, this image sums up the study's strongest numbers — download and forward it freely.",
+    "formTitle": "Get in touch",
+    "formIntro": "Tell us where you work and how we can talk. We answer everyone."
+  },
+  "Contact": {
+    "name": "Name",
+    "email": "Email",
+    "institution": "Institution (optional)",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending…",
+    "sent": "Message sent — thank you!",
+    "notConfigured": "The form isn't live yet. In the meantime, write directly to",
+    "error": "Couldn't send right now. Try again in a moment?"
   },
   "Outreach": {
     "title": "Belo Horizonte's museums in numbers",
@@ -115,6 +128,10 @@
   "Share": {
     "share": "Share",
     "copied": "Link copied!"
+  },
+  "NotFound": {
+    "message": "oops, <x></x> is not the theme of our research",
+    "backHome": "Back to the research"
   },
   "Outline": {
     "label": "Outline",
