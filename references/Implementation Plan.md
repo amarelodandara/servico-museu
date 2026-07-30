@@ -209,6 +209,58 @@ gaps are easy to find and swap later, rather than silently inventing numbers.
   Deliberately left for the user: real EN translation pass, hero shader,
   real book covers, Resend key, production domain.
 
+## Walls that need the user
+
+Every bite is built, but these can't move without your express input.
+Detailed plug-in points for each live in `references/Decisions Needed.md`;
+this is the decision list itself.
+
+**Aesthetic (reserved by you from the start)**
+
+- **Palette + fonts.** Tokens in `src/app/globals.css` (+ the literal mirror
+  in `src/lib/figure-palette.ts` for PNG/OG surfaces) and the Neuton/Lato/
+  Inter placeholders in the layout are all still neutral stand-ins.
+- **Figure-palette fidelity.** The IBRAM figures' source pink/yellow failed
+  the dataviz validator's contrast checks, so the shipped tokens are
+  darkened steps of the same hues. Accept, or revert to source-faithful and
+  live with the WARN.
+- **Hero shader** (`@paper-design/shaders-react`) — not installed; depends
+  entirely on the visual pass.
+- **Icons** — placeholder rendering of the frame-with-workflow idea;
+  regenerate after the palette lands.
+
+**Content that needs sources only you can get**
+
+- **Minas Gerais museum count** and **national free-admission %** — in no
+  consulted source; both carry visible `<TodoNote>`s in the digest.
+- **PNEM screenshot** — no asset exists; DocumentPile is ready for it.
+- **Real book covers** — shelf renders typographic placeholders; drop
+  images in `public/covers/` and add `cover` props in both locales' MDX.
+- **Real English translation pass** — EN content is still the flagged rough
+  version.
+
+**Deploy-time configuration**
+
+- **Production domain** → `NEXT_PUBLIC_SITE_URL` (metadataBase, sitemap,
+  robots all read it).
+- **Resend** → `RESEND_API_KEY` (+ verified sender domain /
+  `CONTACT_FROM_EMAIL`); until set, the form shows a mailto fallback.
+- **Hosting + analytics** — Vercel intended per the pitch; nothing wired.
+
+**Judgment calls to ratify or reverse**
+
+- Tufte figure rebuilt as glyphs (not the third-party scan) and placed in
+  "Quem vem com a gente" with a bridge sentence I wrote.
+- Outreach graphic lives on `/colaborar` rather than its own route.
+- The 61,5%/68,3% stats were added to the digest with connecting copy.
+- Nav gained plain text links (glossário/panorama/colaborar).
+
+**Verification owed (needs a running browser, which this pass didn't have)**
+
+- DocumentPile cycling/swipe/keyboard + annotation idle behavior at desktop
+  and mobile widths; Venn and outreach PNG downloads; 404 copy; contact
+  form states; sidenote/glossary behavior after all the content changes.
+
 ## Verification
 
 - After Bite 0: `npm run dev`, confirm `/` and `/en` both resolve with the
