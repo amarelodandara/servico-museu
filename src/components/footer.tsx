@@ -14,6 +14,14 @@ import { ShareLink } from "@/components/share-link";
  * No top rule: the footer reads as its own surface through the grain layer
  * (`.footer-grain`), which ramps from nothing at this top edge to full
  * strength at the bottom of the page.
+ *
+ * The credit block sits on that grain as a paper mat — the same recessed
+ * `paspateur` treatment the bibliography shelf uses, flat white and framed
+ * by `--shadow-mat`. It stays clean by construction rather than by opting
+ * out: the grain layer paints first, so an opaque surface over it takes no
+ * tint from the multiply blend at all. That contrast is the point — the
+ * closing band gets grittier towards the bottom of the page while the
+ * credits sit on untouched paper.
  */
 export async function Footer() {
   const t = await getTranslations("Footer");
@@ -26,17 +34,22 @@ export async function Footer() {
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 text-center text-balance">
-        <p className="text-3xl">{t("title")}</p>
+      <div
+        className="paspateur-bg relative mx-auto flex max-w-2xl flex-col items-center gap-6 rounded-sm px-8 py-10 text-center text-balance text-neutral-900 lg:max-w-4xl lg:px-16 xl:max-w-6xl"
+        style={{ boxShadow: "var(--shadow-mat)" }}
+      >
+        <p className="text-3xl tracking-tight">{t("title")}</p>
 
-        <Contributors className="flex flex-wrap justify-center gap-6" />
+        {/* Extra air around the portrait row: at this size the frames need
+            to read as a band of their own, not as another line of type. */}
+        <Contributors className="my-6 flex flex-wrap justify-center gap-6" />
 
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <ShareLink label={t("share")} />
+          <ShareLink label={t("share")} surface="light" />
           <a
             href="/academic.pdf"
             download
-            className="font-lato w-fit rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+            className="font-lato w-fit rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-700"
           >
             {t("download")}
           </a>

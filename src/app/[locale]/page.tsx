@@ -1,6 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
 import { SidenoteProvider } from "@/components/sidenote";
-import { WordCountBars } from "@/components/word-count-bars";
 import { Contributors } from "@/components/contributors";
 import ContentPtBR from "@/content/pt-BR/index.mdx";
 import ContentEn from "@/content/en/index.mdx";
@@ -9,33 +8,6 @@ const CONTENT = {
   "pt-BR": ContentPtBR,
   en: ContentEn,
 };
-
-function DownloadPdfLink({
-  label,
-  note,
-  className = "",
-}: {
-  label: string;
-  note?: string;
-  className?: string;
-}) {
-  return (
-    <div className={`flex flex-col gap-1 ${className}`}>
-      <a
-        href="/academic.pdf"
-        download
-        className="w-fit text-sm font-medium text-neutral-700 hover:underline dark:text-neutral-300"
-      >
-        {label}
-      </a>
-      {note && (
-        <span className="text-xs text-neutral-500 dark:text-neutral-500">
-          {note}
-        </span>
-      )}
-    </div>
-  );
-}
 
 export default function DigestPage() {
   const t = useTranslations("Digest");
@@ -53,14 +25,13 @@ export default function DigestPage() {
             <div className="space-y-6">
 
 
-              <p className="font-inter">{t("introParagraph1")}</p>
+              <p className="font-inter text-lg tracking-tight w-2/3 text-balance">{t("introParagraph1")}</p>
 
               <div className="space-y-2 text-3xl text-balance">
 
             <h1 className="">
               {t("title")} <span className="lowercase text-gray-500">{t("titleSubtitle")}</span>
             </h1>
-            <p className="">{t("introParagraph2")}</p>
               </div>
             </div>
 
@@ -72,8 +43,6 @@ export default function DigestPage() {
 
                 </div>
 
-                <WordCountBars />
-
                 <div className="flex flex-wrap items-center gap-3">
                   <a
                     href="#digest-content"
@@ -81,11 +50,6 @@ export default function DigestPage() {
                   >
                     {t("readDigest")}
                   </a>
-                  <DownloadPdfLink
-                    label={t("downloadPdf")}
-                    note={t("downloadPdfNote")}
-                    className="font-lato"
-                  />
                 </div>
               </div>
 
@@ -105,7 +69,7 @@ export default function DigestPage() {
             in globals.css — occupies cols 12-17 (6 cols, 30%), three
             quarters of the reading column's width. */}
 
-        <div className="mx-auto flex w-10/12 flex-col gap-6 px-6">
+        <div className="mx-auto flex w-10/12 flex-col gap-6 px-6 mt-48">
           <SidenoteProvider>
             <div className="grid grid-cols-1 lg:grid-cols-[repeat(20,minmax(0,1fr))]">
               <div
@@ -123,11 +87,6 @@ export default function DigestPage() {
               </div>
             </div>
           </SidenoteProvider>
-
-          <DownloadPdfLink
-            label={t("downloadPdf")}
-            note={t("downloadPdfNote")}
-          />
         </div>
       </main>
     </div>

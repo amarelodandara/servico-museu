@@ -1,6 +1,25 @@
 @import "tailwindcss";
 
 /*
+ * Dark mode is manual-with-a-system-default. `data-theme` on <html> is the
+ * authority — the inline script in the locale layout resolves it before
+ * first paint, and the lamp toggle rewrites it — while the media query
+ * stays as the no-JS fallback, scoped to `:not([data-theme])` so it never
+ * fights an explicit choice. Every `dark:` utility in the codebase routes
+ * through this variant, so both paths stay in sync.
+ */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(html:not([data-theme]), html:not([data-theme]) *) {
+      @slot;
+    }
+  }
+}
+
+/*
  * Placeholder design tokens. Values here are intentionally neutral —
  * the font/color pass is reserved for later and should only require
  * editing this block, not hunting through components.
@@ -12,6 +31,9 @@
 
   --color-accent: #2563eb; /* placeholder for the "added content" blue from the pitch doc */
   --color-added-tint: #dbeafe;
+
+  /* Hairline blue for spec-drawing rules (the sidenote lines). */
+  --rule-blue: #9dbde8;
 
   /* dataviz categorical slots 1/2 (blue/orange), validated for CVD + contrast */
   --series-1: #2a78d6;
@@ -51,6 +73,36 @@
     inset 0 0 0 1px rgb(0 0 0 / 0.035), inset 0 1px 4px rgb(0 0 0 / 0.02);
   --shadow-mat: var(--shadow-hairline), var(--shadow-inset-frame);
   --shadow-float: 0 8px 28px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.1);
+
+  /*
+   * Dark steps, parked in their own slots rather than written straight into
+   * a dark-mode rule. Two rules switch schemes — the `data-theme` one and
+   * the no-JS media fallback — and this way they share one source of truth:
+   * they only re-point the live token at the matching `--dark-*` value.
+   * Editing a dark colour means editing it here, once.
+   */
+  --dark-background: #0a0a0a;
+  --dark-background-light: #151515;
+  --dark-foreground: #ededed;
+  --dark-rule-blue: #3b5b86;
+
+  --dark-series-1: #3987e5;
+  --dark-series-2: #d95926;
+
+  /* Dark steps of the figure palette; ink flips to a light neutral. */
+  --dark-fig-pink: #ea75b1;
+  --dark-fig-yellow: #d4a41f;
+  --dark-fig-ink: #cfcac2;
+  --dark-fig-magenta: #d13a92;
+  --dark-fig-card: #1c1c1c;
+  --dark-fig-grid: #2e2e2e;
+
+  /* Same shapes, flipped: light hairlines catch the edge on dark. */
+  --dark-shadow-hairline: 0 0 0 1px rgb(255 255 255 / 0.12);
+  --dark-shadow-inset-frame:
+    inset 0 0 0 1px rgb(255 255 255 / 0.08),
+    inset 0 1px 4px rgb(255 255 255 / 0.035);
+  --dark-shadow-float: 0 8px 28px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
 }
 
 @theme inline {
@@ -64,29 +116,45 @@
   --font-inter: var(--font-inter);
 }
 
+/*
+ * The two scheme switches. Both do nothing but re-point the live tokens at
+ * the `--dark-*` slots above; keep them identical when adding a token.
+ */
+:root[data-theme="dark"] {
+  --background: var(--dark-background);
+  --background-light: var(--dark-background-light);
+  --foreground: var(--dark-foreground);
+  --rule-blue: var(--dark-rule-blue);
+  --series-1: var(--dark-series-1);
+  --series-2: var(--dark-series-2);
+  --fig-pink: var(--dark-fig-pink);
+  --fig-yellow: var(--dark-fig-yellow);
+  --fig-ink: var(--dark-fig-ink);
+  --fig-magenta: var(--dark-fig-magenta);
+  --fig-card: var(--dark-fig-card);
+  --fig-grid: var(--dark-fig-grid);
+  --shadow-hairline: var(--dark-shadow-hairline);
+  --shadow-inset-frame: var(--dark-shadow-inset-frame);
+  --shadow-float: var(--dark-shadow-float);
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --background-light: #151515;
-    --foreground: #ededed;
-
-    --series-1: #3987e5;
-    --series-2: #d95926;
-
-    /* Dark-mode steps of the figure palette; ink flips to a light neutral. */
-    --fig-pink: #ea75b1;
-    --fig-yellow: #d4a41f;
-    --fig-ink: #cfcac2;
-    --fig-magenta: #d13a92;
-    --fig-card: #1c1c1c;
-    --fig-grid: #2e2e2e;
-
-    /* Same shapes, flipped: light hairlines catch the edge on dark. */
-    --shadow-hairline: 0 0 0 1px rgb(255 255 255 / 0.12);
-    --shadow-inset-frame:
-      inset 0 0 0 1px rgb(255 255 255 / 0.08),
-      inset 0 1px 4px rgb(255 255 255 / 0.035);
-    --shadow-float: 0 8px 28px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
+  :root:not([data-theme]) {
+    --background: var(--dark-background);
+    --background-light: var(--dark-background-light);
+    --foreground: var(--dark-foreground);
+    --rule-blue: var(--dark-rule-blue);
+    --series-1: var(--dark-series-1);
+    --series-2: var(--dark-series-2);
+    --fig-pink: var(--dark-fig-pink);
+    --fig-yellow: var(--dark-fig-yellow);
+    --fig-ink: var(--dark-fig-ink);
+    --fig-magenta: var(--dark-fig-magenta);
+    --fig-card: var(--dark-fig-card);
+    --fig-grid: var(--dark-fig-grid);
+    --shadow-hairline: var(--dark-shadow-hairline);
+    --shadow-inset-frame: var(--dark-shadow-inset-frame);
+    --shadow-float: var(--dark-shadow-float);
   }
 }
 
@@ -185,8 +253,13 @@ body {
   );
 }
 
+:root[data-theme="dark"] .footer-grain {
+  mix-blend-mode: overlay;
+  opacity: 0.24;
+}
+
 @media (prefers-color-scheme: dark) {
-  .footer-grain {
+  :root:not([data-theme]) .footer-grain {
     mix-blend-mode: overlay;
     opacity: 0.24;
   }
@@ -278,5 +351,19 @@ body {
     font-size: 0.8125rem;
     line-height: 1.5;
     opacity: 0.75;
+  }
+
+  /*
+   * Spec-drawing rule over each margin note: a hairline that says which
+   * body text the note answers to. `width: fit-content` is the whole
+   * trick — the line measures the note's rendered text (shrink-to-fit, so
+   * a one-line note gets a short rule) and only reaches the column's edge
+   * when the text itself wraps that far.
+   */
+  .sidenote-rule {
+    display: block;
+    width: fit-content;
+    border-top: 1px solid var(--rule-blue);
+    padding-top: 0.4rem;
   }
 }

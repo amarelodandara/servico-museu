@@ -31,11 +31,14 @@ export function AboutSiteDialog() {
 
   return (
     <>
+      {/* No dark variants on the trigger: it lives on the footer's paper
+          mat, which stays white in either scheme. The dialog it opens
+          floats over the page, so that one does follow the theme. */}
       <button
         type="button"
         aria-expanded={open}
         onClick={() => setOpen(true)}
-        className="font-lato w-fit rounded-full px-3 py-1 text-sm text-neutral-600 underline decoration-neutral-400 underline-offset-4 hover:text-neutral-900 hover:decoration-neutral-600 dark:text-neutral-400 dark:decoration-neutral-600 dark:hover:text-neutral-100"
+        className="font-lato w-fit rounded-full px-3 py-1 text-sm text-neutral-600 underline decoration-neutral-400 underline-offset-4 hover:text-neutral-900 hover:decoration-neutral-600"
       >
         {t("about")}
       </button>

@@ -117,10 +117,16 @@ export function Sidenote({ children }: { children: ReactNode }) {
 
       {isDesktop ? (
         <span className="aside-float sidenote-desktop" role="note">
-          <span className="mr-1 font-medium text-[var(--color-accent)]">
-            {number}.
+          {/* The rule rides on this inner box, not on the floated one: the
+              float has to keep its percentage width for the margin-column
+              geometry, while the line is supposed to measure the note's own
+              text. See `.sidenote-rule` in globals.css. */}
+          <span className="sidenote-rule">
+            <span className="mr-1 font-medium text-[var(--color-accent)]">
+              {number}.
+            </span>
+            {children}
           </span>
-          {children}
         </span>
       ) : (
         open && (

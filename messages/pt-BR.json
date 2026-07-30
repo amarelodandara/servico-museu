@@ -4,11 +4,16 @@
     "switchToPtBR": "Leia em português",
     "switchToEn": "Read in English"
   },
+  "Theme": {
+    "label": "Tema",
+    "switchToDark": "Apagar a luz (modo escuro)",
+    "switchToLight": "Acender a luz (modo claro)"
+  },
   "Digest": {
     "logoAlt": "Ícone do site (em breve)",
     "title": "A serviço do museu",
     "titleSubtitle": "Diretrizes de experiência para a instituição museo-educativa",
-    "introParagraph1": "Uma explicação mais amigável de uma pesquisa de design",
+    "introParagraph1": "Uma explicação mais amigável de uma pesquisa de design. Menos academiquês e explicações mais gentis sobre design e museologia.",
     "introParagraph2": "Agora com menos academiquês e explicações mais gentis sobre design e museologia",
     "downloadPdf": "Baixar a versão acadêmica",
     "downloadPdfNote": "Disponível em formato PDF",

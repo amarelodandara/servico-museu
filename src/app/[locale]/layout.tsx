@@ -5,7 +5,9 @@ import { Neuton, Lato, Inter } from "next/font/google";
 import { Agentation } from "agentation";
 import { routing } from "@/i18n/routing";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Footer } from "@/components/footer";
+import { ColorPanel } from "@/components/color-panel";
 import "../globals.css";
 
 const neuton = Neuton({
@@ -58,6 +60,17 @@ export default async function LocaleLayout({
       lang={locale}
       className={`${neuton.variable} ${lato.variable} ${inter.variable} h-full antialiased`}
     >
+      {/*
+       * Resolves the theme before first paint, so a dark-mode reader never
+       * gets a white flash. Stays a raw inline script on purpose: anything
+       * deferred (including next/script) runs after the first paint, which
+       * is exactly the flash we're avoiding.
+       */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(){try{var s=localStorage.getItem("theme");document.documentElement.dataset.theme=(s==="light"||s==="dark")?s:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}})()`,
+        }}
+      />
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
           {/* Carries the page wash (see `.page-gradient` in globals.css); it
@@ -68,6 +81,7 @@ export default async function LocaleLayout({
 
               <div className="flex items-center gap-4">
                 <LocaleSwitcher />
+                <ThemeToggle />
               </div>
             </nav>
 
@@ -76,7 +90,10 @@ export default async function LocaleLayout({
           </div>
         </NextIntlClientProvider>
         {process.env.NODE_ENV === "development" && (
-          <Agentation endpoint="http://localhost:4747" />
+          <>
+            <Agentation endpoint="http://localhost:4747" />
+            <ColorPanel />
+          </>
         )}
       </body>
     </html>

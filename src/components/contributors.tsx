@@ -1,11 +1,19 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import uemgPhoto from "../../public/header/uemg.jpg";
+import nicolyPhoto from "../../public/contributors/nicoly-dandara.jpg";
 
+/*
+ * Only Nicoly's portrait exists so far, so it stands in for all three
+ * frames — swap each `portrait` as the real photographs come in. The
+ * portraits carry an empty `alt` on purpose: while one photograph doubles
+ * for three people, naming the sitter would be wrong on two of them, and
+ * the name is right there in text underneath either way.
+ */
 export const CONTRIBUTORS = [
-  { name: "Letícia França", roleKey: "researcher" as const },
-  { name: "Nicoly Dandara", roleKey: "researcher" as const },
-  { name: "Simone Souza", roleKey: "advisor" as const },
+  { name: "Letícia França", roleKey: "researcher" as const, portrait: nicolyPhoto },
+  { name: "Nicoly Dandara", roleKey: "researcher" as const, portrait: nicolyPhoto },
+  { name: "Simone Souza", roleKey: "advisor" as const, portrait: nicolyPhoto },
 ];
 
 /**
@@ -50,10 +58,12 @@ export function Contributors({ className = "" }: { className?: string }) {
           className="flex flex-col items-center space-y-2 text-center"
         >
           <FramedArtwork>
-            {/* Portrait placeholder until the real photographs land. */}
-            <div
-              className="h-full w-full bg-[var(--color-accent)]"
-              aria-hidden="true"
+            <Image
+              src={person.portrait}
+              alt=""
+              fill
+              sizes="120px"
+              className="object-cover"
             />
           </FramedArtwork>
 

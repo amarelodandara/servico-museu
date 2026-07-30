@@ -4,6 +4,11 @@
     "switchToPtBR": "Leia em português",
     "switchToEn": "Read in English"
   },
+  "Theme": {
+    "label": "Theme",
+    "switchToDark": "Turn the light off (dark mode)",
+    "switchToLight": "Turn the light on (light mode)"
+  },
   "Digest": {
     "logoAlt": "Site icon (coming soon)",
     "title": "In service of the museum",
