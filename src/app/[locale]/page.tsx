@@ -3,6 +3,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { SidenoteProvider } from "@/components/sidenote";
 import { Outline } from "@/components/outline";
 import { WordCountBars } from "@/components/word-count-bars";
+import { MuseumCarousel } from "@/components/museum-carousel";
 import ContentPtBR from "@/content/pt-BR/index.mdx";
 import ContentEn from "@/content/en/index.mdx";
 import uemgPhoto from "../../../public/header/uemg.jpg";
@@ -41,18 +42,22 @@ function DownloadPdfLink({
 
 function FramedArtwork({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-sm paspateur-bg relative aspect-[3/4] h-40 p-4 inset-shadow-sm inset-shadow-blue-50 inset-ring inset-ring-gray-200">
+    <div className="relative isolate aspect-[3/4] h-40 overflow-hidden rounded-sm">
+      {children}
       <div
-        className=" pointer-events-none absolute inset-0 z-0"
+        className="photo-grain pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
-      <div className="relative isolate z-10 h-full w-full overflow-hidden shadow-xs shadow-gray-100">
-        {children}
-        <div
-          className="photo-grain pointer-events-none absolute inset-0"
-          aria-hidden="true"
-        />
-      </div>
+      {/*
+       * The inset hairline rides in its own overlay rather than on the
+       * container: an inset shadow paints above the background but below
+       * the element's content, so the photograph would cover it.
+       */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-sm"
+        style={{ boxShadow: "var(--shadow-inset-frame)" }}
+        aria-hidden="true"
+      />
     </div>
   );
 }
@@ -70,7 +75,10 @@ export default function DigestPage() {
 
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
-      <main className="mx-auto flex w-10/12 flex-1 flex-col gap-6 px-6 py-16">
+      {/* `overflow-x-clip` (not hidden) lets the carousel bleed to 100vw
+          without a horizontal scrollbar, while keeping this a normal
+          non-scrolling box. */}
+      <main className="mx-auto flex w-10/12 flex-1 flex-col gap-6 overflow-x-clip px-6 py-16">
         <header className="grid grid-cols-5">
           <div className="flex flex-col gap-2 col-span-3 justify-end">
             <div className="space-y-6">
@@ -171,7 +179,7 @@ export default function DigestPage() {
          </div>
         </header>
 
-<div className="bg-white w-full h-screen"></div>
+        <MuseumCarousel />
 
         <SidenoteProvider>
           <div className="grid grid-cols-1 lg:grid-cols-5">

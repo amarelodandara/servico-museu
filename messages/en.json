@@ -27,6 +27,20 @@
   "Sidenote": {
     "back": "Back"
   },
+  "MuseumCarousel": {
+    "label": "Museum design references",
+    "creditPlaceholder": "Author, year and source TBD",
+    "title_bienal": "1st São Paulo Biennial",
+    "alt_bienal": "Poster for the 1st São Paulo Biennial, 1951, with a geometric pattern of concentric rectangles in black, beige and red.",
+    "title_masp": "MASP",
+    "alt_masp": "Technical elevation drawing of a museum building, in thin lines on a white background.",
+    "title_nordeste": "Museu do Homem do Nordeste",
+    "alt_nordeste": "Two pieces from the Museu do Homem do Nordeste's visual identity: a portrait of a man and a photograph of a bather with a horse in muddy water, both carrying the museum's name in white lettering.",
+    "title_republica": "Museu Nacional da República",
+    "alt_republica": "A street banner against a blue sky with the phrase “Seu museu” repeated and the name of the Museu Nacional da República.",
+    "title_toninhas": "Toninhas",
+    "alt_toninhas": "Architectural render of a curved museum building over water, with hills in the background."
+  },
   "DocumentPile": {
     "label": "Document pile",
     "counter": "Document {current} of {total}",

@@ -30,6 +30,26 @@
   --fig-magenta: #a8156b;
   --fig-card: #ffffff;
   --fig-grid: #e2e6e8;
+
+  /*
+   * Shadow tokens, calibrated after superlogical.com's frame treatment.
+   * The whole trick is restraint: every layer sits under 6% alpha, and
+   * depth comes from pairing a 1px hairline with a second, barely-there
+   * blurred layer rather than from one heavy shadow.
+   *
+   * hairline    — outset 1px ring; defines an edge where two light
+   *               surfaces meet (white mat on a near-white page).
+   * inset-frame — inset hairline + 1px-offset 4px blur; reads as the page
+   *               sinking into the mat.
+   * mat         — the two composed, for a recessed paper mat.
+   * float       — one wide soft shadow plus a tight contact shadow, for
+   *               elements genuinely lifted off the page.
+   */
+  --shadow-hairline: 0 0 0 1px rgb(0 0 0 / 0.06);
+  --shadow-inset-frame:
+    inset 0 0 0 1px rgb(0 0 0 / 0.035), inset 0 1px 4px rgb(0 0 0 / 0.02);
+  --shadow-mat: var(--shadow-hairline), var(--shadow-inset-frame);
+  --shadow-float: 0 8px 28px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.1);
 }
 
 @theme inline {
@@ -57,6 +77,13 @@
     --fig-magenta: #d13a92;
     --fig-card: #1c1c1c;
     --fig-grid: #2e2e2e;
+
+    /* Same shapes, flipped: light hairlines catch the edge on dark. */
+    --shadow-hairline: 0 0 0 1px rgb(255 255 255 / 0.12);
+    --shadow-inset-frame:
+      inset 0 0 0 1px rgb(255 255 255 / 0.08),
+      inset 0 1px 4px rgb(255 255 255 / 0.035);
+    --shadow-float: 0 8px 28px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
   }
 }
 
@@ -67,10 +94,10 @@ body {
 }
 
 /*
- * Recessed photo display: page surface sinks down into a white paper
- * "paspateur" (mat/passe-partout), grained with an SVG noise texture so
- * it reads as paper rather than flat color, then down again into the
- * image itself.
+ * Recessed display: the page surface sinks into a white paper "paspateur"
+ * (mat/passe-partout), then down again into the artwork itself. Used by the
+ * bibliography shelf; the header photographs deliberately go mat-less and
+ * carry only the inset hairline plus film grain.
  */
 .paspateur-bg {
   background-color: #ffffff;
@@ -82,11 +109,76 @@ body {
   mix-blend-mode: multiply;
 }
 
-/* Finer, tighter grain on the photo itself, distinct from the mat's paper noise. */
+/*
+ * Film grain over photographs: a 128px raster tile of per-pixel hash
+ * noise, held `pixelated` so it stays chunky when the browser upscales it
+ * on retina instead of being smoothed away. Ported from
+ * superlogical.com's treatment — their integer hash, ±80 depth around
+ * mid-gray, 0.16 alpha over an `overlay` blend — at a smaller tile, since
+ * white noise has no spatial correlation and the shorter repeat period is
+ * invisible. Tile generated at build-authoring time, not runtime.
+ */
 .photo-grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  opacity: 0.18;
+  background-image: url("/grain.png");
+  background-repeat: repeat;
+  image-rendering: pixelated;
   mix-blend-mode: overlay;
+  opacity: 0.16;
+}
+
+/*
+ * Museum carousel: an endless sideways drift. The track holds several
+ * identical sets of plates and slides by exactly one set's width
+ * (`--marquee-shift`, set from the copy count in museum-carousel.tsx),
+ * which lands the next set precisely where the previous one started — so
+ * the loop has no seam and needs no JS.
+ *
+ * The viewport fades out at both edges rather than cutting hard, so plates
+ * arrive and leave instead of popping. Motion pauses on hover and on
+ * keyboard focus so a caption can actually be read, and under
+ * prefers-reduced-motion the drift stops entirely and the band becomes a
+ * plain horizontal scroller — still browsable, just not animated.
+ *
+ * `--marquee-duration` is the time to traverse one set, so the perceived
+ * speed stays put no matter how many copies the track carries.
+ */
+@keyframes museum-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--marquee-shift, -50%));
+  }
+}
+
+.museum-marquee-viewport {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+
+.museum-marquee {
+  animation: museum-marquee var(--marquee-duration, 55s) linear infinite;
+  will-change: transform;
+}
+
+.museum-marquee-viewport:hover .museum-marquee,
+.museum-marquee-viewport:focus-within .museum-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .museum-marquee {
+    animation: none;
+  }
+
+  .museum-marquee-viewport {
+    overflow-x: auto;
+  }
 }
 
 /*

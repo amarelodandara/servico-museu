@@ -27,9 +27,13 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
       {books.map((book) => (
         <div
           key={book.title}
-          className="paspateur-bg w-36 shrink-0 snap-start rounded-sm p-2.5 inset-shadow-sm inset-shadow-blue-50 inset-ring inset-ring-gray-200"
+          className="paspateur-bg w-36 shrink-0 snap-start rounded-sm p-2.5"
+          // Covers keep the paspateur mat — an outset hairline to hold its
+          // edge against the page, plus the inset pair that recesses it.
+          // The header photographs deliberately go without.
+          style={{ boxShadow: "var(--shadow-mat)" }}
         >
-          <div className="relative flex aspect-[2/3] flex-col overflow-hidden bg-[var(--fig-card)] shadow-xs shadow-gray-200">
+          <div className="relative flex aspect-[2/3] flex-col overflow-hidden bg-[var(--fig-card)]">
             {book.cover ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -57,6 +61,14 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
                 </div>
               </>
             )}
+            {/* Own overlay, not a shadow on the parent: an inset shadow
+                paints below its element's content, so a real cover image
+                would hide it. */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{ boxShadow: "var(--shadow-inset-frame)" }}
+              aria-hidden="true"
+            />
           </div>
         </div>
       ))}

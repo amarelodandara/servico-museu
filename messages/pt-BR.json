@@ -27,6 +27,20 @@
   "Sidenote": {
     "back": "Voltar"
   },
+  "MuseumCarousel": {
+    "label": "Referências de design museal",
+    "creditPlaceholder": "Autoria, ano e fonte a definir",
+    "title_bienal": "1ª Bienal de São Paulo",
+    "alt_bienal": "Cartaz da 1ª Bienal de São Paulo, de 1951, com um padrão geométrico de retângulos concêntricos em preto, bege e vermelho.",
+    "title_masp": "MASP",
+    "alt_masp": "Desenho técnico de elevação de um edifício de museu, em linhas finas sobre fundo branco.",
+    "title_nordeste": "Museu do Homem do Nordeste",
+    "alt_nordeste": "Duas peças da identidade visual do Museu do Homem do Nordeste: o retrato de um homem e a fotografia de um banhista com um cavalo em água barrenta, ambas com o nome do museu em letras brancas.",
+    "title_republica": "Museu Nacional da República",
+    "alt_republica": "Bandeira de rua contra o céu azul com a frase “Seu museu” repetida e o nome do Museu Nacional da República.",
+    "title_toninhas": "Toninhas",
+    "alt_toninhas": "Render arquitetônico de um edifício curvo de museu sobre a água, com morros ao fundo."
+  },
   "DocumentPile": {
     "label": "Pilha de documentos",
     "counter": "Documento {current} de {total}",

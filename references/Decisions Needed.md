@@ -39,39 +39,55 @@ says exactly where to plug the answer in.
 8. **Real book covers** — the bibliography shelf renders typographic
    placeholders; drop images into `public/covers/` and add a
    `cover: "/covers/…"` prop per book in both `src/content/*/index.mdx`.
-9. **English translation** — still the rough placeholder pass (marked at the
-   top of `src/content/en/index.mdx`); a real pass is yours to do or
-   delegate. New EN strings I added (figures, forms, outreach) are decent
-   but should ride along in that review.
+9. **Carousel credits** — the five museum-design references in
+   `public/museum_carousel/` are hung with museum cartelas whose credit
+   line reads "Autoria, ano e fonte a definir". I deliberately did **not**
+   invent photographers, designers or years: attributing real work to a
+   named person from a filename would be fabricating a record. Titles use
+   only what's legible in each piece (e.g. "1ª Bienal de São Paulo", 1951)
+   or your own filename. Fill the real credits in the `MuseumCarousel`
+   block of `messages/{pt-BR,en}.json` — `creditPlaceholder` is the shared
+   fallback, so add a `credit_<id>` key per piece when you have them and I
+   can wire the per-piece lookup.
+10. **Stray `uemg.jpg` in `public/museum_carousel/`** — you said five
+    images and dropped five (bienal, masp, nordeste, republica, toninhas);
+    `uemg.jpg` is also sitting in that folder, byte-identical in date to
+    the header photo at `public/header/uemg.jpg`. I left it alone and
+    excluded it from the carousel. Tell me whether it should join the
+    carousel as a sixth piece or be deleted as a stray copy.
+11. **English translation** — still the rough placeholder pass (marked at
+    the top of `src/content/en/index.mdx`); a real pass is yours to do or
+    delegate. New EN strings I added (figures, forms, outreach, carousel)
+    are decent but should ride along in that review.
 
 ## Deploy-time configuration
 
-10. **Production domain** — set `NEXT_PUBLIC_SITE_URL` (used by
+12. **Production domain** — set `NEXT_PUBLIC_SITE_URL` (used by
     `metadataBase`, sitemap, robots). Until then OG URLs resolve to
     localhost.
-11. **Resend** — the form at `/colaborar` posts to `/api/contact`, which
+13. **Resend** — the form at `/colaborar` posts to `/api/contact`, which
     needs `RESEND_API_KEY` (and ideally a verified domain +
     `CONTACT_FROM_EMAIL`; `CONTACT_TO_EMAIL` defaults to
     nicolysantos51@gmail.com). Without the key the form shows a mailto
     fallback — nothing breaks, nothing sends.
-12. **Hosting** — pitch says Vercel; nothing is wired. Also unimplemented
+14. **Hosting** — pitch says Vercel; nothing is wired. Also unimplemented
     from the pitch's "tiny bits": analytics/instrumentation choice.
 
 ## Judgment calls I made that you may want to revisit
 
-13. **Tufte figure (Figura 3)** — the source is a scanned third-party image
+15. **Tufte figure (Figura 3)** — the source is a scanned third-party image
     (Durand 2011), so I rebuilt it as six abstract SVG glyphs with the
     original English principle names, credited as "reinterpretado de
     Durand". If you'd rather show the original scan, it extracts from the
     TCC PDF the same way the Anexos did.
-14. **Tufte placement** — the digest had no section for it, so it sits in
+16. **Tufte placement** — the digest had no section for it, so it sits in
     "Quem vem com a gente" with a one-sentence bridge I wrote.
-15. **Outreach graphic placement** — it lives on `/colaborar` (with PNG
+17. **Outreach graphic placement** — it lives on `/colaborar` (with PNG
     download + share); the pitch imagined it primarily as an email
     attachment, so tell me if you want it on its own route instead.
-16. **Stats 61,5% / 68,3%** — added to the digest under "Como essa pesquisa
+18. **Stats 61,5% / 68,3%** — added to the digest under "Como essa pesquisa
     serve ao museu" with a short connecting sentence I wrote.
-17. **Nav links** — glossário/panorama/colaborar are plain text links in the
+19. **Nav links** — glossário/panorama/colaborar are plain text links in the
     top nav; purely structural, restyle at will.
 
 ## Verification still owed (needs a browser)
@@ -81,3 +97,14 @@ says exactly where to plug the answer in.
 - Venn + outreach PNG downloads actually producing good files.
 - 404 catch-all copy, contact form states, sidenote/glossary behavior
   post-changes.
+- The shadow tokens in light *and* dark mode: the header photographs (now
+  mat-less, carrying only the inset hairline + film grain) and the
+  bibliography shelf (which keeps its paspateur mat). They're deliberately
+  near-invisible, so what to check is whether each edge still holds against
+  the page rather than bleeding into it.
+- The museum carousel: that the loop has no visible seam or gap at the
+  right edge on your widest screen, that the edge fade reads as "a tad"
+  rather than heavy, that hover actually pauses it long enough to read a
+  cartela, and that the plate height (`h-48 sm:h-56 lg:h-64`) and drift
+  speed (`--marquee-duration`, 55s per set) feel right. The MASP elevation
+  is nearly white, so it's the one to check the inset hairline against.
