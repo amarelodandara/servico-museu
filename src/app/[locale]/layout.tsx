@@ -5,6 +5,7 @@ import { Neuton, Lato, Inter } from "next/font/google";
 import { Agentation } from "agentation";
 import { routing } from "@/i18n/routing";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { Footer } from "@/components/footer";
 import "../globals.css";
 
 const neuton = Neuton({
@@ -59,14 +60,20 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
-          <nav className="flex items-center justify-end px-6 py-4">
+          {/* Carries the page wash (see `.page-gradient` in globals.css); it
+              has to span the whole document, so it takes over the body's
+              flex column rather than sitting inside it. */}
+          <div className="page-gradient flex min-h-full flex-1 flex-col">
+            <nav className="flex items-center justify-end px-6 py-4">
 
-            <div className="flex items-center gap-4">
-              <LocaleSwitcher />
-            </div>
-          </nav>
+              <div className="flex items-center gap-4">
+                <LocaleSwitcher />
+              </div>
+            </nav>
 
-          {children}
+            {children}
+            <Footer />
+          </div>
         </NextIntlClientProvider>
         {process.env.NODE_ENV === "development" && (
           <Agentation endpoint="http://localhost:4747" />

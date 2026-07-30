@@ -27,6 +27,27 @@
   "Sidenote": {
     "back": "Back"
   },
+  "Footer": {
+    "credit": "In service of the museum — service-design research, UEMG, 2026",
+    "title": "In service of the museum: experience guidelines for the museum-educational institution",
+    "share": "Share this research",
+    "download": "Download the academic document",
+    "about": "More about this site",
+    "developedBy": "Developed by Nicoly Dandara",
+    "aboutTitle": "About this site",
+    "aboutClose": "Close",
+    "aboutHeading": "How it was made",
+    "aboutBody": "This site is the public version of an undergraduate design thesis. The academic document was rewritten in plainer language and reorganised as a browsable digest: sidenotes instead of footnotes, charts instead of tables, and a glossary that opens without pulling you out of the text. It is bilingual by default, keeps its essential parts working without JavaScript, and respects readers who prefer less motion.",
+    "colophonHeading": "Colophon",
+    "colophonTypefacesLabel": "Typefaces",
+    "colophonTypefaces": "Neuton for running text, Lato for labels and Inter for figures.",
+    "colophonStackLabel": "Built with",
+    "colophonStack": "Next.js and React, Tailwind CSS, MDX content and next-intl for translation.",
+    "colophonImagesLabel": "Images",
+    "colophonImages": "Reproductions of museum references, credited individually in each caption.",
+    "colophonLicenseLabel": "Use",
+    "colophonLicense": "Text and charts may be reproduced with attribution to the research."
+  },
   "MuseumCarousel": {
     "label": "Museum design references",
     "creditPlaceholder": "Author, year and source TBD",
@@ -40,6 +61,11 @@
     "alt_republica": "A street banner against a blue sky with the phrase “Seu museu” repeated and the name of the Museu Nacional da República.",
     "title_toninhas": "Toninhas",
     "alt_toninhas": "Architectural render of a curved museum building over water, with hills in the background."
+  },
+  "BookCarousel": {
+    "label": "Book carousel",
+    "previous": "Previous book",
+    "next": "Next book"
   },
   "DocumentPile": {
     "label": "Document pile",
@@ -146,9 +172,5 @@
   "NotFound": {
     "message": "oops, <x></x> is not the theme of our research",
     "backHome": "Back to the research"
-  },
-  "Outline": {
-    "label": "Outline",
-    "toggle": "Outline"
   }
 }

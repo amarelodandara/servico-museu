@@ -7,8 +7,10 @@ import { useState } from "react";
  * Share action for a page or a specific figure: uses the native share sheet
  * where available, falling back to copying the URL. `hash` targets a
  * heading/figure id so individual viz pieces get their own shareable link.
+ * `label` overrides the default verb where the surrounding text needs a
+ * fuller call to action (the footer's "share this research").
  */
-export function ShareLink({ hash }: { hash?: string }) {
+export function ShareLink({ hash, label }: { hash?: string; label?: string }) {
   const t = useTranslations("Share");
   const [copied, setCopied] = useState(false);
 
@@ -36,7 +38,7 @@ export function ShareLink({ hash }: { hash?: string }) {
       onClick={share}
       className="font-lato w-fit rounded-full border border-neutral-300 px-4 py-2 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
     >
-      {copied ? t("copied") : t("share")}
+      {copied ? t("copied") : (label ?? t("share"))}
     </button>
   );
 }

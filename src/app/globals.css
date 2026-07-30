@@ -7,6 +7,7 @@
  */
 :root {
   --background: #F2F6F7;
+  --background-light: #FCFDFD;
   --foreground: #171717;
 
   --color-accent: #2563eb; /* placeholder for the "added content" blue from the pitch doc */
@@ -54,6 +55,7 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-light: var(--background-light);
   --color-foreground: var(--foreground);
   --color-accent: var(--color-accent);
   --color-added-tint: var(--color-added-tint);
@@ -65,6 +67,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
+    --background-light: #151515;
     --foreground: #ededed;
 
     --series-1: #3987e5;
@@ -88,9 +91,33 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--background-light);
   color: var(--foreground);
   font-family: var(--font-neuton), serif;
+}
+
+/*
+ * Page wash. The surface starts at --background and lifts to the near-white
+ * --background-light over the opening band (header + carousel), so the bulk
+ * of the digest reads on the lighter ground. The gradient lives on the page
+ * wrapper rather than on `body` on purpose: a background propagated from
+ * `body` to the canvas is positioned against the *root* box, and `html` is
+ * `h-full` here — one viewport tall — which would pin the stops to the
+ * viewport instead of the document. The wrapper's own box spans the full
+ * document height, so `--page-fade-end` measures from the top of the page.
+ *
+ * --page-fade-end is the single knob: raise it to push the transition
+ * further down the page, lower it to finish the fade sooner.
+ */
+.page-gradient {
+  --page-fade-end: 100vh;
+  background-color: var(--background-light);
+  background-image: linear-gradient(
+    to bottom,
+    var(--background) 0,
+    var(--background-light) var(--page-fade-end)
+  );
+  background-repeat: no-repeat;
 }
 
 /*
@@ -124,6 +151,45 @@ body {
   image-rendering: pixelated;
   mix-blend-mode: overlay;
   opacity: 0.16;
+}
+
+/*
+ * Footer tooth. Same grain tile as the photographs, but masked so it ramps
+ * from nothing at the footer's top edge to full strength at the bottom of
+ * the page — the footer separates itself from the wash by texture rather
+ * than by a fill or a rule. The mask eases in (barely anything through the
+ * first half) so the top edge genuinely reads as untextured.
+ *
+ * Multiply over the light surface, since overlay against a near-white
+ * ground washes out; dark mode flips to overlay, where multiply would only
+ * muddy an already-dark surface. Deliberately not inside an `isolate`
+ * context: the blend needs the page wash behind it as its backdrop.
+ */
+.footer-grain {
+  background-image: url("/grain.png");
+  background-repeat: repeat;
+  image-rendering: pixelated;
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 0.12) 45%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 0.12) 45%,
+    #000 100%
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer-grain {
+    mix-blend-mode: overlay;
+    opacity: 0.24;
+  }
 }
 
 /*
@@ -171,14 +237,20 @@ body {
 }
 
 /*
- * Margin column (desktop only). The reading column sits in a `grid-cols-5`
- * track (col-span-3, matching the header grid), leaving cols 4-5 empty.
- * `.aside-float` pulls an element out of that col-span-3 track into the
- * empty space via a negative margin sized as a percentage of its own
- * containing block (the col-span-3 track) — 2/3 of that track's width is
- * exactly the width of the remaining 2/5 of the full grid, so this tracks
- * the grid's actual ratio instead of a fixed rem guess that drifts out of
- * alignment as the viewport (and so the column's px width) changes.
+ * Margin column (desktop only). The reading column sits in a 20-col track
+ * at col-start-4/col-span-8 (cols 4-11, 40% of the container), with 3
+ * blank columns (15%) on either side so the whole reading-column-plus-
+ * sidenote block sits centered rather than flush left. `.aside-float`
+ * pulls an element out of that col-span-8 track into cols 12-17 (6 cols,
+ * 30% of the container) via a negative margin sized as a percentage of its
+ * own containing block (the col-span-8 track) — 75% of that track's width
+ * is exactly three quarters of the reading column's width, so the sidenote
+ * reads as clearly subordinate to the body text instead of a same-size
+ * column. This tracks the grid's actual ratio instead of a fixed rem guess
+ * that drifts out of alignment as the viewport (and so the column's px
+ * width) changes. Resizing the reading column just needs this percentage
+ * kept at whatever fraction of it the sidenote should be (currently three
+ * quarters, 75%).
  *
  * `#digest-content` is plain block flow (not flex), specifically so this
  * works: flex/grid items ignore `float` entirely per spec, so anything
@@ -195,8 +267,8 @@ body {
   .aside-float {
     float: right;
     clear: right;
-    width: 66.6667%;
-    margin-right: -66.6667%;
+    width: 75%;
+    margin-right: -75%;
   }
 
   .sidenote-desktop {

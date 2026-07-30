@@ -27,6 +27,27 @@
   "Sidenote": {
     "back": "Voltar"
   },
+  "Footer": {
+    "credit": "A serviço do museu — pesquisa em design de serviços, UEMG, 2026",
+    "title": "A serviço do museu: diretrizes de experiência para a instituição museo-educativa",
+    "share": "Compartilhar pesquisa",
+    "download": "Baixar documento acadêmico",
+    "about": "Ver mais sobre esse site",
+    "developedBy": "Desenvolvido por Nicoly Dandara",
+    "aboutTitle": "Sobre esse site",
+    "aboutClose": "Fechar",
+    "aboutHeading": "O desenvolvimento",
+    "aboutBody": "Este site é a versão pública de uma pesquisa de conclusão de curso em design. O documento acadêmico foi reescrito em linguagem mais direta e reorganizado como um resumo navegável: notas laterais no lugar de rodapés, gráficos no lugar de tabelas e um glossário que se abre sem tirar você do texto. Ele é bilíngue por padrão, funciona sem JavaScript nas partes essenciais e respeita quem prefere menos animação.",
+    "colophonHeading": "Colofão",
+    "colophonTypefacesLabel": "Tipografia",
+    "colophonTypefaces": "Neuton para o texto corrido, Lato para rótulos e Inter para números.",
+    "colophonStackLabel": "Construção",
+    "colophonStack": "Next.js e React, Tailwind CSS, conteúdo em MDX e tradução com next-intl.",
+    "colophonImagesLabel": "Imagens",
+    "colophonImages": "Reproduções de referências museais, creditadas individualmente em cada legenda.",
+    "colophonLicenseLabel": "Uso",
+    "colophonLicense": "Texto e gráficos podem ser reproduzidos com atribuição à pesquisa."
+  },
   "MuseumCarousel": {
     "label": "Referências de design museal",
     "creditPlaceholder": "Autoria, ano e fonte a definir",
@@ -40,6 +61,11 @@
     "alt_republica": "Bandeira de rua contra o céu azul com a frase “Seu museu” repetida e o nome do Museu Nacional da República.",
     "title_toninhas": "Toninhas",
     "alt_toninhas": "Render arquitetônico de um edifício curvo de museu sobre a água, com morros ao fundo."
+  },
+  "BookCarousel": {
+    "label": "Carrossel de livros",
+    "previous": "Livro anterior",
+    "next": "Próximo livro"
   },
   "DocumentPile": {
     "label": "Pilha de documentos",
@@ -146,9 +172,5 @@
   "NotFound": {
     "message": "oops, <x></x> não é o tema da nossa pesquisa",
     "backHome": "Voltar para a pesquisa"
-  },
-  "Outline": {
-    "label": "Sumário",
-    "toggle": "Sumário"
   }
 }

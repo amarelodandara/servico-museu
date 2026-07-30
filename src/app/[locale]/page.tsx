@@ -1,12 +1,9 @@
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { SidenoteProvider } from "@/components/sidenote";
-import { Outline } from "@/components/outline";
 import { WordCountBars } from "@/components/word-count-bars";
-import { MuseumCarousel } from "@/components/museum-carousel";
+import { Contributors } from "@/components/contributors";
 import ContentPtBR from "@/content/pt-BR/index.mdx";
 import ContentEn from "@/content/en/index.mdx";
-import uemgPhoto from "../../../public/header/uemg.jpg";
 
 const CONTENT = {
   "pt-BR": ContentPtBR,
@@ -40,41 +37,13 @@ function DownloadPdfLink({
   );
 }
 
-function FramedArtwork({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative isolate aspect-[3/4] h-40 overflow-hidden rounded-sm">
-      {children}
-      <div
-        className="photo-grain pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      />
-      {/*
-       * The inset hairline rides in its own overlay rather than on the
-       * container: an inset shadow paints above the background but below
-       * the element's content, so the photograph would cover it.
-       */}
-      <div
-        className="pointer-events-none absolute inset-0 rounded-sm"
-        style={{ boxShadow: "var(--shadow-inset-frame)" }}
-        aria-hidden="true"
-      />
-    </div>
-  );
-}
-
-const CONTRIBUTORS = [
-  { name: "Letícia França", roleKey: "researcher" as const },
-  { name: "Nicoly Dandara", roleKey: "researcher" as const },
-  { name: "Simone Souza", roleKey: "advisor" as const },
-];
-
 export default function DigestPage() {
   const t = useTranslations("Digest");
   const locale = useLocale();
   const Content = CONTENT[locale as keyof typeof CONTENT] ?? ContentPtBR;
 
   return (
-    <div className="bg-[var(--background)] text-[var(--foreground)]">
+    <div className="text-[var(--foreground)]">
       {/* `main` spans the full width and each section opts into the reading
           column itself, so the carousel can simply be 100% wide instead of
           fighting its way out of a centered container. */}
@@ -105,7 +74,7 @@ export default function DigestPage() {
 
                 <WordCountBars />
 
-                {/*<div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <a
                     href="#digest-content"
                     className="font-lato w-fit rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
@@ -117,7 +86,7 @@ export default function DigestPage() {
                     note={t("downloadPdfNote")}
                     className="font-lato"
                   />
-                </div>*/}
+                </div>
               </div>
 
 
@@ -126,71 +95,30 @@ export default function DigestPage() {
 
           </div>
 
-          <div className="col-span-2 flex  justify-end gap-6 flex-wrap-reverse">
-
-
-              {CONTRIBUTORS.map(
-                (person) => (
-                  <div
-                    key={person.name}
-                    className="flex flex-col items-center text-center space-y-2"
-                  >
-                    <FramedArtwork>
-                      <div
-                        className="h-full w-full bg-[var(--color-accent)]"
-                        aria-hidden="true"
-                      />
-                    </FramedArtwork>
-
-                    <div className="flex flex-col items-center -space-y-0.5">
-                    <span className="">
-                      {person.name}
-                    </span>
-                    <span className="text-neutral-500">
-                      {t(person.roleKey)}
-                    </span>
-                    </div>
-                  </div>
-                ),
-            )}
-
-
-              <div className="flex flex-col items-center text-center space-y-2">
-                <FramedArtwork>
-                  <Image
-                    src={uemgPhoto}
-                    alt={t("institutionAlt")}
-                    fill
-                    sizes="120px"
-                    className="object-cover"
-                  />
-                </FramedArtwork>
-
-                <div className="flex flex-col items-center -space-y-0.5">
-                <span className="">
-                  {t("institution")}
-                </span>
-                <span className="text-neutral-500">
-                  {t("institutionLabel")}
-                </span>
-                </div>
-              </div>
-
-         </div>
+          <Contributors className="col-span-2 flex justify-end gap-6 flex-wrap-reverse" />
         </header>
 
-        <MuseumCarousel />
+        {/* Narrower than the header on purpose, and centered rather than
+            flush left: a 20-col track with the reading column at cols 4-11
+            (col-start-4, col-span-8, 40% of the container) leaves 3 blank
+            cols (15%) on each side, and the sidenote — see `.aside-float`
+            in globals.css — occupies cols 12-17 (6 cols, 30%), three
+            quarters of the reading column's width. */}
 
-        {/* Same reading column as the header — the `grid-cols-5` track
-            inside is what the sidenote margin column measures against, so
-            its width has to match. */}
         <div className="mx-auto flex w-10/12 flex-col gap-6 px-6">
           <SidenoteProvider>
-            <div className="grid grid-cols-1 lg:grid-cols-5">
+            <div className="grid grid-cols-1 lg:grid-cols-[repeat(20,minmax(0,1fr))]">
               <div
                 id="digest-content"
-                className="col-span-1 space-y-6 lg:col-span-3"
+                className="col-span-1 space-y-6 lg:col-span-8 lg:col-start-4"
               >
+                <div className="col-span-1 space-y-6 lg:col-span-8 text-center">
+              <p className="text-3xl text-balance text-gray-700"><span className="text-black">A serviço do museu:</span> diretrizes de experiência para a instituição museo-educativa</p>
+
+                  <p className="font-inter tracking-tight">por Letícia França & Nicoly Dandara</p>
+
+                  <div className="aspect-[3/2] h-60 bg-gray-300 mx-auto"></div>
+                </div>
                 <Content />
               </div>
             </div>
@@ -202,8 +130,6 @@ export default function DigestPage() {
           />
         </div>
       </main>
-
-      <Outline containerId="digest-content" />
     </div>
   );
 }

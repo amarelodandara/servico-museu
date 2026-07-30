@@ -18,7 +18,7 @@ export default async function GlossaryPage({
   );
 
   return (
-    <div className="flex flex-1 flex-col bg-[var(--background)] text-[var(--foreground)]">
+    <div className="flex flex-1 flex-col text-[var(--foreground)]">
       <header className="flex items-center justify-between border-b border-neutral-200 px-6 py-4 dark:border-neutral-800">
         <Link href="/" className="text-sm font-medium hover:underline">
           ← {t("back")}

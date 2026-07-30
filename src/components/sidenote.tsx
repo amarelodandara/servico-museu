@@ -6,27 +6,60 @@ import {
   useContext,
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
-  useRef,
   useState,
   type ReactNode,
 } from "react";
 
-const SidenoteCounterContext = createContext<{ next: () => number } | null>(
-  null,
-);
+type SidenoteRegistry = {
+  register: (id: string) => void;
+  unregister: (id: string) => void;
+};
+
+const SidenoteCounterContext = createContext<SidenoteRegistry | null>(null);
+const SidenoteOrderContext = createContext<string[]>([]);
 
 /**
- * Resets the sidenote counter for whatever tree it wraps. Wrap once per
+ * Resets the sidenote numbering for whatever tree it wraps. Wrap once per
  * digest page so note numbers restart at 1 instead of accumulating across
  * client-side navigations.
+ *
+ * Numbers come from registration order (a plain array in state, populated
+ * by each Sidenote's effect), not a counter incremented during render.
+ * A render-time counter looks simpler but isn't idempotent: React Strict
+ * Mode replays render (and lazy `useState` initializers) twice on purpose
+ * to surface exactly this kind of bug, and Fast Refresh can replay it
+ * again without a true remount, so the shared counter drifts upward every
+ * reload instead of resetting. Effects don't have that problem — React
+ * runs mount → cleanup → mount for them in Strict Mode, so a symmetric
+ * register/unregister nets out to the same, correct position every time.
+ *
+ * The register/unregister API and the order array are split into two
+ * contexts on purpose. `registry` must stay referentially stable (empty
+ * `useMemo` deps) — if it were rebuilt every time `order` changed, every
+ * Sidenote's registration effect (which depends on it) would re-fire,
+ * unregistering and re-registering itself, changing `order` again, and
+ * looping forever ("Maximum update depth exceeded").
  */
 export function SidenoteProvider({ children }: { children: ReactNode }) {
-  const counter = useRef(0);
-  const value = useMemo(() => ({ next: () => ++counter.current }), []);
+  const [order, setOrder] = useState<string[]>([]);
+
+  const registry = useMemo<SidenoteRegistry>(
+    () => ({
+      register: (id) =>
+        setOrder((prev) => (prev.includes(id) ? prev : [...prev, id])),
+      unregister: (id) =>
+        setOrder((prev) => prev.filter((existing) => existing !== id)),
+    }),
+    [],
+  );
+
   return (
-    <SidenoteCounterContext.Provider value={value}>
-      {children}
+    <SidenoteCounterContext.Provider value={registry}>
+      <SidenoteOrderContext.Provider value={order}>
+        {children}
+      </SidenoteOrderContext.Provider>
     </SidenoteCounterContext.Provider>
   );
 }
@@ -40,7 +73,15 @@ export function SidenoteProvider({ children }: { children: ReactNode }) {
 export function Sidenote({ children }: { children: ReactNode }) {
   const t = useTranslations("Sidenote");
   const ctx = useContext(SidenoteCounterContext);
-  const [number] = useState(() => ctx?.next() ?? 0);
+  const order = useContext(SidenoteOrderContext);
+  const id = useId();
+
+  useLayoutEffect(() => {
+    ctx?.register(id);
+    return () => ctx?.unregister(id);
+  }, [ctx, id]);
+
+  const number = order.indexOf(id) + 1;
   const [isDesktop, setIsDesktop] = useState(false);
   const [open, setOpen] = useState(false);
   const panelId = useId();

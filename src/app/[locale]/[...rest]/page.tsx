@@ -16,7 +16,7 @@ export default async function NotFoundCatchAll({
   const attempted = decodeURIComponent(rest.join("/")).replaceAll("-", " ");
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-6 bg-[var(--background)] px-6 py-24 text-center text-[var(--foreground)]">
+    <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 py-24 text-center text-[var(--foreground)]">
       <p className="font-lato text-sm tracking-wide text-neutral-500 uppercase">
         404
       </p>
