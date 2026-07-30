@@ -27,6 +27,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  // TODO(user): swap for the real production domain once it exists —
+  // OG/twitter image URLs resolve against this base.
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
   title: "A serviço do museu",
   description:
     "Diretrizes de experiência para a instituição museo-educativa.",

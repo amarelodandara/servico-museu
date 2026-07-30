@@ -97,7 +97,24 @@
   "Collaborate": {
     "title": "Collaborate",
     "back": "Back to the digest",
-    "body": "This page will gather the ways to collaborate with the research. The contact form is still on its way — for now, this is just a placeholder for where it'll live."
+    "body": "Do you work at a museum in Belo Horizonte? We want to talk. During the second half of 2026 we're taking this research into the field, and it only works with the people who run museums day to day.",
+    "graphicTitle": "The research in one image",
+    "graphicIntro": "If you want to present the research to someone at your museum, this image sums up the study's strongest numbers — download and forward it freely."
+  },
+  "Outreach": {
+    "title": "Belo Horizonte's museums in numbers",
+    "stat_museums": "museums in the city",
+    "stat_educational": "with educational activities",
+    "stat_freeEntry": "with free admission",
+    "stat_guidedVisits": "offer guided visits",
+    "footer": "In service of the museum — service-design research, UEMG, 2026",
+    "alt": "Framed picture with four numbers about Belo Horizonte's museums: 223 museums in the city, 61.5% with educational activities, 87% with free admission and 68.3% offering guided visits.",
+    "caption": "The portrait of Belo Horizonte's museums according to the National Museum Registry (2025), with the authors' own calculations.",
+    "downloadPng": "Download as PNG"
+  },
+  "Share": {
+    "share": "Share",
+    "copied": "Link copied!"
   },
   "Outline": {
     "label": "Outline",

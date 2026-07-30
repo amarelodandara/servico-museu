@@ -97,7 +97,24 @@
   "Collaborate": {
     "title": "Colaborar",
     "back": "Voltar ao resumo",
-    "body": "Essa página vai reunir as formas de colaborar com a pesquisa. O formulário de contato ainda está a caminho — por enquanto, essa é só uma marcação do lugar onde ele vai morar."
+    "body": "Trabalha em um museu de Belo Horizonte? Queremos conversar. Durante o segundo semestre de 2026 vamos levar essa pesquisa a campo, e ela só funciona com gente que faz museu no dia a dia.",
+    "graphicTitle": "A pesquisa em uma imagem",
+    "graphicIntro": "Se quiser apresentar a pesquisa para alguém do seu museu, essa imagem resume os números mais fortes do estudo — baixe e encaminhe à vontade."
+  },
+  "Outreach": {
+    "title": "Museus de Belo Horizonte em números",
+    "stat_museums": "museus na cidade",
+    "stat_educational": "com atividades educativas",
+    "stat_freeEntry": "com entrada gratuita",
+    "stat_guidedVisits": "oferecem visitas guiadas",
+    "footer": "A serviço do museu — pesquisa em design de serviços, UEMG, 2026",
+    "alt": "Quadro com quatro números sobre os museus de Belo Horizonte: 223 museus na cidade, 61,5% com atividades educativas, 87% com entrada gratuita e 68,3% oferecendo visitas guiadas.",
+    "caption": "O retrato dos museus de Belo Horizonte segundo o Cadastro Nacional de Museus (2025), com cálculos das autoras.",
+    "downloadPng": "Baixar como PNG"
+  },
+  "Share": {
+    "share": "Compartilhar",
+    "copied": "Link copiado!"
   },
   "Outline": {
     "label": "Sumário",
