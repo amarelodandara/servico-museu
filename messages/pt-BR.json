@@ -148,6 +148,16 @@
     "formTitle": "Entre em contato",
     "formIntro": "Conta pra gente onde você trabalha e como podemos conversar. Respondemos todo mundo."
   },
+  "Cta": {
+    "title": "Seu museu faz parte dessa pesquisa?",
+    "intro": "O estudo tem um recorte: museus de Belo Horizonte. Busque pela instituição onde você trabalha — se ela estiver no recorte, é só falar com a gente.",
+    "searchLabel": "Nome da instituição",
+    "searchPlaceholder": "Busque pelo nome do museu",
+    "noMatch": "Não encontramos essa instituição no nosso recorte. A pesquisa começa por Belo Horizonte, mas queremos ouvir você mesmo assim — escreva para nicolysantos51@gmail.com.",
+    "matchTitle": "{institution} está no nosso recorte.",
+    "matchIntro": "Conta pra gente como podemos conversar. Respondemos todo mundo.",
+    "searchAgain": "Buscar outra"
+  },
   "Contact": {
     "name": "Nome",
     "email": "Email",

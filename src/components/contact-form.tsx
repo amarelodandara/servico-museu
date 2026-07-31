@@ -8,7 +8,13 @@ type Status = "idle" | "sending" | "sent" | "not_configured" | "error";
 const FIELD_CLASS =
   "font-lato w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-[var(--color-accent)] focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100";
 
-export function ContactForm() {
+/**
+ * `institution` pre-fills the field and takes it out of the form: the CTA
+ * search already established which museum the person is writing about, so
+ * asking again would be asking twice. It still travels to the API in a
+ * hidden input, so the route handler sees the same payload either way.
+ */
+export function ContactForm({ institution }: { institution?: string } = {}) {
   const t = useTranslations("Contact");
   const [status, setStatus] = useState<Status>("idle");
 
@@ -49,10 +55,14 @@ export function ContactForm() {
           <input name="email" type="email" required className={FIELD_CLASS} />
         </label>
       </div>
-      <label className="flex flex-col gap-1 text-sm">
-        {t("institution")}
-        <input name="institution" className={FIELD_CLASS} />
-      </label>
+      {institution ? (
+        <input type="hidden" name="institution" value={institution} />
+      ) : (
+        <label className="flex flex-col gap-1 text-sm">
+          {t("institution")}
+          <input name="institution" className={FIELD_CLASS} />
+        </label>
+      )}
       <label className="flex flex-col gap-1 text-sm">
         {t("message")}
         <textarea name="message" required rows={5} className={FIELD_CLASS} />

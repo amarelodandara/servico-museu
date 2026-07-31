@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { SidenoteProvider } from "@/components/sidenote";
 import { Contributors } from "@/components/contributors";
+import { InstitutionCta } from "@/components/institution-cta";
 import ContentPtBR from "@/content/pt-BR/index.mdx";
 import ContentEn from "@/content/en/index.mdx";
 
@@ -88,6 +89,8 @@ export default function DigestPage() {
             </div>
           </SidenoteProvider>
         </div>
+
+        <InstitutionCta />
       </main>
     </div>
   );

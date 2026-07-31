@@ -148,6 +148,16 @@
     "formTitle": "Get in touch",
     "formIntro": "Tell us where you work and how we can talk. We answer everyone."
   },
+  "Cta": {
+    "title": "Is your museum part of this research?",
+    "intro": "The study has a scope: museums in Belo Horizonte. Search for the institution you work at — if it falls inside, get in touch.",
+    "searchLabel": "Institution name",
+    "searchPlaceholder": "Search for the museum by name",
+    "noMatch": "We couldn't find that institution in our scope. The research starts in Belo Horizonte, but we still want to hear from you — write to nicolysantos51@gmail.com.",
+    "matchTitle": "{institution} is in our scope.",
+    "matchIntro": "Tell us how we can talk. We answer everyone.",
+    "searchAgain": "Search again"
+  },
   "Contact": {
     "name": "Name",
     "email": "Email",

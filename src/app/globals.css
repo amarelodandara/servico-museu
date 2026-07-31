@@ -347,7 +347,8 @@ body {
   .sidenote-desktop {
     display: block;
     padding-left: 1.5rem;
-    margin-top: 0.25rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
     font-size: 0.8125rem;
     line-height: 1.5;
     opacity: 0.75;
@@ -364,6 +365,13 @@ body {
     display: block;
     width: fit-content;
     border-top: 1px solid var(--rule-blue);
-    padding-top: 0.4rem;
+    background-color: var(--background-light);
+    /*
+     * Vertical padding only. Horizontal padding would push the rule past
+     * the text it's supposed to measure, which is the one thing this box
+     * exists to get right — so the fill ends where the line ends.
+     */
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
   }
 }
