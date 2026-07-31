@@ -7,11 +7,28 @@ import { LabelSwap, SwapLabel } from "@/components/ui/label-swap";
 
 type Status = "idle" | "sending" | "sent" | "not_configured" | "error";
 
-export const FIELD_CLASS =
-  "font-lato w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 " +
-  "transition-colors duration-150 ease-out " +
-  "focus:border-[var(--color-accent)] focus:outline-2 focus:outline-offset-1 focus:outline-[var(--color-accent)] " +
-  "dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100";
+/*
+ * Fields, matched to the button tiers rather than to a generic input style.
+ * The buttons sit *on* the page surface (`.button-raised`); a field is the
+ * opposite gesture, so it takes the recessed treatment the page already
+ * uses for artwork — `--shadow-inset-frame`, no border — and the two read
+ * as one depth language instead of two unrelated component kits.
+ *
+ * Radius, face and horizontal padding come from the buttons: `rounded-full`
+ * and `px-5` on single-line fields, matching a `lg` button exactly, so a
+ * field and the button under it line up on both edges. `FIELD_AREA_CLASS`
+ * takes the same treatment at a radius that survives multiple lines — a
+ * pill-shaped textarea would bow its corners away from the text.
+ */
+const FIELD_BASE =
+  "font-lato w-full bg-white px-5 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 " +
+  "shadow-[var(--shadow-inset-frame)] " +
+  "transition-[box-shadow,background-color] duration-150 ease-out " +
+  "focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-accent)] " +
+  "dark:bg-neutral-900 dark:text-neutral-100";
+
+export const FIELD_CLASS = `${FIELD_BASE} rounded-full`;
+export const FIELD_AREA_CLASS = `${FIELD_BASE} rounded-2xl py-3`;
 
 /**
  * `institution` pre-fills the field and takes it out of the form: the CTA
@@ -70,7 +87,12 @@ export function ContactForm({ institution }: { institution?: string } = {}) {
       )}
       <label className="flex flex-col gap-1 text-sm">
         {t("message")}
-        <textarea name="message" required rows={5} className={FIELD_CLASS} />
+        <textarea
+          name="message"
+          required
+          rows={5}
+          className={FIELD_AREA_CLASS}
+        />
       </label>
 
       <div className="flex items-center gap-4">
@@ -78,6 +100,7 @@ export function ContactForm({ institution }: { institution?: string } = {}) {
           type="submit"
           disabled={status === "sending"}
           className={buttonClass({
+            variant: "primary",
             size: "lg",
             className: "w-fit disabled:opacity-50",
           })}

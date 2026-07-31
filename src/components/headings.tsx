@@ -10,8 +10,14 @@ export function H1(props: ComponentPropsWithoutRef<"h1">) {
   return <h1 className="text-2xl text-center text-balance my-24" {...props} />;
 }
 
+/**
+ * The top margin is asymmetric on purpose: a section heading belongs to the
+ * text under it, so it needs more air above than below to read as a break
+ * rather than as a caption for the paragraph it follows. The digest column
+ * sets a 1.5rem rhythm via `space-y-6`, and this adds to it.
+ */
 export function H2(props: ComponentPropsWithoutRef<"h2">) {
-  return <h2 className="text-3xl"{...props} />;
+  return <h2 className="mt-16 text-3xl" {...props} />;
 }
 
 export function H3(props: ComponentPropsWithoutRef<"h3">) {

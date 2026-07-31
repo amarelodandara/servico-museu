@@ -39,7 +39,7 @@
     "share": "Share this research",
     "download": "Download the academic document",
     "about": "More about this site",
-    "developedBy": "Developed by Nicoly Dandara",
+    "developedBy": "Developed by <link>Nicoly Dandara</link>",
     "aboutTitle": "About this site",
     "aboutClose": "Close",
     "aboutHeading": "How it was made",
@@ -157,7 +157,30 @@
     "noMatch": "We couldn't find that institution in our scope. The research starts in Belo Horizonte, but we still want to hear from you — write to nicolysantos51@gmail.com.",
     "matchTitle": "{institution} is in our scope.",
     "matchIntro": "Tell us how we can talk. We answer everyone.",
-    "searchAgain": "Search again"
+    "searchAgain": "Search again",
+    "asideTitle": "What we ask of participants",
+    "asideBody": "One conversation of about an hour, in person or remote, about how visitors reach your institution and what happens next. No preparation needed — the questions start from the work you already do. Where there's room, we also ask to shadow a visit and watch the route through it.",
+    "asideReturnTitle": "What you get back",
+    "asideReturnBody": "A written account of what we found at your institution, ahead of final publication, and a named credit in the research — or anonymity, if you would rather.",
+    "timelineTitle": "Research timeline",
+    "timelineYear": "2026",
+    "timelinePhases": [
+      {
+        "key": "theory",
+        "label": "Theoretical research",
+        "span": "First half"
+      },
+      {
+        "key": "field",
+        "label": "Field research",
+        "span": "Third quarter"
+      },
+      {
+        "key": "publication",
+        "label": "Final publication",
+        "span": "December"
+      }
+    ]
   },
   "Contact": {
     "name": "Name",

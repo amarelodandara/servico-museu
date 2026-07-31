@@ -22,15 +22,37 @@ export const CONTRIBUTORS = [
  * riding in its own overlay rather than on the container, since an inset
  * shadow paints above the background but below the element's content and
  * the photograph would otherwise cover it.
+ *
+ * `className` and `style` replace the frame's own sizing, for artwork that
+ * isn't a portrait — `style` because a ratio taken from the artwork itself
+ * is a computed value, not one of Tailwind's steps. `grain` turns the film
+ * layer off for artwork that carries its own: the hero shader generates
+ * grain as part of the image, and laying the tile over it just muddies
+ * both.
  */
-export function FramedArtwork({ children }: { children: React.ReactNode }) {
+export function FramedArtwork({
+  children,
+  className = "aspect-[3/4] h-40",
+  style,
+  grain = true,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  grain?: boolean;
+}) {
   return (
-    <div className="relative isolate aspect-[3/4] h-40 overflow-hidden rounded-sm">
+    <div
+      className={`relative isolate overflow-hidden rounded-sm ${className}`}
+      style={style}
+    >
       {children}
-      <div
-        className="photo-grain pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      />
+      {grain && (
+        <div
+          className="photo-grain pointer-events-none absolute inset-0"
+          aria-hidden="true"
+        />
+      )}
       <div
         className="pointer-events-none absolute inset-0 rounded-sm"
         style={{ boxShadow: "var(--shadow-inset-frame)" }}

@@ -79,9 +79,17 @@ export default async function LocaleLayout({
           <div className="page-gradient flex min-h-full flex-1 flex-col">
             <nav className="flex items-center justify-end px-6 py-4">
 
-              <div className="flex items-center gap-4">
+              {/* Hairline between the two, at the same weight as the rest of
+                  the page's rules. It's doing real work here: the language
+                  switch lies flat on the surface and the lamp has no frame
+                  of its own, so without it the pair reads as one control. */}
+              <div className="flex items-center gap-3">
                 <LocaleSwitcher />
-                <ThemeToggle />
+                <span
+                  aria-hidden
+                  className="h-4 w-px bg-black/10 dark:bg-white/15"
+                />
+                <ThemeToggle variant="bare" />
               </div>
             </nav>
 

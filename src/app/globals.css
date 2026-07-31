@@ -35,6 +35,20 @@
   /* Hairline blue for spec-drawing rules (the sidenote lines). */
   --rule-blue: #9dbde8;
 
+  /* The wash behind a margin note — the palest step of the same blue as the
+     rule above it, so note and rule read as one drawn annotation. */
+  --sidenote-tint: #eef4fb;
+
+  /*
+   * Pull-quote ink. Deliberately not --color-accent: that blue is sized for
+   * small marks on a light ground (sidenote numbers, focus rings), and at
+   * 24px across a full line it turns the quote into the loudest thing on
+   * the page. This is several steps down in lightness — still unmistakably
+   * the accent hue, dark enough to be read as text rather than as a
+   * highlight.
+   */
+  --quote-ink: #1a3a72;
+
   /* dataviz categorical slots 1/2 (blue/orange), validated for CVD + contrast */
   --series-1: #2a78d6;
   --series-2: #eb6834;
@@ -75,6 +89,53 @@
   --shadow-float: 0 8px 28px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.1);
 
   /*
+   * The other end of the depth scale. The page frames its images the way a
+   * museum does — they sink through a paper mat into the wall (--shadow-mat),
+   * below the surface you're reading on. Interactive things go the other way:
+   * they sit *on top of* that surface, the one plane you can actually touch.
+   *
+   * Held to the same restraint as the recessed end: every layer under 6%
+   * alpha, depth from a hairline plus a barely-there blur rather than one
+   * heavy shadow. The whole scale, low to high:
+   *
+   *   --shadow-mat         artwork, sunk into the wall
+   *   (the page itself)    zero
+   *   --shadow-raise       a control at rest, just off the surface
+   *   --shadow-raise-high  the same control under the pointer
+   *
+   * The two raise steps are deliberately close. The lift should register as
+   * "this responded", not as an object jumping at the reader — the gap
+   * between them is about 4px of apparent height.
+   */
+  --shadow-raise:
+    0 0 0 1px rgb(0 0 0 / 0.04), 0 1px 2px rgb(0 0 0 / 0.05),
+    0 2px 6px rgb(0 0 0 / 0.045);
+  --shadow-raise-high:
+    0 0 0 1px rgb(0 0 0 / 0.05), 0 2px 4px rgb(0 0 0 / 0.055),
+    0 8px 20px rgb(0 0 0 / 0.06);
+
+  /*
+   * The same two steps without the hairline ring — height from cast shadow
+   * alone. For raised surfaces whose own fill already separates them from
+   * the page, where a ring reads as a drawn border rather than as an edge.
+   * The blurs carry a little more alpha to make up the lost definition,
+   * still inside the 6% band.
+   */
+  --shadow-raise-bare:
+    0 1px 2px rgb(0 0 0 / 0.055), 0 2px 6px rgb(0 0 0 / 0.05);
+  --shadow-raise-bare-high:
+    0 2px 4px rgb(0 0 0 / 0.06), 0 8px 20px rgb(0 0 0 / 0.06);
+
+  /*
+   * Raised-surface fills. The primary takes the accent blue — it's the one
+   * colour the page already spends on "this was added, look here" — and the
+   * secondary takes a white plate, the same paper the mat is cut from, so the
+   * two raised tiers read as the same material at different heights.
+   */
+  --raise-fill: var(--color-accent);
+  --raise-plate: #ffffff;
+
+  /*
    * Dark steps, parked in their own slots rather than written straight into
    * a dark-mode rule. Two rules switch schemes — the `data-theme` one and
    * the no-JS media fallback — and this way they share one source of truth:
@@ -85,6 +146,11 @@
   --dark-background-light: #151515;
   --dark-foreground: #ededed;
   --dark-rule-blue: #3b5b86;
+  --dark-sidenote-tint: #141c26;
+  /* Inverted, necessarily: "darker" is a light-mode instruction. On a
+     near-black page the same job — quieter than the accent, still clearly
+     the accent hue — means going lighter, not deeper. */
+  --dark-quote-ink: #9dc0f0;
 
   --dark-series-1: #3987e5;
   --dark-series-2: #d95926;
@@ -103,6 +169,29 @@
     inset 0 0 0 1px rgb(255 255 255 / 0.08),
     inset 0 1px 4px rgb(255 255 255 / 0.035);
   --dark-shadow-float: 0 8px 28px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
+
+  /*
+   * Raise, flipped. Cast shadow alone can't lift anything off a near-black
+   * page — there's no light left to take away — so the height reads from the
+   * hairline instead: it brightens as the control rises, the way a lit edge
+   * catches more of the room the further it comes off the wall. The blurs
+   * stay, doing the quieter half of the job.
+   */
+  --dark-shadow-raise:
+    0 0 0 1px rgb(255 255 255 / 0.09), 0 1px 2px rgb(0 0 0 / 0.4),
+    0 2px 6px rgb(0 0 0 / 0.3);
+  --dark-shadow-raise-high:
+    0 0 0 1px rgb(255 255 255 / 0.16), 0 2px 4px rgb(0 0 0 / 0.45),
+    0 8px 20px rgb(0 0 0 / 0.4);
+
+  /* Ringless, dark. Here the plate's own fill is doing the separating. */
+  --dark-shadow-raise-bare:
+    0 1px 2px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.35);
+  --dark-shadow-raise-bare-high:
+    0 2px 4px rgb(0 0 0 / 0.5), 0 8px 20px rgb(0 0 0 / 0.45);
+
+  /* The plate goes to a lifted neutral — white would glare at this size. */
+  --dark-raise-plate: #202020;
 }
 
 @theme {
@@ -155,6 +244,8 @@
   --background-light: var(--dark-background-light);
   --foreground: var(--dark-foreground);
   --rule-blue: var(--dark-rule-blue);
+  --sidenote-tint: var(--dark-sidenote-tint);
+  --quote-ink: var(--dark-quote-ink);
   --series-1: var(--dark-series-1);
   --series-2: var(--dark-series-2);
   --fig-pink: var(--dark-fig-pink);
@@ -166,6 +257,11 @@
   --shadow-hairline: var(--dark-shadow-hairline);
   --shadow-inset-frame: var(--dark-shadow-inset-frame);
   --shadow-float: var(--dark-shadow-float);
+  --shadow-raise: var(--dark-shadow-raise);
+  --shadow-raise-high: var(--dark-shadow-raise-high);
+  --shadow-raise-bare: var(--dark-shadow-raise-bare);
+  --shadow-raise-bare-high: var(--dark-shadow-raise-bare-high);
+  --raise-plate: var(--dark-raise-plate);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -174,6 +270,8 @@
     --background-light: var(--dark-background-light);
     --foreground: var(--dark-foreground);
     --rule-blue: var(--dark-rule-blue);
+    --sidenote-tint: var(--dark-sidenote-tint);
+    --quote-ink: var(--dark-quote-ink);
     --series-1: var(--dark-series-1);
     --series-2: var(--dark-series-2);
     --fig-pink: var(--dark-fig-pink);
@@ -185,6 +283,11 @@
     --shadow-hairline: var(--dark-shadow-hairline);
     --shadow-inset-frame: var(--dark-shadow-inset-frame);
     --shadow-float: var(--dark-shadow-float);
+    --shadow-raise: var(--dark-shadow-raise);
+    --shadow-raise-high: var(--dark-shadow-raise-high);
+    --shadow-raise-bare: var(--dark-shadow-raise-bare);
+    --shadow-raise-bare-high: var(--dark-shadow-raise-bare-high);
+    --raise-plate: var(--dark-raise-plate);
   }
 }
 
@@ -233,6 +336,17 @@ body {
  */
 .paspateur-bg {
   background-color: #ffffff;
+
+  /*
+   * A raised control standing on the mat can't use the default white plate
+   * — white on white leaves nothing but a 5% shadow to separate them. Inside
+   * a mat the plate takes the page's own tinted surface instead, which is
+   * the same relationship the plate has to the page everywhere else, just
+   * with the two surfaces swapped. Hardcoded rather than pointed at
+   * `--background` because the mat itself is unconditionally white: it does
+   * not follow the theme, so neither can anything sitting on it.
+   */
+  --raise-plate: #f2f6f7;
 }
 
 .paspateur-noise {
@@ -300,6 +414,244 @@ body {
     mix-blend-mode: overlay;
     opacity: 0.24;
   }
+}
+
+/*
+ * Raised controls. The page reads as a surface with the images set *into*
+ * it; these are the things sitting *on* it, and they're the only elements
+ * on the page that cast rather than catch a shadow.
+ *
+ * Both shadow steps live on pseudo-elements and crossfade by opacity rather
+ * than being one animated `box-shadow`. Shadow is a paint-stage property —
+ * transitioning it repaints the element every frame — while two stacked
+ * pseudos crossfading are pure compositing, and they interrupt cleanly when
+ * the pointer leaves mid-lift.
+ *
+ *   ::before  resting height, fades *down* on press
+ *   ::after   hover height, fades up under the pointer, out again on press
+ *
+ * Press pulls both: the control drops back to the surface (translateY(0))
+ * and gives under the finger (scale(0.97)) while its shadow tightens. It's
+ * the one moment the height goes to zero, which is what makes it read as
+ * contact rather than as a colour change.
+ */
+.button-raised {
+  position: relative;
+  isolation: isolate;
+  transform: translateY(0);
+  transition: transform 200ms var(--ease-out);
+}
+
+.button-raised::before,
+.button-raised::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.button-raised::before {
+  box-shadow: var(--shadow-raise);
+}
+
+.button-raised::after {
+  box-shadow: var(--shadow-raise-high);
+  opacity: 0;
+}
+
+/*
+ * Hover is gated to real pointers: on touch it sticks after a tap, leaving
+ * the control lifted with nothing hovering it. Keyboard focus lifts too —
+ * arriving by Tab is as deliberate as arriving by pointer.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .button-raised:hover {
+    transform: translateY(-1px);
+  }
+
+  .button-raised:hover::after {
+    opacity: 1;
+  }
+}
+
+.button-raised:focus-visible {
+  transform: translateY(-1px);
+}
+
+.button-raised:focus-visible::after {
+  opacity: 1;
+}
+
+/* After the hover rules on purpose: equal specificity, so order decides. */
+.button-raised:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 120ms;
+}
+
+.button-raised:active::before {
+  opacity: 0.55;
+  transition-duration: 120ms;
+}
+
+.button-raised:active::after {
+  opacity: 0;
+  transition-duration: 120ms;
+}
+
+/*
+ * A disabled control still occupies its height but stops responding to
+ * anything — no lift, no give. Last in the cascade so it outranks the hover
+ * and press rules above regardless of which of them also match.
+ */
+.button-raised:disabled,
+.button-raised:disabled:hover,
+.button-raised:disabled:active,
+.button-raised[aria-disabled="true"],
+.button-raised[aria-disabled="true"]:hover,
+.button-raised[aria-disabled="true"]:active {
+  transform: none;
+}
+
+.button-raised:disabled::after,
+.button-raised[aria-disabled="true"]::after {
+  opacity: 0;
+}
+
+.button-raised:disabled::before,
+.button-raised[aria-disabled="true"]::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-raised,
+  .button-raised:hover,
+  .button-raised:focus-visible,
+  .button-raised:active {
+    transform: none;
+  }
+}
+
+/*
+ * The primary's surface: accent blue carrying the same grain tile as the
+ * photographs. Same texture, same pixel-chunky treatment — the point is that
+ * the raised plane is made of the page's material, not of some new one.
+ *
+ * Done with `background-blend-mode` rather than the overlay element the
+ * photos use, because a button's box is already spoken for: `::before` and
+ * `::after` are holding the two shadow steps. Layers, top down:
+ *
+ *   1. a veil of the fill at 78%, blended `normal`
+ *   2. the grain tile, blended `overlay` against the colour beneath
+ *   3. `background-color`, the flat fill
+ *
+ * The veil is what sets grain strength — it washes the blended result back
+ * toward flat, leaving 16% of the texture, matching the 0.16 the
+ * photographs carry. Raise the veil percentage for less grain, lower it for
+ * more.
+ *
+ * Deliberately NOT `image-rendering: pixelated`, which is the one place
+ * this parts ways with `.photo-grain`. Holding the tile chunky is right over
+ * a photograph — the image's own detail absorbs the hard tile edges and what
+ * survives reads as film. Over a flat fill there's no detail to absorb them,
+ * so every noise pixel stays a visible square and the texture reads as
+ * pixelation, worse the further the page is zoomed. Smoothing lets the same
+ * tile resolve as grain at any scale.
+ */
+.button-grain {
+  background-color: var(--raise-fill);
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--raise-fill) 84%, transparent) 0 100%
+    ),
+    url("/grain.png");
+  background-blend-mode: normal, overlay;
+  background-repeat: no-repeat, repeat;
+  /* Half the tile's natural 128px, so the noise cell lands near a single
+     device pixel on retina — grain fine enough to sit under text. */
+  background-size: auto, 64px 64px;
+  color: #ffffff;
+}
+
+/*
+ * The secondary's surface: the plate, no texture. Grain is what marks the
+ * primary out, so spending it here would flatten the difference between the
+ * two tiers back to colour alone.
+ */
+.button-plate {
+  background-color: var(--raise-plate);
+  color: var(--foreground);
+}
+
+/*
+ * No hairline on the plate. The ring is genuinely useful under the grain
+ * primary, where it keeps the textured fill from fraying into the page, but
+ * on a flat plate it stops reading as an edge and starts reading as a drawn
+ * border — the one thing this tier isn't. Height comes from cast shadow
+ * alone; the plate's own fill does the separating.
+ *
+ * These sit after `.button-raised` deliberately: same specificity, so the
+ * cascade order is what lets them win.
+ */
+.button-plate::before {
+  box-shadow: var(--shadow-raise-bare);
+}
+
+.button-plate::after {
+  box-shadow: var(--shadow-raise-bare-high);
+}
+
+/*
+ * The third tier: text lying flat on the page, with no height of its own
+ * until you reach for it. Chrome like the language switch belongs here —
+ * it's always present and rarely wanted, so giving it standing height would
+ * have it competing with the page's actual actions from every scroll
+ * position.
+ *
+ * Hover brings it up to the *resting* step and stops there, level with the
+ * raised tier rather than above it: `.button-raised:hover::after` would
+ * otherwise take it straight to the hover step, and jumping from flush to
+ * the top of the scale in one move overshoots what a hover is saying.
+ */
+.button-flush {
+  background-color: transparent;
+}
+
+.button-flush::before {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-flush:hover {
+    background-color: var(--raise-plate);
+  }
+
+  .button-flush:hover::before {
+    opacity: 1;
+  }
+
+  .button-flush:hover::after {
+    opacity: 0;
+  }
+}
+
+.button-flush:focus-visible {
+  background-color: var(--raise-plate);
+}
+
+.button-flush:focus-visible::before {
+  opacity: 1;
+}
+
+.button-flush:focus-visible::after {
+  opacity: 0;
+}
+
+/* Pressed from flush: it has no height to give up, so only the scale reads. */
+.button-flush:active::before {
+  opacity: 1;
 }
 
 .overlay-scrim {
@@ -507,11 +859,18 @@ body {
     margin-right: -75%;
   }
 
+  /*
+   * Lato, not the body serif. A margin note is apparatus rather than prose —
+   * the same register as the page's other labels — and setting it in a
+   * different voice is what keeps the eye from reading it as a continuation
+   * of the sentence it hangs off.
+   */
   .sidenote-desktop {
     display: block;
     padding-left: 1.5rem;
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
+    font-family: var(--font-lato), sans-serif;
     font-size: 0.8125rem;
     line-height: 1.5;
     opacity: 0.75;
@@ -567,13 +926,33 @@ body {
     display: block;
     width: fit-content;
     border-top: 1px solid var(--rule-blue);
-    background-color: var(--background-light);
     /*
-     * Vertical padding only. Horizontal padding would push the rule past
-     * the text it's supposed to measure, which is the one thing this box
-     * exists to get right — so the fill ends where the line ends.
+     * The fill fades out downward rather than sitting as a flat block: the
+     * note is anchored by its rule at the top, so the tint is strongest
+     * where the rule meets it and has given out entirely by the last line.
+     * It reads as a wash bleeding down from the line instead of a box the
+     * text has been put inside.
      */
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
+    background-image: linear-gradient(
+      to bottom,
+      var(--sidenote-tint) 0%,
+      color-mix(in oklab, var(--sidenote-tint) 35%, transparent) 55%,
+      transparent 100%
+    );
+    /*
+     * The horizontal padding costs something worth naming: the box is
+     * `fit-content`, so the rule on top now overhangs the text it measures
+     * by 0.75rem at each end rather than ending exactly where the line
+     * does. That precision was the right call when the note was untinted
+     * and the rule was the only mark on it — but a filled panel whose text
+     * runs into its own edges reads as clipped, and legibility of the note
+     * beats exactness of the rule.
+     *
+     * Pulled back left by the same amount so the note's first character
+     * still lines up with where it sat before the fill existed; the panel
+     * grows outward into the margin instead of shoving the text right.
+     */
+    padding: 0.6rem 0.75rem;
+    margin-left: -0.75rem;
   }
 }

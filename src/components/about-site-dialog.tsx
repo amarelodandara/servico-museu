@@ -40,7 +40,7 @@ export function AboutSiteDialog() {
         aria-expanded={open}
         onClick={() => setOpen(true)}
         className={buttonClass({
-          variant: "quiet",
+          variant: "tertiary",
           size: "sm",
           surface: "light",
           className: "w-fit text-neutral-600",

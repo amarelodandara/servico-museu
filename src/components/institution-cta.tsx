@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useId, useMemo, useRef, useState } from "react";
 import { ContactForm, FIELD_CLASS } from "@/components/contact-form";
+import { ResearchTimeline } from "@/components/research-timeline";
 import { buttonClass } from "@/components/ui/button";
 import { INSTITUTIONS, type Institution } from "@/content/institutions";
 import { fuzzySearch, normalize } from "@/lib/fuzzy";
@@ -82,116 +83,157 @@ export function InstitutionCta() {
       aria-labelledby={`${listId}-title`}
       className="mx-auto w-10/12 px-6 py-24"
     >
-      <div className="mx-auto grid max-w-3xl gap-6 text-center">
-        <h2 id={`${listId}-title`} className="text-3xl tracking-tight text-balance">
-          {t("title")}
-        </h2>
-        <p className="mx-auto max-w-xl text-balance text-neutral-600 dark:text-neutral-400">
-          {t("intro")}
-        </p>
+      {/*
+        Two columns from `lg` up: the terms of taking part on the left, the
+        ask itself on the right. Stacked below that — and stacked in source
+        order, so the ask comes second either way, after the reader knows
+        what they'd be agreeing to.
 
-        <div className="mx-auto w-full max-w-md text-left">
-          <label htmlFor={`${listId}-input`} className="font-lato text-sm">
-            {t("searchLabel")}
-          </label>
-
-          <div className="relative mt-1">
-            <input
-              id={`${listId}-input`}
-              ref={inputRef}
-              type="text"
-              role="combobox"
-              aria-expanded={showList}
-              aria-controls={listId}
-              aria-autocomplete="list"
-              aria-activedescendant={
-                showList ? `${listId}-option-${activeIndex}` : undefined
-              }
-              autoComplete="off"
-              value={query}
-              placeholder={t("searchPlaceholder")}
-              onChange={(event) => {
-                setQuery(event.target.value);
-                setSelected(null);
-                setActiveIndex(0);
-              }}
-              onKeyDown={onKeyDown}
-              className={FIELD_CLASS}
-            />
-
-            {showList && (
-              <ul
-                id={listId}
-                role="listbox"
-                className="combobox-list absolute z-10 mt-1 w-full overflow-hidden rounded-md border border-neutral-300 bg-white shadow-[var(--shadow-float)] dark:border-neutral-700 dark:bg-neutral-900"
-              >
-                {matches.map((match, index) => (
-                  <li key={match.item.name}>
-                    <button
-                      type="button"
-                      id={`${listId}-option-${index}`}
-                      role="option"
-                      aria-selected={index === activeIndex}
-                      onMouseEnter={() => setActiveIndex(index)}
-                      onClick={() => choose(match.item)}
-                      className={`font-lato block w-full px-3 py-2 text-left text-sm transition-colors duration-100 ease-out ${
-                        index === activeIndex
-                          ? "bg-neutral-100 dark:bg-neutral-800"
-                          : ""
-                      }`}
-                    >
-                      {match.item.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+        `items-start` rather than stretch: the left column is a fixed block
+        of prose and shouldn't grow to match a right column that changes
+        height when the form opens.
+      */}
+      <div className="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        <aside className="font-lato flex flex-col gap-8 text-left text-sm">
+          <div className="flex flex-col gap-2">
+            <h3 className="text-base font-semibold tracking-tight">
+              {t("asideTitle")}
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              {t("asideBody")}
+            </p>
           </div>
 
-          <p aria-live="polite" className="mt-2 text-sm">
-            {showNoMatch && (
-              <span className="text-neutral-600 dark:text-neutral-400">
-                {t("noMatch")}
-              </span>
-            )}
-          </p>
-        </div>
-      </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-base font-semibold tracking-tight">
+              {t("asideReturnTitle")}
+            </h3>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              {t("asideReturnBody")}
+            </p>
+          </div>
 
-      {selected && (
-        <div className="mx-auto mt-10 max-w-2xl">
-          {/* Theme-aware card rather than the footer's white paper mat: the
-              form's own fields and buttons carry dark: variants, and a
-              surface that stayed white in dark mode would fight them. */}
-          <div
-            className="rounded-sm border border-neutral-200 bg-white px-8 py-8 dark:border-neutral-800 dark:bg-neutral-900"
-            style={{ boxShadow: "var(--shadow-mat)" }}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-base font-semibold tracking-tight">
+              {t("timelineTitle")}
+            </h3>
+            <ResearchTimeline />
+          </div>
+        </aside>
+
+        <div className="grid gap-6 text-center lg:text-left">
+          <h2
+            id={`${listId}-title`}
+            className="text-3xl tracking-tight text-balance"
           >
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <p className="text-lg tracking-tight text-balance">
-                {t("matchTitle", { institution: selected.name })}
-              </p>
-              <button
-                type="button"
-                onClick={reset}
-                className={buttonClass({
-                  variant: "quiet",
-                  size: "sm",
-                  className: "-mr-3",
-                })}
-              >
-                {t("searchAgain")}
-              </button>
+            {t("title")}
+          </h2>
+          <p className="mx-auto max-w-xl text-balance text-neutral-600 lg:mx-0 dark:text-neutral-400">
+            {t("intro")}
+          </p>
+
+          <div className="mx-auto w-full max-w-md text-left lg:mx-0">
+            <label htmlFor={`${listId}-input`} className="font-lato text-sm">
+              {t("searchLabel")}
+            </label>
+
+            <div className="relative mt-1">
+              <input
+                id={`${listId}-input`}
+                ref={inputRef}
+                type="text"
+                role="combobox"
+                aria-expanded={showList}
+                aria-controls={listId}
+                aria-autocomplete="list"
+                aria-activedescendant={
+                  showList ? `${listId}-option-${activeIndex}` : undefined
+                }
+                autoComplete="off"
+                value={query}
+                placeholder={t("searchPlaceholder")}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  setSelected(null);
+                  setActiveIndex(0);
+                }}
+                onKeyDown={onKeyDown}
+                className={FIELD_CLASS}
+              />
+
+              {showList && (
+                <ul
+                  id={listId}
+                  role="listbox"
+                  className="combobox-list absolute z-10 mt-1 w-full overflow-hidden rounded-2xl bg-white shadow-[var(--shadow-float)] dark:bg-neutral-900"
+                >
+                  {matches.map((match, index) => (
+                    <li key={match.item.name}>
+                      <button
+                        type="button"
+                        id={`${listId}-option-${index}`}
+                        role="option"
+                        aria-selected={index === activeIndex}
+                        onMouseEnter={() => setActiveIndex(index)}
+                        onClick={() => choose(match.item)}
+                        className={`font-lato block w-full px-5 py-2 text-left text-sm transition-colors duration-100 ease-out ${
+                          index === activeIndex
+                            ? "bg-neutral-100 dark:bg-neutral-800"
+                            : ""
+                        }`}
+                      >
+                        {match.item.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
-            <p className="font-lato mt-1 mb-6 text-sm text-neutral-600 dark:text-neutral-400">
-              {t("matchIntro")}
+            <p aria-live="polite" className="mt-2 text-sm">
+              {showNoMatch && (
+                <span className="text-neutral-600 dark:text-neutral-400">
+                  {t("noMatch")}
+                </span>
+              )}
             </p>
-
-            <ContactForm institution={selected.name} />
           </div>
+
+          {/* The form opens inside this column rather than under the whole
+              section: it belongs to the search that produced it, and letting
+              it span both columns would leave the terms on the left orphaned
+              beside a full-width card. */}
+          {selected && (
+            <div
+              className="rounded-sm border border-neutral-200 bg-white px-8 py-8 text-left dark:border-neutral-800 dark:bg-neutral-900"
+              style={{ boxShadow: "var(--shadow-mat)" }}
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <p className="text-lg tracking-tight text-balance">
+                  {t("matchTitle", { institution: selected.name })}
+                </p>
+                <button
+                  type="button"
+                  onClick={reset}
+                  className={buttonClass({
+                    variant: "quiet",
+                    size: "sm",
+                    className: "-mr-3",
+                  })}
+                >
+                  {t("searchAgain")}
+                </button>
+              </div>
+
+              <p className="font-lato mt-1 mb-6 text-sm text-neutral-600 dark:text-neutral-400">
+                {t("matchIntro")}
+              </p>
+
+              <ContactForm institution={selected.name} />
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }

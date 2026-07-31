@@ -152,7 +152,9 @@ export function Sidenote({ children }: { children: ReactNode }) {
               >
                 ← {t("back")}
               </button>
-              <p className="text-sm text-neutral-700 dark:text-neutral-300">
+              {/* Same tint and same sans face as the desktop margin note —
+                  one presentation switch, not two different notes. */}
+              <p className="font-lato rounded-sm bg-[var(--sidenote-tint)] p-3 text-sm text-neutral-700 dark:text-neutral-300">
                 <span className="mr-1 font-medium text-[var(--color-accent)]">
                   {number}.
                 </span>

@@ -36,10 +36,16 @@ export async function Footer() {
       />
 
       <div
-        className="paspateur-bg relative mx-auto flex max-w-2xl flex-col items-center gap-6 rounded-sm px-8 py-10 text-center text-balance text-neutral-900 lg:max-w-4xl lg:px-16 xl:max-w-6xl"
+        className="paspateur-bg relative mx-auto flex max-w-2xl flex-col items-center gap-6 rounded-sm px-8 py-16 text-center text-balance text-neutral-900 lg:max-w-4xl lg:px-16 lg:py-20 xl:max-w-6xl"
         style={{ boxShadow: "var(--shadow-mat)" }}
       >
-        <p className="text-3xl tracking-tight">{t("title")}</p>
+        {/* Capped by measure, not by viewport: the mat grows to 6xl on wide
+            screens, and without a limit here the title would straighten out
+            into one very long line. ~44ch breaks both the Portuguese and the
+            English title across two, and `text-balance` evens them out. */}
+        <p className="max-w-[44ch] text-3xl tracking-tight text-balance">
+          {t("title")}
+        </p>
 
         {/* Extra air around the portrait row: at this size the frames need
             to read as a band of their own, not as another line of type. */}
@@ -51,6 +57,7 @@ export async function Footer() {
             href="/academic.pdf"
             download
             className={buttonClass({
+              variant: "primary",
               size: "lg",
               surface: "light",
               className: "w-fit",
@@ -64,7 +71,19 @@ export async function Footer() {
       </div>
 
       <p className="font-lato relative mt-12 border-t border-neutral-200 pt-6 text-xs text-neutral-500 dark:border-neutral-800">
-        {t("developedBy")} — {year}
+        {t.rich("developedBy", {
+          link: (chunks) => (
+            <a
+              href="https://adandara.com"
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-neutral-400 underline-offset-2 transition-colors duration-150 ease-out hover:text-neutral-900 hover:decoration-neutral-600 dark:hover:text-neutral-100"
+            >
+              {chunks}
+            </a>
+          ),
+        })}{" "}
+        — {year}
       </p>
     </footer>
   );

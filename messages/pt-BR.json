@@ -39,7 +39,7 @@
     "share": "Compartilhar pesquisa",
     "download": "Baixar documento acadêmico",
     "about": "Ver mais sobre esse site",
-    "developedBy": "Desenvolvido por Nicoly Dandara",
+    "developedBy": "Desenvolvido por <link>Nicoly Dandara</link>",
     "aboutTitle": "Sobre esse site",
     "aboutClose": "Fechar",
     "aboutHeading": "O desenvolvimento",
@@ -157,7 +157,30 @@
     "noMatch": "Não encontramos essa instituição no nosso recorte. A pesquisa começa por Belo Horizonte, mas queremos ouvir você mesmo assim — escreva para nicolysantos51@gmail.com.",
     "matchTitle": "{institution} está no nosso recorte.",
     "matchIntro": "Conta pra gente como podemos conversar. Respondemos todo mundo.",
-    "searchAgain": "Buscar outra"
+    "searchAgain": "Buscar outra",
+    "asideTitle": "O que esperamos de quem participa",
+    "asideBody": "Uma conversa de cerca de uma hora, presencial ou remota, sobre como o público chega até a sua instituição e o que acontece depois. Nada de preparo prévio: as perguntas partem do trabalho que você já faz. Se houver espaço, pedimos também uma visita acompanhada para observar o percurso de visita.",
+    "asideReturnTitle": "O que você recebe de volta",
+    "asideReturnBody": "Um relatório com o que encontramos na sua instituição, antes da publicação final, e crédito nominal na pesquisa — ou anonimato, se preferir.",
+    "timelineTitle": "Cronograma da pesquisa",
+    "timelineYear": "2026",
+    "timelinePhases": [
+      {
+        "key": "theory",
+        "label": "Pesquisa teórica",
+        "span": "1º semestre"
+      },
+      {
+        "key": "field",
+        "label": "Pesquisa de campo",
+        "span": "3º trimestre"
+      },
+      {
+        "key": "publication",
+        "label": "Publicação final",
+        "span": "Dezembro"
+      }
+    ]
   },
   "Contact": {
     "name": "Nome",

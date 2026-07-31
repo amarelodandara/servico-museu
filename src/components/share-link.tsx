@@ -54,7 +54,8 @@ export function ShareLink({
       type="button"
       onClick={share}
       className={buttonClass({
-        variant: "outline",
+        variant: "secondary",
+        size: "lg",
         surface,
         className: "w-fit",
       })}

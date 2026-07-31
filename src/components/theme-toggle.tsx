@@ -5,7 +5,18 @@ import { useEffect, useState } from "react";
 
 export const THEME_STORAGE_KEY = "theme";
 
-export function ThemeToggle() {
+/**
+ * `wood` is the lamp in its gilt moulding: a grained frame, a rebate, the
+ * canvas sunk into it. `bare` is the same lamp with the picture-frame
+ * conceit dropped entirely — square, no frame, no fill, nothing but the
+ * light. A white hairline was tried in between and read as a stray box on
+ * the light page, which is what sent this the rest of the way to nothing.
+ */
+export type ThemeToggleVariant = "wood" | "bare";
+
+export function ThemeToggle({
+  variant = "wood",
+}: { variant?: ThemeToggleVariant } = {}) {
   const t = useTranslations("Theme");
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
@@ -41,6 +52,11 @@ export function ThemeToggle() {
   };
 
   const lit = theme === "light";
+  const bare = variant === "bare";
+
+  const shell = bare
+    ? ""
+    : "border border-[#a9835a] p-px hover:border-[#8d6a45] dark:border-[#6d543a] dark:hover:border-[#8d6a45]";
 
   return (
     <button
@@ -48,26 +64,43 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={lit ? t("switchToDark") : t("switchToLight")}
       title={lit ? t("switchToDark") : t("switchToLight")}
-      className="group rounded-[2px] border border-[#a9835a] p-px transition-[border-color,transform] duration-150 ease-out hover:border-[#8d6a45] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] dark:border-[#6d543a] dark:hover:border-[#8d6a45]"
-      style={{
-        /* Wood, not paint: a two-stop grain across the moulding, plus the
-           soft pair of shadows — a wide, low-alpha drop outside so the
-           frame lifts off the nav, and the recess inside the rebate. */
-        backgroundImage:
-          "linear-gradient(115deg, #c69c6d 0%, #a97c4f 38%, #c9a274 62%, #a97c4f 100%)",
-        boxShadow: "0 2px 10px rgb(0 0 0 / 0.1), 0 1px 2px rgb(0 0 0 / 0.06)",
-      }}
+      className={`group rounded-[2px] transition-[border-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${shell}`}
+      style={
+        bare
+          ? undefined
+          : {
+              /* Wood, not paint: a two-stop grain across the moulding, plus
+                 the soft pair of shadows — a wide, low-alpha drop outside so
+                 the frame lifts off the nav, and the recess inside the
+                 rebate. */
+              backgroundImage:
+                "linear-gradient(115deg, #c69c6d 0%, #a97c4f 38%, #c9a274 62%, #a97c4f 100%)",
+              boxShadow:
+                "0 2px 10px rgb(0 0 0 / 0.1), 0 1px 2px rgb(0 0 0 / 0.06)",
+            }
+      }
     >
       {/* The moulding is the button's border and its own wood fill; this
           inner box is the canvas. `overflow-hidden` is what keeps the light
           inside the frame however far the cone is drawn, and the inset
-          shadow is the rebate the canvas sits down into. */}
+          shadow is the rebate the canvas sits down into — neither of which
+          the bare variant has any use for, having no moulding at all.
+
+          Square there, and the 36x24 viewBox letterboxes itself: SVG's
+          default `xMidYMid meet` fits the drawing to the width and centres
+          it, so the lamp keeps its proportions instead of stretching. */}
       <span
-        className="block h-6 w-9 overflow-hidden rounded-[1px]"
-        style={{
-          boxShadow:
-            "inset 0 0 0 1px rgb(0 0 0 / 0.06), inset 0 1px 5px rgb(0 0 0 / 0.14)",
-        }}
+        className={`block overflow-hidden rounded-[1px] ${
+          bare ? "h-7 w-7" : "h-6 w-9"
+        }`}
+        style={
+          bare
+            ? undefined
+            : {
+                boxShadow:
+                  "inset 0 0 0 1px rgb(0 0 0 / 0.06), inset 0 1px 5px rgb(0 0 0 / 0.14)",
+              }
+        }
       >
         <svg
           viewBox="0 0 36 24"
@@ -81,17 +114,15 @@ export function ThemeToggle() {
               <stop offset="55%" stopColor="#ffcc00" stopOpacity="0.35" />
               <stop offset="100%" stopColor="#ffcc00" stopOpacity="0" />
             </linearGradient>
-            <radialGradient id="lamp-glow">
-              <stop offset="0%" stopColor="#ffcc00" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#ffcc00" stopOpacity="0" />
-            </radialGradient>
           </defs>
 
           {/* No canvas fill — the page shows through, so the only colour in
               the frame is the light itself. */}
+          {/* The cone only. A radial glow around the bulb sat here too and
+              read as a second, competing light source rather than as spill
+              from this one. */}
           <g className="opacity-100 transition-opacity duration-300 ease-out dark:opacity-0">
             <polygon points="14,11 22,11 33,24 3,24" fill="url(#lamp-ray)" />
-            <circle cx="18" cy="11" r="8" fill="url(#lamp-glow)" />
           </g>
 
           <line

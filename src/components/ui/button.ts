@@ -1,14 +1,34 @@
-export type ButtonVariant = "solid" | "outline" | "quiet";
+/*
+ * `primary` and `secondary` are the raised tier — controls that sit on top
+ * of the page surface rather than flush with it (`.button-raised` in
+ * globals.css). Reach for those. The appearance-named three below them are
+ * the flat originals, kept for the places where a control genuinely is part
+ * of the surface: inline links, list rows, chrome inside a card.
+ */
+export type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "solid"
+  | "outline"
+  | "quiet";
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonSurface = "page" | "light";
 
 const BASE =
   "font-lato inline-block rounded-full text-sm " +
   "transition-[background-color,border-color,color,text-decoration-color,transform] duration-150 ease-out " +
-  "active:scale-[0.97] motion-reduce:active:scale-100 " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]";
 
-export const INTERACTION = BASE;
+/*
+ * Press recoil for the flat variants. Held apart from BASE because the
+ * raised ones drive `transform` themselves — they translate as well as
+ * scale — and two sources writing the same property would leave the winner
+ * to stylesheet order rather than intent.
+ */
+const PRESS = "active:scale-[0.97] motion-reduce:active:scale-100";
+
+export const INTERACTION = `${BASE} ${PRESS}`;
 
 const SIZE: Record<ButtonSize, string> = {
   sm: "px-3 py-1",
@@ -16,10 +36,25 @@ const SIZE: Record<ButtonSize, string> = {
   lg: "px-5 py-2",
 };
 
+/** The raised variants own their own press transform; the flat ones take PRESS. */
+const RAISED: ReadonlySet<ButtonVariant> = new Set([
+  "primary",
+  "secondary",
+  "tertiary",
+]);
+
 function variantClass(variant: ButtonVariant, surface: ButtonSurface): string {
   const dark = surface === "page";
 
   switch (variant) {
+    case "primary":
+      return "button-raised button-grain font-medium";
+    case "secondary":
+      return "button-raised button-plate";
+    case "tertiary":
+      /* Flat text until hovered, then it comes up to the resting step —
+         `.button-flush` overrides the raised tier's rest state. */
+      return "button-raised button-plate button-flush";
     case "solid":
       return (
         "bg-neutral-900 font-medium text-white hover:bg-neutral-700" +
@@ -52,7 +87,13 @@ export function buttonClass({
   surface?: ButtonSurface;
   className?: string;
 } = {}): string {
-  return [BASE, SIZE[size], variantClass(variant, surface), className]
+  return [
+    BASE,
+    RAISED.has(variant) ? "" : PRESS,
+    SIZE[size],
+    variantClass(variant, surface),
+    className,
+  ]
     .filter(Boolean)
     .join(" ");
 }
