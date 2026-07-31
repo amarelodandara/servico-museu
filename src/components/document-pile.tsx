@@ -8,6 +8,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { buttonClass, INTERACTION } from "@/components/ui/button";
+import { OverlayPortal } from "@/components/ui/overlay-portal";
 
 export type PileDocument = {
   src: string;
@@ -16,7 +18,11 @@ export type PileDocument = {
   meta?: ReactNode;
 };
 
-const MOTION_MS = 450;
+const MOTION_MS = 300;
+
+const FLICK_VELOCITY = 0.11;
+const SWIPE_DISTANCE = 40;
+const FLICK_MIN_DISTANCE = 12;
 
 /**
  * Depth-stacked cyclical carousel of document snapshots, per the pitch: the
@@ -30,8 +36,9 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
   const [current, setCurrent] = useState(0);
   const [moving, setMoving] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [everExpanded, setEverExpanded] = useState(false);
   const motionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pointerStart = useRef<number | null>(null);
+  const pointerStart = useRef<{ x: number; t: number } | null>(null);
   const count = documents.length;
 
   const goTo = useCallback(
@@ -91,14 +98,19 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
             if (event.key === "ArrowLeft") goTo(current - 1);
           }}
           onPointerDown={(event) => {
-            pointerStart.current = event.clientX;
+            pointerStart.current = { x: event.clientX, t: performance.now() };
           }}
           onPointerUp={(event) => {
             if (pointerStart.current === null) return;
-            const dx = event.clientX - pointerStart.current;
+            const dx = event.clientX - pointerStart.current.x;
+            const dt = Math.max(1, performance.now() - pointerStart.current.t);
             pointerStart.current = null;
-            if (dx > 40) goTo(current - 1);
-            else if (dx < -40) goTo(current + 1);
+            const committed =
+              Math.abs(dx) >= SWIPE_DISTANCE ||
+              (Math.abs(dx) >= FLICK_MIN_DISTANCE &&
+                Math.abs(dx) / dt > FLICK_VELOCITY);
+            if (!committed) return;
+            goTo(dx > 0 ? current - 1 : current + 1);
           }}
         >
           <div className="relative aspect-[1448/2048] w-full">
@@ -120,11 +132,18 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
                   aria-hidden={offset !== 0}
                   aria-label={t("expand")}
                   onClick={() => {
-                    if (offset === 0) setExpanded(true);
-                    else goTo(index);
+                    if (offset === 0) {
+                      setEverExpanded(true);
+                      setExpanded(true);
+                    } else goTo(index);
                   }}
+                  style={{ transitionDuration: `${MOTION_MS}ms` }}
                   className={
-                    "absolute inset-0 cursor-pointer overflow-hidden rounded-sm border border-neutral-200 bg-white shadow-md transition-transform duration-[450ms] ease-out dark:border-neutral-700 " +
+                    "absolute inset-0 cursor-pointer overflow-hidden rounded-sm border border-neutral-200 bg-white shadow-md " +
+                    "transition-[transform,opacity] ease-out " +
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] " +
+                    "motion-reduce:transition-[opacity] " +
+                    "dark:border-neutral-700 " +
                     style
                   }
                 >
@@ -145,7 +164,7 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
               type="button"
               onClick={() => goTo(current - 1)}
               aria-label={t("previous")}
-              className="font-lato rounded-full border border-neutral-300 px-3 py-1 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
+              className={buttonClass({ variant: "outline", size: "sm" })}
             >
               ←
             </button>
@@ -153,7 +172,7 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
               type="button"
               onClick={() => goTo(current + 1)}
               aria-label={t("next")}
-              className="font-lato rounded-full border border-neutral-300 px-3 py-1 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
+              className={buttonClass({ variant: "outline", size: "sm" })}
             >
               →
             </button>
@@ -161,30 +180,34 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
         </div>
       </div>
 
-      {expanded && (
+      <OverlayPortal>
         <div
           role="dialog"
           aria-modal="true"
           aria-label={doc.alt}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-black/80 p-4"
+          data-open={expanded}
+          className="overlay-scrim fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-black/80 p-4"
           onClick={() => setExpanded(false)}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={doc.src}
-            alt={doc.alt}
-            className="max-h-[85vh] w-auto max-w-full rounded-sm bg-white object-contain"
-            onClick={(event) => event.stopPropagation()}
-          />
+          {everExpanded && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={doc.src}
+              alt={doc.alt}
+              data-open={expanded}
+              className="overlay-panel max-h-[85vh] w-auto max-w-full rounded-sm bg-white object-contain"
+              onClick={(event) => event.stopPropagation()}
+            />
+          )}
           <button
             type="button"
             onClick={() => setExpanded(false)}
-            className="font-lato rounded-full bg-white/90 px-4 py-1.5 text-sm font-medium text-neutral-900"
+            className={`${INTERACTION} bg-white/90 px-4 py-1.5 font-medium text-neutral-900 hover:bg-white`}
           >
             {t("close")}
           </button>
         </div>
-      )}
+      </OverlayPortal>
     </div>
   );
 }

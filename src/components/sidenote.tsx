@@ -11,6 +11,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { OverlayPortal } from "@/components/ui/overlay-portal";
 
 type SidenoteRegistry = {
   register: (id: string) => void;
@@ -106,6 +107,7 @@ export function Sidenote({ children }: { children: ReactNode }) {
           }}
           className={
             "inline appearance-none ml-0.5 rounded px-0.5 text-[0.7em] font-medium text-[var(--color-accent)] " +
+            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] " +
             (isDesktop
               ? "cursor-default"
               : "cursor-pointer underline decoration-dotted underline-offset-2")
@@ -129,18 +131,24 @@ export function Sidenote({ children }: { children: ReactNode }) {
           </span>
         </span>
       ) : (
-        open && (
+        <OverlayPortal>
           <div
             id={panelId}
             role="dialog"
             aria-modal="true"
-            className="fixed inset-x-0 bottom-0 z-50 max-h-[60vh] overflow-y-auto border-t border-neutral-300 bg-[var(--background)] p-4 shadow-[0_-4px_16px_rgba(0,0,0,0.15)] dark:border-neutral-700"
+            aria-hidden={!open}
+            data-open={open}
+            className="overlay-sheet fixed inset-x-0 bottom-0 z-50 max-h-[60vh] overflow-y-auto border-t border-neutral-300 bg-[var(--background)] p-4 shadow-[0_-4px_16px_rgba(0,0,0,0.15)] dark:border-neutral-700"
           >
             <div className="mx-auto flex max-w-2xl flex-col gap-3">
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="w-fit text-sm font-medium text-[var(--color-accent)]"
+                className={
+                  "w-fit text-sm font-medium text-[var(--color-accent)] " +
+                  "transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 " +
+                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                }
               >
                 ← {t("back")}
               </button>
@@ -152,7 +160,7 @@ export function Sidenote({ children }: { children: ReactNode }) {
               </p>
             </div>
           </div>
-        )
+        </OverlayPortal>
       )}
     </>
   );

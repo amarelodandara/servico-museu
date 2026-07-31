@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useId, useMemo, useRef, useState } from "react";
-import { ContactForm } from "@/components/contact-form";
+import { ContactForm, FIELD_CLASS } from "@/components/contact-form";
+import { buttonClass } from "@/components/ui/button";
 import { INSTITUTIONS, type Institution } from "@/content/institutions";
 import { fuzzySearch, normalize } from "@/lib/fuzzy";
 
@@ -115,14 +116,14 @@ export function InstitutionCta() {
                 setActiveIndex(0);
               }}
               onKeyDown={onKeyDown}
-              className="font-lato w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-[var(--color-accent)] focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
+              className={FIELD_CLASS}
             />
 
             {showList && (
               <ul
                 id={listId}
                 role="listbox"
-                className="absolute z-10 mt-1 w-full overflow-hidden rounded-md border border-neutral-300 bg-white shadow-[var(--shadow-float)] dark:border-neutral-700 dark:bg-neutral-900"
+                className="combobox-list absolute z-10 mt-1 w-full overflow-hidden rounded-md border border-neutral-300 bg-white shadow-[var(--shadow-float)] dark:border-neutral-700 dark:bg-neutral-900"
               >
                 {matches.map((match, index) => (
                   <li key={match.item.name}>
@@ -133,7 +134,7 @@ export function InstitutionCta() {
                       aria-selected={index === activeIndex}
                       onMouseEnter={() => setActiveIndex(index)}
                       onClick={() => choose(match.item)}
-                      className={`font-lato block w-full px-3 py-2 text-left text-sm ${
+                      className={`font-lato block w-full px-3 py-2 text-left text-sm transition-colors duration-100 ease-out ${
                         index === activeIndex
                           ? "bg-neutral-100 dark:bg-neutral-800"
                           : ""
@@ -173,7 +174,11 @@ export function InstitutionCta() {
               <button
                 type="button"
                 onClick={reset}
-                className="font-lato text-sm text-neutral-500 underline underline-offset-4 hover:text-neutral-900 dark:hover:text-neutral-100"
+                className={buttonClass({
+                  variant: "quiet",
+                  size: "sm",
+                  className: "-mr-3",
+                })}
               >
                 {t("searchAgain")}
               </button>

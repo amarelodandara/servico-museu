@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { routing } from "@/i18n/routing";
 import type { AppLocale } from "@/i18n/routing";
 import { Link, usePathname } from "@/i18n/navigation";
+import { buttonClass } from "@/components/ui/button";
 
 export function LocaleSwitcher() {
   const t = useTranslations("LocaleSwitcher");
@@ -18,7 +19,7 @@ export function LocaleSwitcher() {
       href={pathname}
       locale={otherLocale}
       aria-label={t("label")}
-      className="font-lato rounded-full border border-neutral-300 px-3 py-1 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-900"
+      className={buttonClass({ variant: "outline", size: "sm" })}
     >
       {otherLocale === "en" ? t("switchToEn") : t("switchToPtBR")}
     </Link>

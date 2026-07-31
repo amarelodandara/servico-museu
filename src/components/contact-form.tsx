@@ -2,11 +2,16 @@
 
 import { useTranslations } from "next-intl";
 import { useState, type FormEvent } from "react";
+import { buttonClass } from "@/components/ui/button";
+import { LabelSwap, SwapLabel } from "@/components/ui/label-swap";
 
 type Status = "idle" | "sending" | "sent" | "not_configured" | "error";
 
-const FIELD_CLASS =
-  "font-lato w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-[var(--color-accent)] focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100";
+export const FIELD_CLASS =
+  "font-lato w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 " +
+  "transition-colors duration-150 ease-out " +
+  "focus:border-[var(--color-accent)] focus:outline-2 focus:outline-offset-1 focus:outline-[var(--color-accent)] " +
+  "dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100";
 
 /**
  * `institution` pre-fills the field and takes it out of the form: the CTA
@@ -72,9 +77,15 @@ export function ContactForm({ institution }: { institution?: string } = {}) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="font-lato w-fit rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+          className={buttonClass({
+            size: "lg",
+            className: "w-fit disabled:opacity-50",
+          })}
         >
-          {status === "sending" ? t("sending") : t("send")}
+          <LabelSwap>
+            <SwapLabel visible={status !== "sending"}>{t("send")}</SwapLabel>
+            <SwapLabel visible={status === "sending"}>{t("sending")}</SwapLabel>
+          </LabelSwap>
         </button>
 
         <p aria-live="polite" className="text-sm">

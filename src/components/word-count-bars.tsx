@@ -1,10 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { getDigestWordCount } from "@/lib/word-count";
+import { ACADEMIC_WORD_COUNT, getDigestWordCount } from "@/lib/word-count";
 import type { AppLocale } from "@/i18n/routing";
-
-// The TCC pre-project is a fixed, already-submitted PDF — its word count
-// doesn't move the way the digest's does, so it isn't computed dynamically.
-const ACADEMIC_WORD_COUNT = 7000;
 
 export async function WordCountBars() {
   const locale = (await getLocale()) as AppLocale;

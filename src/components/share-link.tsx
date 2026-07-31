@@ -2,6 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { buttonClass } from "@/components/ui/button";
+import { LabelSwap, SwapLabel } from "@/components/ui/label-swap";
 
 /**
  * Share action for a page or a specific figure: uses the native share sheet
@@ -45,17 +47,22 @@ export function ShareLink({
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const idle = label ?? t("share");
+
   return (
     <button
       type="button"
       onClick={share}
-      className={`font-lato w-fit rounded-full border border-neutral-300 px-4 py-2 text-sm hover:bg-neutral-100 ${
-        surface === "page"
-          ? "dark:border-neutral-700 dark:hover:bg-neutral-800"
-          : ""
-      }`}
+      className={buttonClass({
+        variant: "outline",
+        surface,
+        className: "w-fit",
+      })}
     >
-      {copied ? t("copied") : (label ?? t("share"))}
+      <LabelSwap>
+        <SwapLabel visible={!copied}>{idle}</SwapLabel>
+        <SwapLabel visible={copied}>{t("copied")}</SwapLabel>
+      </LabelSwap>
     </button>
   );
 }

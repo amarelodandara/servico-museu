@@ -2,6 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import type { AppLocale } from "@/i18n/routing";
 
+// The TCC pre-project is a fixed, already-submitted PDF — its word count
+// doesn't move the way the digest's does, so it isn't computed dynamically.
+export const ACADEMIC_WORD_COUNT = 7000;
+
 /**
  * Rough word count of an MDX source file: strips JSX/MDX tags, expression
  * braces, and markdown emphasis/heading/list markers before splitting on

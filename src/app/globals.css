@@ -105,6 +105,36 @@
   --dark-shadow-float: 0 8px 28px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
 }
 
+@theme {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@property --background {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f2f6f7;
+}
+
+@property --background-light {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fcfdfd;
+}
+
+:root {
+  transition:
+    --background 300ms var(--ease-out),
+    --background-light 300ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    transition-duration: 150ms;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-background-light: var(--background-light);
@@ -162,6 +192,13 @@ body {
   background: var(--background-light);
   color: var(--foreground);
   font-family: var(--font-neuton), serif;
+  transition: color 300ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition-duration: 150ms;
+  }
 }
 
 /*
@@ -265,6 +302,132 @@ body {
   }
 }
 
+.overlay-scrim {
+  opacity: 1;
+  transition:
+    opacity 200ms var(--ease-out),
+    display 200ms allow-discrete;
+}
+
+.overlay-scrim[data-open="false"] {
+  display: none;
+  opacity: 0;
+  transition-duration: 150ms;
+}
+
+@starting-style {
+  .overlay-scrim[data-open="true"] {
+    opacity: 0;
+  }
+}
+
+.overlay-panel {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    display 200ms allow-discrete;
+}
+
+.overlay-panel[data-open="false"] {
+  display: none;
+  opacity: 0;
+  transform: scale(0.96);
+  transition-duration: 150ms;
+}
+
+@starting-style {
+  .overlay-panel[data-open="true"] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.overlay-popover {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: var(--popover-origin, center);
+  transition:
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out),
+    display 150ms allow-discrete;
+}
+
+.overlay-popover[data-open="false"] {
+  display: none;
+  opacity: 0;
+  transform: scale(0.97);
+  transition-duration: 120ms;
+}
+
+@starting-style {
+  .overlay-popover[data-open="true"] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.overlay-sheet {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 250ms var(--ease-drawer),
+    transform 250ms var(--ease-drawer),
+    display 250ms allow-discrete;
+}
+
+.overlay-sheet[data-open="false"] {
+  display: none;
+  opacity: 0;
+  transform: translateY(100%);
+  transition-duration: 200ms;
+}
+
+@starting-style {
+  .overlay-sheet[data-open="true"] {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-panel[data-open="false"],
+  .overlay-popover[data-open="false"],
+  .overlay-sheet[data-open="false"] {
+    transform: none;
+  }
+
+  @starting-style {
+    .overlay-panel[data-open="true"],
+    .overlay-popover[data-open="true"],
+    .overlay-sheet[data-open="true"] {
+      transform: none;
+    }
+  }
+}
+
+.combobox-list {
+  transition:
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out);
+}
+
+@starting-style {
+  .combobox-list {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @starting-style {
+    .combobox-list {
+      transform: none;
+    }
+  }
+}
+
 /*
  * Museum carousel: an endless sideways drift. The track holds several
  * identical sets of plates and slides by exactly one set's width
@@ -361,6 +524,45 @@ body {
    * a one-line note gets a short rule) and only reaches the column's edge
    * when the text itself wraps that far.
    */
+  .digest-unfold {
+    transform: translateX(0);
+    transition: transform 700ms var(--ease-in-out);
+  }
+
+  .digest-unfold[data-unfolded="false"] {
+    transform: translateX(37.5%);
+  }
+
+  .digest-unfold .aside-float {
+    opacity: 1;
+    transform: translateX(0);
+    transition:
+      opacity 500ms var(--ease-out) 150ms,
+      transform 500ms var(--ease-out) 150ms;
+  }
+
+  .digest-unfold .aside-float.sidenote-desktop {
+    opacity: 0.75;
+  }
+
+  .digest-unfold[data-unfolded="false"] .aside-float,
+  .digest-unfold[data-unfolded="false"] .aside-float.sidenote-desktop {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .digest-unfold,
+    .digest-unfold[data-unfolded="false"] {
+      transform: none;
+    }
+
+    .digest-unfold[data-unfolded="false"] .aside-float,
+    .digest-unfold[data-unfolded="false"] .aside-float.sidenote-desktop {
+      transform: none;
+    }
+  }
+
   .sidenote-rule {
     display: block;
     width: fit-content;

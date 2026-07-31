@@ -6,6 +6,7 @@ import {
   motion,
   useMotionValue,
   useTransform,
+  useReducedMotion,
   animate,
   type MotionValue,
 } from "motion/react";
@@ -43,6 +44,8 @@ const PEEK = 150;
 /** Momentum: release velocity feeds into the spring's starting velocity,
  * so a flick keeps carrying rather than the settle starting from rest. */
 const SPRING = { type: "spring" as const, duration: 0.35, bounce: 0.15 };
+/** Pointer travel (px) past which a gesture counts as a drag, not a tap. */
+const DRAG_THRESHOLD = 6;
 
 function BookCover({
   entry,
@@ -78,7 +81,7 @@ function BookCover({
     const scale = Math.max(0.82, 1 - abs * 0.12);
     return `translateX(${o * PEEK}px) scale(${scale})`;
   });
-  const opacity = useTransform(absOffset, (o) => (o > 2.4 ? 0 : 1));
+  const opacity = useTransform(absOffset, [2, 2.4], [1, 0], { clamp: true });
   const dim = useTransform(absOffset, (o) => Math.min(0.5, o * 0.32));
   const zIndex = useTransform(absOffset, (o) => Math.round(100 - o * 10));
 
@@ -89,7 +92,7 @@ function BookCover({
         aria-label={entry.title}
         aria-current={index === current}
         onClick={() => onSelect(index)}
-        className="cursor-pointer overflow-hidden rounded-md"
+        className="cursor-pointer overflow-hidden rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
         style={{
           height: SLOT_HEIGHT,
           width: entry.cover ? "auto" : SLOT_HEIGHT * (2 / 3),
@@ -174,11 +177,14 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
   const [current, setCurrent] = useState(0);
   const x = useMotionValue(0);
   const count = books.length;
+  const reduceMotion = useReducedMotion();
   const drag = useRef<{
-    baseX: number;
+    pointerId: number;
+    startX: number;
     lastX: number;
     lastT: number;
     velocity: number;
+    captured: boolean;
   } | null>(null);
 
   const settle = (targetIndex: number, velocity = 0) => {
@@ -187,7 +193,10 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
     // Keep dragging in whichever direction is already shorter, same
     // shortest-path rule `BookCover` uses for its own offset.
     const shortest = ((delta + count / 2) % count) - count / 2;
-    animate(x, x.get() - shortest * STEP, { ...SPRING, velocity }).then(() => {
+    const transition = reduceMotion
+      ? { type: "tween" as const, duration: 0 }
+      : { ...SPRING, velocity };
+    animate(x, x.get() - shortest * STEP, transition).then(() => {
       setCurrent(next);
       x.set(0);
     });
@@ -204,19 +213,23 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
       className="my-8 flex flex-col items-center"
     >
       <div
-        className="relative w-full max-w-sm touch-pan-y outline-none select-none"
+        className="relative w-full max-w-sm touch-pan-y select-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
         style={{ height: SLOT_HEIGHT }}
         tabIndex={0}
         onPointerDown={(event) => {
+          if (drag.current) return;
           drag.current = {
-            baseX: x.get(),
+            pointerId: event.pointerId,
+            startX: event.clientX,
             lastX: event.clientX,
             lastT: performance.now(),
             velocity: 0,
+            captured: false,
           };
         }}
         onPointerMove={(event) => {
-          if (!drag.current) return;
+          if (!drag.current || event.pointerId !== drag.current.pointerId)
+            return;
           const now = performance.now();
           const dt = Math.max(1, now - drag.current.lastT);
           drag.current.velocity =
@@ -224,11 +237,22 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
           x.set(x.get() + (event.clientX - drag.current.lastX));
           drag.current.lastX = event.clientX;
           drag.current.lastT = now;
+
+          if (
+            !drag.current.captured &&
+            Math.abs(event.clientX - drag.current.startX) > DRAG_THRESHOLD
+          ) {
+            event.currentTarget.setPointerCapture(event.pointerId);
+            drag.current.captured = true;
+          }
         }}
-        onPointerUp={() => {
-          if (!drag.current) return;
-          const { velocity } = drag.current;
+        onPointerUp={(event) => {
+          if (!drag.current || event.pointerId !== drag.current.pointerId)
+            return;
+          const { velocity, captured } = drag.current;
           drag.current = null;
+          if (captured)
+            event.currentTarget.releasePointerCapture(event.pointerId);
           // Project a little further in the flick's direction so a fast,
           // short drag can still carry past the next book, not just the
           // one under the pointer when it was released.
@@ -236,7 +260,9 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
           const steps = Math.round(-projected / STEP);
           settle(current + steps, velocity);
         }}
-        onPointerCancel={() => {
+        onPointerCancel={(event) => {
+          if (!drag.current || event.pointerId !== drag.current.pointerId)
+            return;
           drag.current = null;
         }}
         onKeyDown={(event) => {
@@ -277,7 +303,8 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
             aria-current={index === current}
             onClick={() => settle(index)}
             className={
-              "h-1.5 w-1.5 rounded-full transition-colors " +
+              "h-1.5 w-1.5 rounded-full transition-colors duration-150 ease-out " +
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] " +
               (index === current
                 ? "bg-[var(--color-accent)]"
                 : "bg-neutral-300 dark:bg-neutral-700")

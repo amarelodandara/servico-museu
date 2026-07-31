@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { figurePalette } from "@/lib/figure-palette";
 import { downloadSvgAsPng } from "@/lib/svg-png";
 import { ShareLink } from "@/components/share-link";
+import { buttonClass } from "@/components/ui/button";
 
 /**
  * The research-panorama Venn: museology ∩ service design ∩ information
@@ -97,7 +98,7 @@ export function PanoramaVenn() {
         <button
           type="button"
           onClick={downloadPng}
-          className="font-lato w-fit rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+          className={buttonClass({ className: "w-fit" })}
         >
           {t("downloadPng")}
         </button>

@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { AboutSiteDialog } from "@/components/about-site-dialog";
 import { Contributors } from "@/components/contributors";
 import { ShareLink } from "@/components/share-link";
+import { buttonClass } from "@/components/ui/button";
 
 /**
  * Site-wide footer, full-bleed like the `nav` in the locale layout (no
@@ -49,7 +50,11 @@ export async function Footer() {
           <a
             href="/academic.pdf"
             download
-            className="font-lato w-fit rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-700"
+            className={buttonClass({
+              size: "lg",
+              surface: "light",
+              className: "w-fit",
+            })}
           >
             {t("download")}
           </a>

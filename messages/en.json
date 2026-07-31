@@ -26,6 +26,7 @@
     "institution": "UEMG",
     "institutionLabel": "Institution",
     "institutionAlt": "Photo of the UEMG building",
+    "wordCountShort": "words",
     "wordCountDigest": "words in this version",
     "wordCountAcademic": "words in the academic document"
   },

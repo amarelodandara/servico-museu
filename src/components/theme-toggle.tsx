@@ -5,19 +5,6 @@ import { useEffect, useState } from "react";
 
 export const THEME_STORAGE_KEY = "theme";
 
-/**
- * A little painting that happens to be a switch: a pendant lamp hung inside
- * a landscape 3:2 wooden frame, its light contained by the frame's own
- * edges (the canvas clips, so the cone can spill as far as it likes and
- * still stop at the moulding). Light mode lights the lamp; dark mode leaves
- * the gallery closed. The canvas has no fill of its own — the page shows
- * through it, so the only colour inside the frame is the lamp's own #ffcc00.
- *
- * Writes `data-theme` on <html>, which every colour token and every `dark:`
- * utility reads (see the `@custom-variant dark` block in globals.css), and
- * remembers the choice. Until someone picks a side the toggle keeps
- * following the OS, so a system scheme change still moves the page.
- */
 export function ThemeToggle() {
   const t = useTranslations("Theme");
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -61,7 +48,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={lit ? t("switchToDark") : t("switchToLight")}
       title={lit ? t("switchToDark") : t("switchToLight")}
-      className="group rounded-[2px] border border-[#a9835a] p-px transition-colors hover:border-[#8d6a45] dark:border-[#6d543a] dark:hover:border-[#8d6a45]"
+      className="group rounded-[2px] border border-[#a9835a] p-px transition-[border-color,transform] duration-150 ease-out hover:border-[#8d6a45] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] dark:border-[#6d543a] dark:hover:border-[#8d6a45]"
       style={{
         /* Wood, not paint: a two-stop grain across the moulding, plus the
            soft pair of shadows — a wide, low-alpha drop outside so the
@@ -102,7 +89,7 @@ export function ThemeToggle() {
 
           {/* No canvas fill — the page shows through, so the only colour in
               the frame is the light itself. */}
-          <g className="opacity-100 transition-opacity duration-500 dark:opacity-0">
+          <g className="opacity-100 transition-opacity duration-300 ease-out dark:opacity-0">
             <polygon points="14,11 22,11 33,24 3,24" fill="url(#lamp-ray)" />
             <circle cx="18" cy="11" r="8" fill="url(#lamp-glow)" />
           </g>
@@ -113,17 +100,17 @@ export function ThemeToggle() {
             x2="18"
             y2="5"
             strokeWidth="1"
-            className="stroke-neutral-700 transition-colors duration-500 dark:stroke-neutral-500"
+            className="stroke-neutral-700 transition-colors duration-300 ease-out dark:stroke-neutral-500"
           />
           <path
             d="M13 10.5 L15.5 5 L20.5 5 L23 10.5 Z"
-            className="fill-neutral-800 transition-colors duration-500 dark:fill-neutral-600"
+            className="fill-neutral-800 transition-colors duration-300 ease-out dark:fill-neutral-600"
           />
           <circle
             cx="18"
             cy="11.6"
             r="1.5"
-            className="fill-[#ffcc00] transition-colors duration-500 dark:fill-neutral-700"
+            className="fill-[#ffcc00] transition-colors duration-300 ease-out dark:fill-neutral-700"
           />
         </svg>
       </span>

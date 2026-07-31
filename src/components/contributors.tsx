@@ -47,7 +47,13 @@ export function FramedArtwork({ children }: { children: React.ReactNode }) {
  * closes on the same faces the page opened with; only the flex container
  * differs, via `className`.
  */
-export function Contributors({ className = "" }: { className?: string }) {
+export function Contributors({
+  className = "",
+  showInstitution = true,
+}: {
+  className?: string;
+  showInstitution?: boolean;
+}) {
   const t = useTranslations("Digest");
 
   return (
@@ -63,7 +69,7 @@ export function Contributors({ className = "" }: { className?: string }) {
               alt=""
               fill
               sizes="120px"
-              className="object-cover"
+              className="object-cover grayscale"
             />
           </FramedArtwork>
 
@@ -74,6 +80,7 @@ export function Contributors({ className = "" }: { className?: string }) {
         </div>
       ))}
 
+      {showInstitution && (
       <div className="flex flex-col items-center space-y-2 text-center">
         <FramedArtwork>
           <Image
@@ -81,7 +88,7 @@ export function Contributors({ className = "" }: { className?: string }) {
             alt={t("institutionAlt")}
             fill
             sizes="120px"
-            className="object-cover"
+            className="object-cover grayscale"
           />
         </FramedArtwork>
 
@@ -90,6 +97,7 @@ export function Contributors({ className = "" }: { className?: string }) {
           <span className="text-neutral-500">{t("institutionLabel")}</span>
         </div>
       </div>
+      )}
     </div>
   );
 }

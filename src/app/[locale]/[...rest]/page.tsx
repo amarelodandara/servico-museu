@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { buttonClass } from "@/components/ui/button";
 
 /**
  * Locale-aware 404 catch-all. Rendered as a page (not not-found.tsx) so it
@@ -29,7 +30,7 @@ export default async function NotFoundCatchAll({
       </h1>
       <Link
         href="/"
-        className="font-lato rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+        className={buttonClass()}
       >
         {t("backHome")}
       </Link>
