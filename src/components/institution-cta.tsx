@@ -79,9 +79,14 @@ export function InstitutionCta() {
   };
 
   return (
+    /* `id` is the landing invitation's destination; `tabIndex` is what lets
+       the scroll land focus here, so a keyboard reader who follows it
+       carries on from the form rather than from the top of the page. */
     <section
+      id="colaborar"
+      tabIndex={-1}
       aria-labelledby={`${listId}-title`}
-      className="mx-auto w-10/12 px-6 py-24"
+      className="mx-auto w-10/12 px-6 py-24 outline-none"
     >
       {/*
         Two columns from `lg` up: the terms of taking part on the left, the

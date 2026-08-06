@@ -336,17 +336,6 @@ body {
  */
 .paspateur-bg {
   background-color: #ffffff;
-
-  /*
-   * A raised control standing on the mat can't use the default white plate
-   * — white on white leaves nothing but a 5% shadow to separate them. Inside
-   * a mat the plate takes the page's own tinted surface instead, which is
-   * the same relationship the plate has to the page everywhere else, just
-   * with the two surfaces swapped. Hardcoded rather than pointed at
-   * `--background` because the mat itself is unconditionally white: it does
-   * not follow the theme, so neither can anything sitting on it.
-   */
-  --raise-plate: #f2f6f7;
 }
 
 .paspateur-noise {

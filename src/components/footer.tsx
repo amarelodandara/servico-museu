@@ -56,10 +56,10 @@ export async function Footer() {
           <a
             href="/academic.pdf"
             download
+            /* Same variant and same (default) size as the hero's pair, so
+               the two rows are the one design doing two jobs. */
             className={buttonClass({
               variant: "primary",
-              size: "lg",
-              surface: "light",
               className: "w-fit",
             })}
           >

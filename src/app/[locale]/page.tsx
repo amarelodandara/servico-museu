@@ -8,6 +8,7 @@ import { buttonClass } from "@/components/ui/button";
 import { ScrollLink } from "@/components/scroll-link";
 import { DigestUnfold } from "@/components/digest-unfold";
 import { HeroShader } from "@/components/hero-shader";
+import { CollaborateNudge } from "@/components/collaborate-nudge";
 import { ACADEMIC_WORD_COUNT, getDigestWordCount } from "@/lib/word-count";
 import type { AppLocale } from "@/i18n/routing";
 
@@ -32,7 +33,11 @@ export default function DigestPage() {
             left of it — 6rem covers the nav above plus `main`'s own top
             padding. `svh` rather than `vh` so the mobile browser chrome
             doesn't push the centre off the bottom of the screen. */}
-        <header className="mx-auto flex min-h-[calc(100svh-6rem)] w-10/12 max-w-3xl flex-col items-center justify-center gap-10 px-6 text-center">
+        <header className="relative mx-auto flex min-h-[calc(100svh-6rem)] w-10/12 max-w-3xl flex-col items-center justify-center gap-10 px-6 text-center">
+          {/* Absolutely positioned, so it hangs in the corner of this
+              section without taking a slot in the centred column. */}
+          <CollaborateNudge />
+
           <p className="font-inter text-lg tracking-tight text-balance">
             {t("introParagraph1")}
           </p>

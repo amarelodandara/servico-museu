@@ -71,7 +71,11 @@
   "BookCarousel": {
     "label": "Book carousel",
     "previous": "Previous book",
-    "next": "Next book"
+    "next": "Next book",
+    "field_museology": "Museology",
+    "field_serviceDesign": "Service design",
+    "field_informationDesign": "Information design",
+    "field_intersection": "Across the fields"
   },
   "DocumentPile": {
     "label": "Document pile",
@@ -211,5 +215,13 @@
   "NotFound": {
     "message": "oops, <x></x> is not the theme of our research",
     "backHome": "Back to the research"
+  },
+  "Nudge": {
+    "label": "Invitation to take part in the research",
+    "title": "Your museum can be part of this.",
+    "body": "The research depends on the people who work inside museums. If that's you, it takes five minutes to get in touch.",
+    "cta": "I want to take part",
+    "dismiss": "Not now",
+    "backToTop": "Back to top"
   }
 }

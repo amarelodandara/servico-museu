@@ -10,10 +10,17 @@ const PX_PER_MS = 2.2;
 export function ScrollLink({
   targetId,
   className,
+  onNavigate,
   children,
 }: {
   targetId: string;
   className?: string;
+  /**
+   * Fires when this link actually takes over the scroll — not on a
+   * modified click (new tab, new window), where the reader is going
+   * somewhere else and nothing on this page should react.
+   */
+  onNavigate?: () => void;
   children: ReactNode;
 }) {
   const frame = useRef<number | null>(null);
@@ -31,6 +38,7 @@ export function ScrollLink({
     const target = document.getElementById(targetId);
     if (!target) return; // no target yet — the plain hash is a fine fallback
     event.preventDefault();
+    onNavigate?.();
 
     const from = window.scrollY;
     const to = target.getBoundingClientRect().top + from;

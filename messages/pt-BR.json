@@ -71,7 +71,11 @@
   "BookCarousel": {
     "label": "Carrossel de livros",
     "previous": "Livro anterior",
-    "next": "Próximo livro"
+    "next": "Próximo livro",
+    "field_museology": "Museologia",
+    "field_serviceDesign": "Design de serviços",
+    "field_informationDesign": "Design da informação",
+    "field_intersection": "Intersecção dos campos"
   },
   "DocumentPile": {
     "label": "Pilha de documentos",
@@ -211,5 +215,13 @@
   "NotFound": {
     "message": "oops, <x></x> não é o tema da nossa pesquisa",
     "backHome": "Voltar para a pesquisa"
+  },
+  "Nudge": {
+    "label": "Convite para participar da pesquisa",
+    "title": "Seu museu pode entrar nessa.",
+    "body": "A pesquisa depende de quem trabalha dentro dos museus. Se você é uma dessas pessoas, são cinco minutos para falar com a gente.",
+    "cta": "Quero participar",
+    "dismiss": "Agora não",
+    "backToTop": "Voltar ao topo"
   }
 }

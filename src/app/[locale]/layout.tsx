@@ -58,19 +58,30 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      /* Light is what the server has to guess at — it can't read
+         localStorage or the OS preference. The script below corrects it
+         before first paint, which is a change React would otherwise flag as
+         a hydration mismatch on this element; `suppressHydrationWarning`
+         covers `html`'s own attributes only, not its children. */
+      data-theme="light"
+      suppressHydrationWarning
       className={`${neuton.variable} ${lato.variable} ${inter.variable} h-full antialiased`}
     >
       {/*
        * Resolves the theme before first paint, so a dark-mode reader never
        * gets a white flash. Stays a raw inline script on purpose: anything
        * deferred (including next/script) runs after the first paint, which
-       * is exactly the flash we're avoiding.
+       * is exactly the flash we're avoiding — and it needs an explicit
+       * `head`, since React can't order a synchronous script rendered
+       * loose in the document.
        */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(function(){try{var s=localStorage.getItem("theme");document.documentElement.dataset.theme=(s==="light"||s==="dark")?s:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}})()`,
-        }}
-      />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem("theme");document.documentElement.dataset.theme=(s==="light"||s==="dark")?s:(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
           {/* Carries the page wash (see `.page-gradient` in globals.css); it
