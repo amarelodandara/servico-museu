@@ -26,6 +26,7 @@ import { buttonClass } from "@/components/ui/button";
  */
 export async function Footer() {
   const t = await getTranslations("Footer");
+  const tDigest = await getTranslations("Digest");
   const year = new Date().getFullYear();
 
   return (
@@ -43,48 +44,56 @@ export async function Footer() {
             screens, and without a limit here the title would straighten out
             into one very long line. ~44ch breaks both the Portuguese and the
             English title across two, and `text-balance` evens them out. */}
-        <p className="max-w-[44ch] text-3xl tracking-tight text-balance">
-          {t("title")}
+        <p className="font-newsreader max-w-[44ch] text-3xl tracking-tight text-balance italic">
+          {tDigest("title")}{" "}
+          <span className="lowercase text-gray-500">
+            {tDigest("titleSubtitle")}
+          </span>
         </p>
 
         {/* Extra air around the portrait row: at this size the frames need
             to read as a band of their own, not as another line of type. */}
-        <Contributors className="my-6 flex flex-wrap justify-center gap-6" />
+        <Contributors
+          className="my-6 flex flex-wrap justify-center gap-6"
+          textClassName="text-base"
+        />
 
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <ShareLink label={t("share")} surface="light" />
+          <ShareLink surface="light" />
           <a
             href="/academic.pdf"
             download
-            /* Same variant and same (default) size as the hero's pair, so
-               the two rows are the one design doing two jobs. */
+            /* Same copy, same variant as the hero's download link — this is
+               the same action shown twice, not two different buttons. */
             className={buttonClass({
-              variant: "primary",
+              variant: "secondary",
               className: "w-fit",
             })}
           >
-            {t("download")}
+            {tDigest("downloadPdf")}
           </a>
         </div>
+      </div>
+
+      <div className="font-lato relative mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-500 dark:border-neutral-800">
+        <p>
+          {t.rich("developedBy", {
+            link: (chunks) => (
+              <a
+                href="https://adandara.com"
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-neutral-400 underline-offset-2 transition-colors duration-150 ease-out hover:text-neutral-900 hover:decoration-neutral-600 dark:hover:text-neutral-100"
+              >
+                {chunks}
+              </a>
+            ),
+          })}{" "}
+          — {year}
+        </p>
 
         <AboutSiteDialog />
       </div>
-
-      <p className="font-lato relative mt-12 border-t border-neutral-200 pt-6 text-xs text-neutral-500 dark:border-neutral-800">
-        {t.rich("developedBy", {
-          link: (chunks) => (
-            <a
-              href="https://adandara.com"
-              target="_blank"
-              rel="noreferrer"
-              className="underline decoration-neutral-400 underline-offset-2 transition-colors duration-150 ease-out hover:text-neutral-900 hover:decoration-neutral-600 dark:hover:text-neutral-100"
-            >
-              {chunks}
-            </a>
-          ),
-        })}{" "}
-        — {year}
-      </p>
     </footer>
   );
 }

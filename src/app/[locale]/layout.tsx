@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
-import { Neuton, Lato, Inter } from "next/font/google";
+import { Neuton, Lato, Inter, Newsreader } from "next/font/google";
 import { Agentation } from "agentation";
 import { routing } from "@/i18n/routing";
 import { LocaleSwitcher } from "@/components/locale-switcher";
@@ -27,6 +27,14 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+/** Display titles only — running text stays on Neuton. */
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
   // TODO(user): swap for the real production domain once it exists —
   // OG/twitter image URLs resolve against this base.
@@ -34,8 +42,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
   title: "A serviço do museu",
-  description:
-    "Diretrizes de experiência para a instituição museo-educativa.",
+  description: "Diretrizes de experiência para a instituição museo-educativa.",
 };
 
 export function generateStaticParams() {
@@ -65,7 +72,7 @@ export default async function LocaleLayout({
          covers `html`'s own attributes only, not its children. */
       data-theme="light"
       suppressHydrationWarning
-      className={`${neuton.variable} ${lato.variable} ${inter.variable} h-full antialiased`}
+      className={`${neuton.variable} ${lato.variable} ${inter.variable} ${newsreader.variable} h-full antialiased`}
     >
       {/*
        * Resolves the theme before first paint, so a dark-mode reader never
@@ -89,7 +96,6 @@ export default async function LocaleLayout({
               flex column rather than sitting inside it. */}
           <div className="page-gradient flex min-h-full flex-1 flex-col">
             <nav className="flex items-center justify-end px-6 py-4">
-
               {/* Hairline between the two, at the same weight as the rest of
                   the page's rules. It's doing real work here: the language
                   switch lies flat on the surface and the lamp has no frame

@@ -93,14 +93,14 @@ export function CollaborateNudge() {
           <ScrollLink
             targetId={TARGET_ID}
             onNavigate={accept}
-            className={buttonClass({ variant: "primary", size: "sm" })}
+            className={buttonClass({ variant: "primary" })}
           >
             {t("cta")}
           </ScrollLink>
           <button
             type="button"
             onClick={close}
-            className={buttonClass({ variant: "quiet", size: "sm" })}
+            className={buttonClass({ variant: "tertiary" })}
           >
             {t("dismiss")}
           </button>
@@ -119,12 +119,11 @@ export function CollaborateNudge() {
         data-open={travelled}
         className={buttonClass({
           variant: "secondary",
-          size: "sm",
           className:
             "overlay-popover fixed right-6 bottom-6 z-40 shadow-[var(--shadow-float)]",
         })}
       >
-        ↑ {t("backToTop")}
+        {t("backToTop")}
       </button>
     </>
   );

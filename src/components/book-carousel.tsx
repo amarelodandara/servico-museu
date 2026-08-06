@@ -205,7 +205,10 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
                       top bar is the sighted equivalent, and only carries
                       that cue when there's no photographed cover to show
                       instead. */}
-                  <span className="sr-only"> — {t(`field_${entry.field}`)}</span>
+                  <span className="sr-only">
+                    {" "}
+                    — {t(`field_${entry.field}`)}
+                  </span>
                 </span>
 
                 <span className="font-lato shrink-0 truncate text-xs text-neutral-500 dark:text-neutral-400">
@@ -226,8 +229,7 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
         type="button"
         onClick={copyAll}
         className={buttonClass({
-          variant: "quiet",
-          size: "sm",
+          variant: "tertiary",
           className: "flex items-center gap-1.5 self-end whitespace-nowrap",
         })}
       >

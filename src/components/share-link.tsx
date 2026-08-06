@@ -9,8 +9,8 @@ import { LabelSwap, SwapLabel } from "@/components/ui/label-swap";
  * Share action for a page or a specific figure: uses the native share sheet
  * where available, falling back to copying the URL. `hash` targets a
  * heading/figure id so individual viz pieces get their own shareable link.
- * `label` overrides the default verb where the surrounding text needs a
- * fuller call to action (the footer's "share this research").
+ * One copy everywhere it appears — no `label` override — so it reads as
+ * the same action wherever it shows up.
  *
  * `surface` says what the button is sitting on. The default follows the
  * page into dark mode; `"light"` drops the dark variants for the footer's
@@ -19,11 +19,9 @@ import { LabelSwap, SwapLabel } from "@/components/ui/label-swap";
  */
 export function ShareLink({
   hash,
-  label,
   surface = "page",
 }: {
   hash?: string;
-  label?: string;
   surface?: "page" | "light";
 }) {
   const t = useTranslations("Share");
@@ -47,14 +45,14 @@ export function ShareLink({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const idle = label ?? t("share");
+  const idle = t("share");
 
   return (
     <button
       type="button"
       onClick={share}
       className={buttonClass({
-        variant: "secondary",
+        variant: "primary",
         surface,
         className: "w-fit",
       })}

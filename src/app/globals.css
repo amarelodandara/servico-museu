@@ -25,8 +25,8 @@
  * editing this block, not hunting through components.
  */
 :root {
-  --background: #F2F6F7;
-  --background-light: #FCFDFD;
+  --background: #f2f6f7;
+  --background-light: #fcfdfd;
   --foreground: #171717;
 
   --color-accent: #2563eb; /* placeholder for the "added content" blue from the pitch doc */
@@ -38,6 +38,12 @@
   /* The wash behind a margin note — the palest step of the same blue as the
      rule above it, so note and rule read as one drawn annotation. */
   --sidenote-tint: #eef4fb;
+
+  /* Gold, not blue: the color a sidenote and its marker switch to together
+     once clicked, so the pair reads as "this one" against every other note
+     still in the default blue. Same value in both themes — its lightness
+     already sits far enough from either background. */
+  --sidenote-highlight: #c2a56d;
 
   /*
    * Pull-quote ink. Deliberately not --color-accent: that blue is sized for
@@ -94,37 +100,33 @@
    * below the surface you're reading on. Interactive things go the other way:
    * they sit *on top of* that surface, the one plane you can actually touch.
    *
-   * Held to the same restraint as the recessed end: every layer under 6%
-   * alpha, depth from a hairline plus a barely-there blur rather than one
-   * heavy shadow. The whole scale, low to high:
+   * Same recipe as the fields (`--shadow-inset-frame`'s sibling, not its
+   * opposite): a hairline doing the edge, at the same 8%/10% alpha as
+   * `FIELD_CLASS`'s border, plus a soft ambient layer with a negative
+   * spread doing the height. The hairline reads as a border without being
+   * one; the ambient layer is what actually lifts the control off the
+   * page. The whole scale, low to high:
    *
    *   --shadow-mat         artwork, sunk into the wall
-   *   (the page itself)    zero
+   *   (the page itself)    zero, and inputs — pressed in, not raised
    *   --shadow-raise       a control at rest, just off the surface
    *   --shadow-raise-high  the same control under the pointer
    *
    * The two raise steps are deliberately close. The lift should register as
    * "this responded", not as an object jumping at the reader — the gap
-   * between them is about 4px of apparent height.
+   * between them is about 4px of apparent height. `--shadow-raise-bare`
+   * used to drop the hairline for plate-filled buttons; now that the
+   * fields carry a visible border too, every raised surface gets the same
+   * edge, so it's just an alias.
    */
   --shadow-raise:
-    0 0 0 1px rgb(0 0 0 / 0.04), 0 1px 2px rgb(0 0 0 / 0.05),
-    0 2px 6px rgb(0 0 0 / 0.045);
+    0 0 0 1px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04),
+    0 4px 4px -4px rgb(0 0 0 / 0.12);
   --shadow-raise-high:
-    0 0 0 1px rgb(0 0 0 / 0.05), 0 2px 4px rgb(0 0 0 / 0.055),
-    0 8px 20px rgb(0 0 0 / 0.06);
-
-  /*
-   * The same two steps without the hairline ring — height from cast shadow
-   * alone. For raised surfaces whose own fill already separates them from
-   * the page, where a ring reads as a drawn border rather than as an edge.
-   * The blurs carry a little more alpha to make up the lost definition,
-   * still inside the 6% band.
-   */
-  --shadow-raise-bare:
-    0 1px 2px rgb(0 0 0 / 0.055), 0 2px 6px rgb(0 0 0 / 0.05);
-  --shadow-raise-bare-high:
-    0 2px 4px rgb(0 0 0 / 0.06), 0 8px 20px rgb(0 0 0 / 0.06);
+    0 0 0 1px rgb(0 0 0 / 0.08), 0 2px 2px rgb(0 0 0 / 0.05),
+    0 8px 8px -6px rgb(0 0 0 / 0.16);
+  --shadow-raise-bare: var(--shadow-raise);
+  --shadow-raise-bare-high: var(--shadow-raise-high);
 
   /*
    * Raised-surface fills. The primary takes the accent blue — it's the one
@@ -174,21 +176,18 @@
    * Raise, flipped. Cast shadow alone can't lift anything off a near-black
    * page — there's no light left to take away — so the height reads from the
    * hairline instead: it brightens as the control rises, the way a lit edge
-   * catches more of the room the further it comes off the wall. The blurs
-   * stay, doing the quieter half of the job.
+   * catches more of the room the further it comes off the wall. Same 10%
+   * white as `FIELD_CLASS`'s dark border, plus the same ambient layer the
+   * light scheme uses, deepened for a darker ground.
    */
   --dark-shadow-raise:
-    0 0 0 1px rgb(255 255 255 / 0.09), 0 1px 2px rgb(0 0 0 / 0.4),
-    0 2px 6px rgb(0 0 0 / 0.3);
+    0 0 0 1px rgb(255 255 255 / 0.1), 0 1px 1px rgb(0 0 0 / 0.3),
+    0 4px 4px -4px rgb(0 0 0 / 0.4);
   --dark-shadow-raise-high:
-    0 0 0 1px rgb(255 255 255 / 0.16), 0 2px 4px rgb(0 0 0 / 0.45),
-    0 8px 20px rgb(0 0 0 / 0.4);
-
-  /* Ringless, dark. Here the plate's own fill is doing the separating. */
-  --dark-shadow-raise-bare:
-    0 1px 2px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.35);
-  --dark-shadow-raise-bare-high:
-    0 2px 4px rgb(0 0 0 / 0.5), 0 8px 20px rgb(0 0 0 / 0.45);
+    0 0 0 1px rgb(255 255 255 / 0.12), 0 2px 2px rgb(0 0 0 / 0.35),
+    0 8px 8px -6px rgb(0 0 0 / 0.5);
+  --dark-shadow-raise-bare: var(--dark-shadow-raise);
+  --dark-shadow-raise-bare-high: var(--dark-shadow-raise-high);
 
   /* The plate goes to a lifted neutral — white would glare at this size. */
   --dark-raise-plate: #202020;
@@ -233,6 +232,7 @@
   --font-sans: var(--font-neuton);
   --font-lato: var(--font-lato);
   --font-inter: var(--font-inter);
+  --font-newsreader: var(--font-newsreader);
 }
 
 /*
@@ -560,7 +560,9 @@ body {
   background-repeat: no-repeat, repeat;
   /* Half the tile's natural 128px, so the noise cell lands near a single
      device pixel on retina — grain fine enough to sit under text. */
-  background-size: auto, 64px 64px;
+  background-size:
+    auto,
+    64px 64px;
   color: #ffffff;
 }
 
@@ -575,11 +577,9 @@ body {
 }
 
 /*
- * No hairline on the plate. The ring is genuinely useful under the grain
- * primary, where it keeps the textured fill from fraying into the page, but
- * on a flat plate it stops reading as an edge and starts reading as a drawn
- * border — the one thing this tier isn't. Height comes from cast shadow
- * alone; the plate's own fill does the separating.
+ * Same hairline-plus-lift recipe as the raised primary — `--shadow-raise`,
+ * not the `-bare` alias, now that the fields carry a visible border of
+ * their own and every raised surface reads off the same edge.
  *
  * These sit after `.button-raised` deliberately: same specificity, so the
  * cascade order is what lets them win.
@@ -876,7 +876,7 @@ body {
    */
   .sidenote-desktop {
     display: block;
-    padding-left: 1.5rem;
+    padding-left: 2.5rem;
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
     font-family: var(--font-lato), sans-serif;

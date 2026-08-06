@@ -8,27 +8,21 @@ import { LabelSwap, SwapLabel } from "@/components/ui/label-swap";
 type Status = "idle" | "sending" | "sent" | "not_configured" | "error";
 
 /*
- * Fields, matched to the button tiers rather than to a generic input style.
- * The buttons sit *on* the page surface (`.button-raised`); a field is the
- * opposite gesture, so it takes the recessed treatment the page already
- * uses for artwork — `--shadow-inset-frame`, no border — and the two read
- * as one depth language instead of two unrelated component kits.
- *
- * Radius, face and horizontal padding come from the buttons: `rounded-full`
- * and `px-5` on single-line fields, matching a `lg` button exactly, so a
- * field and the button under it line up on both edges. `FIELD_AREA_CLASS`
- * takes the same treatment at a radius that survives multiple lines — a
- * pill-shaped textarea would bow its corners away from the text.
+ * Fields read as pressed in by one soft line rather than by a heavy bevel:
+ * a hairline border does the edge, a 1px inset top shadow at low alpha does
+ * the depth. Two different jobs, two different properties — the border
+ * alone would look flat, and the shadow alone would have no crisp edge to
+ * stop at.
  */
 const FIELD_BASE =
-  "font-lato w-full bg-white px-5 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 " +
-  "shadow-[var(--shadow-inset-frame)] " +
+  "font-lato w-full rounded-lg border border-black/8 bg-white px-4 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 " +
+  "shadow-[inset_0_1px_1px_rgb(0_0_0_/_0.05)] " +
   "transition-[box-shadow,background-color] duration-150 ease-out " +
   "focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-accent)] " +
-  "dark:bg-neutral-900 dark:text-neutral-100";
+  "dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-100";
 
-export const FIELD_CLASS = `${FIELD_BASE} rounded-full`;
-export const FIELD_AREA_CLASS = `${FIELD_BASE} rounded-2xl py-3`;
+export const FIELD_CLASS = FIELD_BASE;
+export const FIELD_AREA_CLASS = `${FIELD_BASE} py-3`;
 
 /**
  * `institution` pre-fills the field and takes it out of the form: the CTA
@@ -103,7 +97,6 @@ export function ContactForm({ institution }: { institution?: string } = {}) {
           disabled={status === "sending"}
           className={buttonClass({
             variant: "primary",
-            size: "lg",
             className: "w-fit disabled:opacity-50",
           })}
         >

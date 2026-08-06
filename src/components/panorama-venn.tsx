@@ -15,9 +15,33 @@ import { buttonClass } from "@/components/ui/button";
  */
 const VIEW = { w: 640, h: 540 };
 const CIRCLES = [
-  { key: "museology", cx: 248, cy: 210, color: figurePalette.pink, labelX: 130, labelY: 66, anchor: "start" },
-  { key: "serviceDesign", cx: 392, cy: 210, color: figurePalette.yellow, labelX: 510, labelY: 66, anchor: "end" },
-  { key: "informationDesign", cx: 320, cy: 336, color: figurePalette.magenta, labelX: 320, labelY: 512, anchor: "middle" },
+  {
+    key: "museology",
+    cx: 248,
+    cy: 210,
+    color: figurePalette.pink,
+    labelX: 130,
+    labelY: 66,
+    anchor: "start",
+  },
+  {
+    key: "serviceDesign",
+    cx: 392,
+    cy: 210,
+    color: figurePalette.yellow,
+    labelX: 510,
+    labelY: 66,
+    anchor: "end",
+  },
+  {
+    key: "informationDesign",
+    cx: 320,
+    cy: 336,
+    color: figurePalette.magenta,
+    labelX: 320,
+    labelY: 512,
+    anchor: "middle",
+  },
 ] as const;
 const RADIUS = 148;
 
@@ -98,7 +122,7 @@ export function PanoramaVenn() {
         <button
           type="button"
           onClick={downloadPng}
-          className={buttonClass({ className: "w-fit" })}
+          className={buttonClass({ variant: "secondary", className: "w-fit" })}
         >
           {t("downloadPng")}
         </button>

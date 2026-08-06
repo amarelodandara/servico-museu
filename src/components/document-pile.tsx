@@ -164,7 +164,7 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
               type="button"
               onClick={() => goTo(current - 1)}
               aria-label={t("previous")}
-              className={buttonClass({ variant: "outline", size: "sm" })}
+              className={buttonClass({ variant: "outline" })}
             >
               ←
             </button>
@@ -172,7 +172,7 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
               type="button"
               onClick={() => goTo(current + 1)}
               aria-label={t("next")}
-              className={buttonClass({ variant: "outline", size: "sm" })}
+              className={buttonClass({ variant: "outline" })}
             >
               →
             </button>

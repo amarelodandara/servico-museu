@@ -6,17 +6,12 @@
  * of the surface: inline links, list rows, chrome inside a card.
  */
 export type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "solid"
-  | "outline"
-  | "quiet";
+  "primary" | "secondary" | "tertiary" | "solid" | "outline" | "quiet";
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonSurface = "page" | "light";
 
 const BASE =
-  "font-lato inline-block rounded-full text-sm " +
+  "font-lato inline-block rounded-lg text-sm " +
   "transition-[background-color,border-color,color,text-decoration-color,transform] duration-150 ease-out " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]";
 
@@ -64,8 +59,8 @@ function variantClass(variant: ButtonVariant, surface: ButtonSurface): string {
       );
     case "outline":
       return (
-        "border border-neutral-300 hover:bg-neutral-100" +
-        (dark ? " dark:border-neutral-700 dark:hover:bg-neutral-800" : "")
+        "border border-black/8 hover:bg-neutral-100" +
+        (dark ? " dark:border-white/10 dark:hover:bg-neutral-800" : "")
       );
     case "quiet":
       return (

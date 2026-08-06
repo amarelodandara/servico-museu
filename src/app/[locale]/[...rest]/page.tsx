@@ -23,15 +23,10 @@ export default async function NotFoundCatchAll({
       </p>
       <h1 className="max-w-xl text-3xl text-balance">
         {t.rich("message", {
-          x: () => (
-            <em className="text-[var(--color-accent)]">{attempted}</em>
-          ),
+          x: () => <em className="text-[var(--color-accent)]">{attempted}</em>,
         })}
       </h1>
-      <Link
-        href="/"
-        className={buttonClass()}
-      >
+      <Link href="/" className={buttonClass({ variant: "secondary" })}>
         {t("backHome")}
       </Link>
     </div>

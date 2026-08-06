@@ -11,8 +11,16 @@ import nicolyPhoto from "../../public/contributors/nicoly-dandara.jpg";
  * the name is right there in text underneath either way.
  */
 export const CONTRIBUTORS = [
-  { name: "Letícia França", roleKey: "researcher" as const, portrait: nicolyPhoto },
-  { name: "Nicoly Dandara", roleKey: "researcher" as const, portrait: nicolyPhoto },
+  {
+    name: "Letícia França",
+    roleKey: "researcher" as const,
+    portrait: nicolyPhoto,
+  },
+  {
+    name: "Nicoly Dandara",
+    roleKey: "researcher" as const,
+    portrait: nicolyPhoto,
+  },
   { name: "Simone Souza", roleKey: "advisor" as const, portrait: nicolyPhoto },
 ];
 
@@ -72,9 +80,11 @@ export function FramedArtwork({
 export function Contributors({
   className = "",
   showInstitution = true,
+  textClassName = "",
 }: {
   className?: string;
   showInstitution?: boolean;
+  textClassName?: string;
 }) {
   const t = useTranslations("Digest");
 
@@ -95,7 +105,9 @@ export function Contributors({
             />
           </FramedArtwork>
 
-          <div className="flex flex-col items-center -space-y-0.5">
+          <div
+            className={`flex flex-col items-center -space-y-0.5 ${textClassName}`}
+          >
             <span>{person.name}</span>
             <span className="text-neutral-500">{t(person.roleKey)}</span>
           </div>
@@ -103,22 +115,28 @@ export function Contributors({
       ))}
 
       {showInstitution && (
-      <div className="flex flex-col items-center space-y-2 text-center">
-        <FramedArtwork>
-          <Image
-            src={uemgPhoto}
-            alt={t("institutionAlt")}
-            fill
-            sizes="120px"
-            className="object-cover grayscale"
-          />
-        </FramedArtwork>
+        /* Extra left margin beyond the row's own `gap`, on top of it rather
+           than instead of it — the institution is a different kind of
+           entry than a person, and a wider gap is a small, legible way to
+           say so without a rule or a label. */
+        <div className="ml-4 flex flex-col items-center space-y-2 text-center">
+          <FramedArtwork>
+            <Image
+              src={uemgPhoto}
+              alt={t("institutionAlt")}
+              fill
+              sizes="120px"
+              className="object-cover grayscale"
+            />
+          </FramedArtwork>
 
-        <div className="flex flex-col items-center -space-y-0.5">
-          <span>{t("institution")}</span>
-          <span className="text-neutral-500">{t("institutionLabel")}</span>
+          <div
+            className={`flex flex-col items-center -space-y-0.5 ${textClassName}`}
+          >
+            <span>{t("institution")}</span>
+            <span className="text-neutral-500">{t("institutionLabel")}</span>
+          </div>
         </div>
-      </div>
       )}
     </div>
   );

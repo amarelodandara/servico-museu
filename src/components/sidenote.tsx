@@ -85,7 +85,22 @@ export function Sidenote({ children }: { children: ReactNode }) {
   const number = order.indexOf(id) + 1;
   const [isDesktop, setIsDesktop] = useState(false);
   const [open, setOpen] = useState(false);
+  const [highlighted, setHighlighted] = useState(false);
   const panelId = useId();
+
+  /* Gold in place of the default blue, on both the marker and its note at
+     once — the one CSS custom property swap `.sidenote-rule` needs to
+     follow along, since its border and wash are both keyed off these. */
+  const highlightVars = highlighted
+    ? ({
+        "--rule-blue": "var(--sidenote-highlight)",
+        "--sidenote-tint":
+          "color-mix(in oklab, var(--sidenote-highlight) 35%, transparent)",
+      } as React.CSSProperties)
+    : undefined;
+  const markerColor = highlighted
+    ? "text-[var(--sidenote-highlight)]"
+    : "text-[var(--color-accent)]";
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
@@ -98,19 +113,24 @@ export function Sidenote({ children }: { children: ReactNode }) {
   return (
     <>
       <sup className="select-none">
+        {/* `p-1.5 -m-1.5` grows the tap target well past the glyph's own
+            box without shifting surrounding text — padding expands the
+            hit area, the matching negative margin cancels it back out of
+            the layout. */}
         <button
           type="button"
           aria-expanded={isDesktop ? undefined : open}
           aria-controls={isDesktop ? undefined : panelId}
+          aria-pressed={highlighted}
           onClick={() => {
+            setHighlighted((value) => !value);
             if (!isDesktop) setOpen(true);
           }}
           className={
-            "inline appearance-none ml-0.5 rounded px-0.5 text-[0.7em] font-medium text-[var(--color-accent)] " +
+            "-m-1.5 inline cursor-pointer appearance-none rounded p-1.5 text-[0.7em] font-medium " +
             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] " +
-            (isDesktop
-              ? "cursor-default"
-              : "cursor-pointer underline decoration-dotted underline-offset-2")
+            markerColor +
+            (isDesktop ? "" : " underline decoration-dotted underline-offset-2")
           }
         >
           {number}
@@ -118,15 +138,17 @@ export function Sidenote({ children }: { children: ReactNode }) {
       </sup>
 
       {isDesktop ? (
-        <span className="aside-float sidenote-desktop" role="note">
+        <span
+          className="aside-float sidenote-desktop"
+          role="note"
+          style={highlightVars}
+        >
           {/* The rule rides on this inner box, not on the floated one: the
               float has to keep its percentage width for the margin-column
               geometry, while the line is supposed to measure the note's own
               text. See `.sidenote-rule` in globals.css. */}
           <span className="sidenote-rule">
-            <span className="mr-1 font-medium text-[var(--color-accent)]">
-              {number}.
-            </span>
+            <span className={`mr-1 font-medium ${markerColor}`}>{number}.</span>
             {children}
           </span>
         </span>
@@ -154,8 +176,15 @@ export function Sidenote({ children }: { children: ReactNode }) {
               </button>
               {/* Same tint and same sans face as the desktop margin note —
                   one presentation switch, not two different notes. */}
-              <p className="font-lato rounded-sm bg-[var(--sidenote-tint)] p-3 text-sm text-neutral-700 dark:text-neutral-300">
-                <span className="mr-1 font-medium text-[var(--color-accent)]">
+              <p
+                className="font-lato rounded-sm p-3 text-sm text-neutral-700 dark:text-neutral-300"
+                style={{
+                  backgroundColor: highlighted
+                    ? "color-mix(in oklab, var(--sidenote-highlight) 35%, transparent)"
+                    : "var(--sidenote-tint)",
+                }}
+              >
+                <span className={`mr-1 font-medium ${markerColor}`}>
                   {number}.
                 </span>
                 {children}

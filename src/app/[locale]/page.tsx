@@ -45,7 +45,7 @@ export default function DigestPage() {
           {/* The 2rem taken off `main`'s top padding, spent here instead:
               margin stacks on top of the flex `gap`, so the title gets more
               air from the introduction than the rest of the column does. */}
-          <h1 className="mt-8 text-4xl text-balance">
+          <h1 className="font-newsreader font-medium tracking-tight mt-8 text-4xl text-balance italic">
             {t("title")}{" "}
             <span className="lowercase text-gray-500">
               {t("titleSubtitle")}
@@ -109,9 +109,9 @@ export default function DigestPage() {
                 className="col-span-1 space-y-6 outline-none lg:col-span-8 lg:col-start-4"
               >
                 <div className="col-span-1 space-y-6 lg:col-span-8 text-center">
-              <p className="text-3xl text-balance text-gray-700"><span className="text-black">A serviço do museu:</span> diretrizes de experiência para a instituição museo-educativa</p>
+              <p className="font-newsreader font-medium tracking-tight text-3xl text-balance text-gray-700"><span className="text-black">A serviço do museu:</span> diretrizes de experiência para a instituição museo-educativa</p>
 
-                  <p className="text-lg tracking-tight">por Letícia França e Nicoly Dandara</p>
+                  <p className="font-inter text-sm tracking-tight">por Letícia França e Nicoly Dandara</p>
 
                   <HeroShader />
                 </div>

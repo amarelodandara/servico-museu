@@ -19,7 +19,7 @@ export function LocaleSwitcher() {
       href={pathname}
       locale={otherLocale}
       aria-label={t("label")}
-      className={buttonClass({ variant: "tertiary", size: "sm" })}
+      className={buttonClass({ variant: "tertiary" })}
     >
       {otherLocale === "en" ? t("switchToEn") : t("switchToPtBR")}
     </Link>

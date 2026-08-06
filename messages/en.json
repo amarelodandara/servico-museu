@@ -35,24 +35,17 @@
   },
   "Footer": {
     "credit": "In service of the museum — service-design research, UEMG, 2026",
-    "title": "In service of the museum: experience guidelines for the museum-educational institution",
-    "share": "Share this research",
-    "download": "Download the academic document",
     "about": "More about this site",
     "developedBy": "Developed by <link>Nicoly Dandara</link>",
     "aboutTitle": "About this site",
     "aboutClose": "Close",
-    "aboutHeading": "How it was made",
-    "aboutBody": "This site is the public version of an undergraduate design thesis. The academic document was rewritten in plainer language and reorganised as a browsable digest: sidenotes instead of footnotes, charts instead of tables, and a glossary that opens without pulling you out of the text. It is bilingual by default, keeps its essential parts working without JavaScript, and respects readers who prefer less motion.",
-    "colophonHeading": "Colophon",
-    "colophonTypefacesLabel": "Typefaces",
-    "colophonTypefaces": "Neuton for running text, Lato for labels and Inter for figures.",
-    "colophonStackLabel": "Built with",
-    "colophonStack": "Next.js and React, Tailwind CSS, MDX content and next-intl for translation.",
-    "colophonImagesLabel": "Images",
-    "colophonImages": "Reproductions of museum references, credited individually in each caption.",
-    "colophonLicenseLabel": "Use",
-    "colophonLicense": "Text and charts may be reproduced with attribution to the research."
+    "aboutBody": "This site is a small project adjacent to our research, built mainly to ease the first contact with museums while carrying over the same bar for quality set by the research itself.",
+    "aboutCredit": "It was entirely written, designed and developed by <name>Dandara</name> with the help of Claude Code. You can read about the project <writeup>here</writeup> or check the source on <github>Github</github>.",
+    "colophonFrameworkLabel": "Framework",
+    "colophonHostingLabel": "Hosting",
+    "colophonTypefaceLabel": "Typeface",
+    "colophonShadersLabel": "Shaders",
+    "colophonStylingLabel": "Styling"
   },
   "MuseumCarousel": {
     "label": "Museum design references",
@@ -197,7 +190,7 @@
     "downloadPng": "Download as PNG"
   },
   "Share": {
-    "share": "Share",
+    "share": "Share this research",
     "copied": "Link copied!"
   },
   "NotFound": {

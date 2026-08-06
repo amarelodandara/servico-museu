@@ -18,9 +18,24 @@ const VIEW = { w: 1200, h: 900 };
 
 const STATS = [
   { key: "museums", value: "223", color: figurePalette.magenta },
-  { key: "educational", value: "61,5%", valueEn: "61.5%", color: figurePalette.pink },
-  { key: "freeEntry", value: "87%", valueEn: "87%", color: figurePalette.yellow },
-  { key: "guidedVisits", value: "68,3%", valueEn: "68.3%", color: figurePalette.ink },
+  {
+    key: "educational",
+    value: "61,5%",
+    valueEn: "61.5%",
+    color: figurePalette.pink,
+  },
+  {
+    key: "freeEntry",
+    value: "87%",
+    valueEn: "87%",
+    color: figurePalette.yellow,
+  },
+  {
+    key: "guidedVisits",
+    value: "68,3%",
+    valueEn: "68.3%",
+    color: figurePalette.ink,
+  },
 ] as const;
 
 export function OutreachGraphic({ locale }: { locale: string }) {
@@ -40,12 +55,47 @@ export function OutreachGraphic({ locale }: { locale: string }) {
         style={{ fontFamily: "var(--font-lato), sans-serif" }}
       >
         {/* Picture-frame motif: outer frame, mat, inner sheet. */}
-        <rect x="0" y="0" width={VIEW.w} height={VIEW.h} fill={figurePalette.surface} />
-        <rect x="24" y="24" width={VIEW.w - 48} height={VIEW.h - 48} fill="none" stroke={figurePalette.ink} strokeWidth="10" />
-        <rect x="52" y="52" width={VIEW.w - 104} height={VIEW.h - 104} fill={figurePalette.card} />
-        <rect x="88" y="88" width={VIEW.w - 176} height={VIEW.h - 176} fill="none" stroke={figurePalette.ink} strokeWidth="1.5" />
+        <rect
+          x="0"
+          y="0"
+          width={VIEW.w}
+          height={VIEW.h}
+          fill={figurePalette.surface}
+        />
+        <rect
+          x="24"
+          y="24"
+          width={VIEW.w - 48}
+          height={VIEW.h - 48}
+          fill="none"
+          stroke={figurePalette.ink}
+          strokeWidth="10"
+        />
+        <rect
+          x="52"
+          y="52"
+          width={VIEW.w - 104}
+          height={VIEW.h - 104}
+          fill={figurePalette.card}
+        />
+        <rect
+          x="88"
+          y="88"
+          width={VIEW.w - 176}
+          height={VIEW.h - 176}
+          fill="none"
+          stroke={figurePalette.ink}
+          strokeWidth="1.5"
+        />
 
-        <text x="600" y="180" textAnchor="middle" fontSize="44" fontWeight="700" fill={figurePalette.ink}>
+        <text
+          x="600"
+          y="180"
+          textAnchor="middle"
+          fontSize="44"
+          fontWeight="700"
+          fill={figurePalette.ink}
+        >
           {t("title")}
         </text>
 
@@ -54,21 +104,40 @@ export function OutreachGraphic({ locale }: { locale: string }) {
           const row = Math.floor(index / 2);
           const x = 340 + col * 520;
           const y = 350 + row * 220;
-          const value =
-            isEn && "valueEn" in stat ? stat.valueEn : stat.value;
+          const value = isEn && "valueEn" in stat ? stat.valueEn : stat.value;
           return (
             <g key={stat.key}>
-              <text x={x} y={y} textAnchor="middle" fontSize="84" fontWeight="700" fill={stat.color}>
+              <text
+                x={x}
+                y={y}
+                textAnchor="middle"
+                fontSize="84"
+                fontWeight="700"
+                fill={stat.color}
+              >
                 {value}
               </text>
-              <text x={x} y={y + 46} textAnchor="middle" fontSize="26" fill={figurePalette.ink}>
+              <text
+                x={x}
+                y={y + 46}
+                textAnchor="middle"
+                fontSize="26"
+                fill={figurePalette.ink}
+              >
                 {t(`stat_${stat.key}`)}
               </text>
             </g>
           );
         })}
 
-        <text x="600" y="770" textAnchor="middle" fontSize="24" fill={figurePalette.ink} opacity="0.75">
+        <text
+          x="600"
+          y="770"
+          textAnchor="middle"
+          fontSize="24"
+          fill={figurePalette.ink}
+          opacity="0.75"
+        >
           {t("footer")}
         </text>
       </svg>
@@ -89,7 +158,7 @@ export function OutreachGraphic({ locale }: { locale: string }) {
               VIEW.h,
             );
           }}
-          className={buttonClass({ className: "w-fit" })}
+          className={buttonClass({ variant: "secondary", className: "w-fit" })}
         >
           {t("downloadPng")}
         </button>
