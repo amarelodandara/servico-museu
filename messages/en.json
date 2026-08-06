@@ -13,12 +13,12 @@
     "logoAlt": "Site icon (coming soon)",
     "title": "In service of the museum",
     "titleSubtitle": "Experience guidelines for the museum-educational institution",
+    "byline": "by Letícia França and Nicoly Dandara",
     "introParagraph1": "A friendlier explanation of Letícia França and Nicoly Dandara's capstone pre-project, advised by Simone Souza for the Minas Gerais State University.",
     "introParagraph2": "Less academic jargon, more visual explanations of concepts valuable to understanding our research thesis.",
     "downloadPdf": "Download the academic version",
     "downloadPdfNote": "Available as a PDF",
     "readDigest": "Read digest",
-    "glossaryLink": "Glossary",
     "panoramaLink": "Panorama",
     "collaborateLink": "How to collaborate",
     "researcher": "Researcher",
@@ -46,20 +46,6 @@
     "colophonTypefaceLabel": "Typeface",
     "colophonShadersLabel": "Shaders",
     "colophonStylingLabel": "Styling"
-  },
-  "MuseumCarousel": {
-    "label": "Museum design references",
-    "creditPlaceholder": "Author, year and source TBD",
-    "title_bienal": "1st São Paulo Biennial",
-    "alt_bienal": "Poster for the 1st São Paulo Biennial, 1951, with a geometric pattern of concentric rectangles in black, beige and red.",
-    "title_masp": "MASP",
-    "alt_masp": "Technical elevation drawing of a museum building, in thin lines on a white background.",
-    "title_nordeste": "Museu do Homem do Nordeste",
-    "alt_nordeste": "Two pieces from the Museu do Homem do Nordeste's visual identity: a portrait of a man and a photograph of a bather with a horse in muddy water, both carrying the museum's name in white lettering.",
-    "title_republica": "Museu Nacional da República",
-    "alt_republica": "A street banner against a blue sky with the phrase “Seu museu” repeated and the name of the Museu Nacional da República.",
-    "title_toninhas": "Toninhas",
-    "alt_toninhas": "Architectural render of a curved museum building over water, with hills in the background."
   },
   "BookCarousel": {
     "label": "Book carousel",
@@ -134,10 +120,6 @@
     "downloadPng": "Download as PNG",
     "worksTitle": "Where each work sits",
     "worksIntro": "The study's core bibliography, distributed across the diagram's fields."
-  },
-  "Glossary": {
-    "title": "Glossary",
-    "back": "Back to the digest"
   },
   "Collaborate": {
     "title": "Collaborate",

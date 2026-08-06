@@ -109,9 +109,17 @@ export default function DigestPage() {
                 className="col-span-1 space-y-6 outline-none lg:col-span-8 lg:col-start-4"
               >
                 <div className="col-span-1 space-y-6 lg:col-span-8 text-center">
-              <p className="font-newsreader font-medium tracking-tight text-3xl text-balance text-gray-700"><span className="text-black">A serviço do museu:</span> diretrizes de experiência para a instituição museo-educativa</p>
+                  <p className="font-newsreader font-medium tracking-tight text-3xl text-balance text-gray-700">
+                    <span className="text-black">{t("title")}:</span>{" "}
+                    {/* Same trick as the hero h1: the subtitle is stored
+                        capitalised so it can stand alone, and lowercased
+                        here where it runs on from the title. */}
+                    <span className="lowercase">{t("titleSubtitle")}</span>
+                  </p>
 
-                  <p className="font-inter text-sm tracking-tight">por Letícia França e Nicoly Dandara</p>
+                  <p className="font-inter text-sm tracking-tight">
+                    {t("byline")}
+                  </p>
 
                   <HeroShader />
                 </div>

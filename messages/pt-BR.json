@@ -13,12 +13,12 @@
     "logoAlt": "Ícone do site (em breve)",
     "title": "A serviço do museu",
     "titleSubtitle": "Diretrizes de experiência para a instituição museo-educativa",
+    "byline": "por Letícia França e Nicoly Dandara",
     "introParagraph1": "Uma explicação mais amigável de uma pesquisa de design. Menos academiquês e explicações mais gentis sobre design e museologia.",
     "introParagraph2": "Agora com menos academiquês e explicações mais gentis sobre design e museologia",
     "downloadPdf": "Baixar a versão acadêmica",
     "downloadPdfNote": "Disponível em formato PDF",
     "readDigest": "Ler resumo",
-    "glossaryLink": "Glossário",
     "panoramaLink": "Panorama",
     "collaborateLink": "Como colaborar",
     "researcher": "Pesquisadora",
@@ -46,20 +46,6 @@
     "colophonTypefaceLabel": "Tipografia",
     "colophonShadersLabel": "Shaders",
     "colophonStylingLabel": "Estilização"
-  },
-  "MuseumCarousel": {
-    "label": "Referências de design museal",
-    "creditPlaceholder": "Autoria, ano e fonte a definir",
-    "title_bienal": "1ª Bienal de São Paulo",
-    "alt_bienal": "Cartaz da 1ª Bienal de São Paulo, de 1951, com um padrão geométrico de retângulos concêntricos em preto, bege e vermelho.",
-    "title_masp": "MASP",
-    "alt_masp": "Desenho técnico de elevação de um edifício de museu, em linhas finas sobre fundo branco.",
-    "title_nordeste": "Museu do Homem do Nordeste",
-    "alt_nordeste": "Duas peças da identidade visual do Museu do Homem do Nordeste: o retrato de um homem e a fotografia de um banhista com um cavalo em água barrenta, ambas com o nome do museu em letras brancas.",
-    "title_republica": "Museu Nacional da República",
-    "alt_republica": "Bandeira de rua contra o céu azul com a frase “Seu museu” repetida e o nome do Museu Nacional da República.",
-    "title_toninhas": "Toninhas",
-    "alt_toninhas": "Render arquitetônico de um edifício curvo de museu sobre a água, com morros ao fundo."
   },
   "BookCarousel": {
     "label": "Carrossel de livros",
@@ -134,10 +120,6 @@
     "downloadPng": "Baixar como PNG",
     "worksTitle": "Onde cada obra se localiza",
     "worksIntro": "A bibliografia principal do estudo, distribuída pelos campos do diagrama."
-  },
-  "Glossary": {
-    "title": "Glossário",
-    "back": "Voltar ao resumo"
   },
   "Collaborate": {
     "title": "Colaborar",

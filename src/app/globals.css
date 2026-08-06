@@ -790,50 +790,6 @@ body {
 }
 
 /*
- * Museum carousel: an endless sideways drift. The track holds several
- * identical sets of plates and slides by exactly one set's width
- * (`--marquee-shift`, set from the copy count in museum-carousel.tsx),
- * which lands the next set precisely where the previous one started — so
- * the loop has no seam and needs no JS.
- *
- * Plates enter and leave on a hard edge, no fade. Motion pauses on hover
- * and on keyboard focus so a caption can actually be read, and under
- * prefers-reduced-motion the drift stops entirely and the band becomes a
- * plain horizontal scroller — still browsable, just not animated.
- *
- * `--marquee-duration` is the time to traverse one set, so the perceived
- * speed stays put no matter how many copies the track carries.
- */
-@keyframes museum-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(var(--marquee-shift, -50%));
-  }
-}
-
-.museum-marquee {
-  animation: museum-marquee var(--marquee-duration, 55s) linear infinite;
-  will-change: transform;
-}
-
-.museum-marquee-viewport:hover .museum-marquee,
-.museum-marquee-viewport:focus-within .museum-marquee {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .museum-marquee {
-    animation: none;
-  }
-
-  .museum-marquee-viewport {
-    overflow-x: auto;
-  }
-}
-
-/*
  * Margin column (desktop only). The reading column sits in a 20-col track
  * at col-start-4/col-span-8 (cols 4-11, 40% of the container), with 3
  * blank columns (15%) on either side so the whole reading-column-plus-

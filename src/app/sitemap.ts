@@ -3,7 +3,7 @@ import { routing } from "@/i18n/routing";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-const PATHS = ["", "/glossario", "/panorama", "/colaborar"];
+const PATHS = ["", "/panorama", "/colaborar"];
 
 /** Locale-aware URL: pt-BR is unprefixed (localePrefix: "as-needed"). */
 function localizedUrl(locale: string, path: string) {
