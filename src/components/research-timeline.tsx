@@ -1,29 +1,67 @@
 import { useTranslations } from "next-intl";
 
-type Phase = { key: string; label: string; span: string };
+type Span = { from: number; to: number };
 
-/**
- * Where each phase sits on the year, as fractions of it. One source of
- * truth for the bar, the tick and the label, so a phase can't be drawn in
- * one place and described in another.
- */
-const EXTENT: Record<string, { from: number; to: number }> = {
-  theory: { from: 0, to: 6 / 12 },
-  field: { from: 6 / 12, to: 9 / 12 },
-  publication: { from: 11 / 12, to: 1 },
-};
+/** Theoretical research, drawn as a span rather than two separate points —
+ * its own start and end already say how long it runs; the label just sits
+ * at the midpoint. */
+const THEORY_SPAN: Span = { from: 0, to: 4.5 / 12 };
 
-/** The one phase drawn in the accent; the rest are hairline neutrals. */
-const HIGHLIGHT = "field";
+/** The one span drawn in the accent — field research is the most
+ * important thing this timeline says, everything else stays grey. */
+const FIELD_SPAN: Span = { from: 6 / 12, to: 9 / 12 };
+
+/** Unlabelled dividers at the quarter boundaries — obviously trimester
+ * zones once the line is broken up, so they don't need their own text. */
+const QUARTER_LINES = [0.25, 0.5, 0.75];
+
+const DEFENSE_AT = 1;
+
+/** Same wash the sidenote rule casts under its text — a hairline anchor at
+ * top, colour bleeding out downward — reused here with `currentColor` so
+ * each span's shadow matches its own label instead of the sidenote's fixed
+ * blue tint. */
+function SpanShadow({
+  span,
+  className,
+}: {
+  span: Span;
+  className: string;
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`absolute -top-4 h-9 ${className}`}
+      style={{
+        left: `${span.from * 100}%`,
+        width: `${(span.to - span.from) * 100}%`,
+        backgroundImage:
+          "linear-gradient(to bottom, color-mix(in oklab, currentColor 10%, transparent) 0%, transparent 100%)",
+      }}
+    />
+  );
+}
 
 /**
  * The research schedule as a single year read left to right, rather than as
  * a list of dates.
  *
- * A list makes the reader assemble the shape themselves — four rows of
- * month ranges that have to be held in the head to see that field work is
- * the short, dense part in the middle. Drawn on one line, that shape is the
- * first thing visible and the dates become the detail underneath it.
+ * Drawn in one `<svg>` instead of a pile of absolutely-positioned divs: a
+ * baseline, two spans and an end point are all just lines on one
+ * coordinate system, without each mark needing its own
+ * `-translate-x-1/2 -translate-y-1/2` to center itself. Every stroke uses
+ * `vector-effect="non-scaling-stroke"` because the viewBox scales
+ * horizontally with the container's width but not vertically — without it,
+ * a wide aside would smear every hairline sideways. The "dots" (the
+ * defense point) are zero-length round-capped lines rather than circles
+ * for the same reason: a `<circle>`'s radius would distort under that same
+ * non-uniform scale, a stroke's width doesn't. The baseline is dashed down
+ * to dots (`strokeDasharray="0 4"`) so the stretches with no research
+ * planned read as visibly empty next to the solid spans that do.
+ *
+ * Text stays HTML, laid over the SVG rather than in it: labels are
+ * different lengths in each language, and SVG `<text>` doesn't wrap —
+ * `whitespace-nowrap` here is a CSS problem, not a drawing one.
  *
  * Deliberately not the digest's `Cronograma`: that's a full Gantt of eight
  * tasks across six columns, built to be studied. This is context for a
@@ -32,83 +70,128 @@ const HIGHLIGHT = "field";
  */
 export function ResearchTimeline() {
   const t = useTranslations("Cta");
-  const phases = t.raw("timelinePhases") as Phase[];
+  const fieldMid = ((FIELD_SPAN.from + FIELD_SPAN.to) / 2) * 100;
 
   return (
-    <figure className="m-0 flex flex-col gap-3">
+    // `font-lato`: sans, and self-contained rather than borrowed from a
+    // `font-lato` on some ancestor — the labels shouldn't go serif just
+    // because a parent's classes changed.
+    <figure className="font-lato m-0">
       <figcaption className="sr-only">
-        {t("timelineTitle")} — {t("timelineYear")}
+        {t("timelineTitle")} — {t("timelineYearStart")}–{t("timelineYearEnd")}{" "}
+        {t("timelineYear")}
       </figcaption>
 
-      {/* The line itself. `h-1.5` on the track with the segments filling it
-          means the highlighted phase reads as a thicker passage of the same
-          line rather than as a separate object sitting on top of it. */}
-      <div
-        className="relative h-1.5 w-full rounded-full bg-[var(--rule-blue)]/25"
-        aria-hidden="true"
-      >
-        {phases.map((phase) => {
-          const extent = EXTENT[phase.key];
-          if (!extent) return null;
-          const highlighted = phase.key === HIGHLIGHT;
+      <div className="relative pb-6">
+        {/* Right against the line, in the same grey as the baseline — this
+            is context for reading the line, not a heading of its own.
+            `leading-none` matters as much as the margin: default line
+            height was most of the remaining gap. */}
+        <div className="mb-0.5 flex justify-between text-[0.625rem] leading-none text-neutral-400 dark:text-neutral-600">
+          <span>{t("timelineYearStart")}</span>
+          <span>{t("timelineYearEnd")}</span>
+        </div>
 
-          return (
-            <span
-              key={phase.key}
-              className={`absolute inset-y-0 rounded-full ${
-                highlighted
-                  ? "bg-[var(--color-accent)]"
-                  : "bg-[var(--rule-blue)]"
-              }`}
-              style={{
-                left: `${extent.from * 100}%`,
-                width: `${(extent.to - extent.from) * 100}%`,
-              }}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 100 16"
+          preserveAspectRatio="none"
+          className="block h-4 w-full overflow-visible"
+        >
+          {/* The baseline: thin, grey and dashed to dots — the least
+              important line here, and now visibly "nothing planned" next to
+              the solid spans drawn on top of it. */}
+          <line
+            x1="0"
+            y1="8"
+            x2="100"
+            y2="8"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeDasharray="0 4"
+            vectorEffect="non-scaling-stroke"
+            className="stroke-neutral-400 dark:stroke-neutral-600"
+          />
+
+          {QUARTER_LINES.map((at) => (
+            <line
+              key={at}
+              x1={at * 100}
+              y1="5"
+              x2={at * 100}
+              y2="11"
+              strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
+              className="stroke-neutral-300 dark:stroke-neutral-700"
             />
-          );
-        })}
+          ))}
+
+          <line
+            x1={THEORY_SPAN.from * 100}
+            y1="8"
+            x2={THEORY_SPAN.to * 100}
+            y2="8"
+            strokeWidth="4"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+            className="stroke-neutral-400 dark:stroke-neutral-500"
+          />
+
+          <line
+            x1={FIELD_SPAN.from * 100}
+            y1="8"
+            x2={FIELD_SPAN.to * 100}
+            y2="8"
+            stroke="var(--color-accent)"
+            strokeWidth="4"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+
+          <line
+            x1={DEFENSE_AT * 100}
+            y1="8"
+            x2={DEFENSE_AT * 100}
+            y2="8"
+            strokeWidth="5"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+            className="stroke-neutral-400 dark:stroke-neutral-500"
+          />
+        </svg>
+
+        <div className="relative mt-2 text-xs">
+          <SpanShadow
+            span={THEORY_SPAN}
+            className="text-neutral-400 dark:text-neutral-500"
+          />
+          <SpanShadow
+            span={FIELD_SPAN}
+            className="text-[var(--color-accent)]"
+          />
+
+          <span
+            className="absolute top-0 -translate-x-1/2 text-neutral-500 whitespace-nowrap dark:text-neutral-400"
+            style={{ left: `${((THEORY_SPAN.from + THEORY_SPAN.to) / 2) * 100}%` }}
+          >
+            {t("timelineTheoryLabel")}
+          </span>
+
+          <span
+            className="absolute top-0 -translate-x-1/2 font-medium whitespace-nowrap text-[var(--color-accent)]"
+            style={{ left: `${fieldMid}%` }}
+          >
+            {t("timelineFieldLabel")}
+          </span>
+
+          <span
+            className="absolute top-0 text-right whitespace-nowrap text-neutral-500 dark:text-neutral-400"
+            style={{ right: `${(1 - DEFENSE_AT) * 100}%` }}
+          >
+            {t("timelineFinalDefenseLabel")}
+          </span>
+        </div>
       </div>
-
-      {/*
-        Labels sit under the span they describe, anchored by the same
-        fractions the bar uses. The last one is right-aligned against the
-        end of the year rather than left-aligned at its own start, so a
-        phase that finishes the line doesn't push its label off the edge.
-      */}
-      <ol className="relative h-10 w-full list-none p-0 text-xs">
-        {phases.map((phase, index) => {
-          const extent = EXTENT[phase.key];
-          if (!extent) return null;
-          const last = index === phases.length - 1;
-
-          return (
-            <li
-              key={phase.key}
-              className={`absolute top-0 flex flex-col ${
-                last ? "items-end text-right" : "items-start text-left"
-              }`}
-              style={
-                last
-                  ? { right: `${(1 - extent.to) * 100}%` }
-                  : { left: `${extent.from * 100}%` }
-              }
-            >
-              <span
-                className={
-                  phase.key === HIGHLIGHT
-                    ? "font-medium text-[var(--color-accent)]"
-                    : ""
-                }
-              >
-                {phase.label}
-              </span>
-              <span className="font-inter text-neutral-500 dark:text-neutral-400">
-                {phase.span}
-              </span>
-            </li>
-          );
-        })}
-      </ol>
     </figure>
   );
 }

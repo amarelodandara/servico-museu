@@ -75,7 +75,9 @@
     "field_museology": "Museology",
     "field_serviceDesign": "Service design",
     "field_informationDesign": "Information design",
-    "field_intersection": "Across the fields"
+    "field_intersection": "Across the fields",
+    "copyAll": "Copy reading list",
+    "listCopied": "List copied"
   },
   "DocumentPile": {
     "label": "Document pile",
@@ -154,37 +156,23 @@
     "formIntro": "Tell us where you work and how we can talk. We answer everyone."
   },
   "Cta": {
-    "title": "Is your museum part of this research?",
-    "intro": "The study has a scope: museums in Belo Horizonte. Search for the institution you work at — if it falls inside, get in touch.",
-    "searchLabel": "Institution name",
-    "searchPlaceholder": "Search for the museum by name",
+    "title": "Does your museum match this research?",
+    "intro": "The study has a clear scope: we're looking at traditional-model museums in Belo Horizonte that offer educational activities and school visits.",
+    "searchLabel": "Search whether your institution is on our list",
+    "searchPlaceholder": "Search for the museum where you work by name",
     "noMatch": "We couldn't find that institution in our scope. The research starts in Belo Horizonte, but we still want to hear from you — write to nicolysantos51@gmail.com.",
     "matchTitle": "{institution} is in our scope.",
-    "matchIntro": "Tell us how we can talk. We answer everyone.",
-    "searchAgain": "Search again",
-    "asideTitle": "What we ask of participants",
-    "asideBody": "One conversation of about an hour, in person or remote, about how visitors reach your institution and what happens next. No preparation needed — the questions start from the work you already do. Where there's room, we also ask to shadow a visit and watch the route through it.",
-    "asideReturnTitle": "What you get back",
-    "asideReturnBody": "A written account of what we found at your institution, ahead of final publication, and a named credit in the research — or anonymity, if you would rather.",
+    "matchIntro": "Tell us: what educational activities does the museum already run, how many school groups you host a month, and the best way to keep this conversation going.",
+    "readyTitle": "With our thesis approved, it's time to take the theoretical research and meet the real world.",
+    "readyHighlight": "This stage can happen at your museum!",
+    "meetingIntro": "Let's have an initial chat to understand which tools and methods we can run on-site with your team and/or your visitors.",
     "timelineTitle": "Research timeline",
     "timelineYear": "2026",
-    "timelinePhases": [
-      {
-        "key": "theory",
-        "label": "Theoretical research",
-        "span": "First half"
-      },
-      {
-        "key": "field",
-        "label": "Field research",
-        "span": "Third quarter"
-      },
-      {
-        "key": "publication",
-        "label": "Final publication",
-        "span": "December"
-      }
-    ]
+    "timelineYearStart": "Jan",
+    "timelineYearEnd": "Dec",
+    "timelineTheoryLabel": "Theoretical research",
+    "timelineFieldLabel": "Field research",
+    "timelineFinalDefenseLabel": "Final defense"
   },
   "Contact": {
     "name": "Name",

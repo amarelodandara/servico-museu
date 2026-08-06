@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { useId, useMemo, useRef, useState } from "react";
 import { ContactForm, FIELD_CLASS } from "@/components/contact-form";
 import { ResearchTimeline } from "@/components/research-timeline";
-import { buttonClass } from "@/components/ui/button";
 import { INSTITUTIONS, type Institution } from "@/content/institutions";
 import { fuzzySearch, normalize } from "@/lib/fuzzy";
 
@@ -94,35 +93,25 @@ export function InstitutionCta() {
         order, so the ask comes second either way, after the reader knows
         what they'd be agreeing to.
 
-        `items-start` rather than stretch: the left column is a fixed block
-        of prose and shouldn't grow to match a right column that changes
-        height when the form opens.
+        `items-start`: the right column changes height once a match opens
+        the form card, and centring the row would shift the aside up and
+        down with it — pinning both to the top keeps that column still.
       */}
       <div className="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-2 lg:gap-16">
-        <aside className="font-lato flex flex-col gap-8 text-left text-sm">
-          <div className="flex flex-col gap-2">
-            <h3 className="text-base font-semibold tracking-tight">
-              {t("asideTitle")}
-            </h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              {t("asideBody")}
+        <aside className="flex flex-col gap-8 text-left text-sm">
+          <div className="flex flex-col gap-8">
+            <p className="text-2xl text-balance leading-tight">
+              {t("readyTitle")}
+              <br />
+              <span className="text-[var(--color-accent)]">
+                {t("readyHighlight")}
+              </span>
             </p>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <h3 className="text-base font-semibold tracking-tight">
-              {t("asideReturnTitle")}
-            </h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              {t("asideReturnBody")}
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h3 className="text-base font-semibold tracking-tight">
-              {t("timelineTitle")}
-            </h3>
             <ResearchTimeline />
+          </div>
+
+          <div className="flex flex-col gap-2 text-lg text-balance">
+            <p className="w-3/4">{t("meetingIntro")}</p>
           </div>
         </aside>
 
@@ -201,40 +190,32 @@ export function InstitutionCta() {
                   {t("noMatch")}
                 </span>
               )}
+              {selected && (
+                <span className="font-medium text-[var(--color-accent)]">
+                  {t("matchTitle", { institution: selected.name })}
+                </span>
+              )}
             </p>
           </div>
 
           {/* The form opens inside this column rather than under the whole
               section: it belongs to the search that produced it, and letting
               it span both columns would leave the terms on the left orphaned
-              beside a full-width card. */}
+              beside a full-width card. Only mounted once there's a match —
+              the match feedback above already covers the "found it" moment,
+              so the card doesn't need its own copy of that message. */}
           {selected && (
-            <div
-              className="rounded-sm border border-neutral-200 bg-white px-8 py-8 text-left dark:border-neutral-800 dark:bg-neutral-900"
-              style={{ boxShadow: "var(--shadow-mat)" }}
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <p className="text-lg tracking-tight text-balance">
-                  {t("matchTitle", { institution: selected.name })}
+            <div className="mx-auto w-full max-w-md text-left lg:mx-0">
+              <div
+                className="match-card rounded-sm border border-neutral-200 bg-white px-8 py-8 text-left dark:border-neutral-800 dark:bg-neutral-900"
+                style={{ boxShadow: "var(--shadow-raise)" }}
+              >
+                <p className="font-lato mt-1 mb-6 text-sm text-neutral-600 dark:text-neutral-400">
+                  {t("matchIntro")}
                 </p>
-                <button
-                  type="button"
-                  onClick={reset}
-                  className={buttonClass({
-                    variant: "quiet",
-                    size: "sm",
-                    className: "-mr-3",
-                  })}
-                >
-                  {t("searchAgain")}
-                </button>
+
+                <ContactForm institution={selected.name} />
               </div>
-
-              <p className="font-lato mt-1 mb-6 text-sm text-neutral-600 dark:text-neutral-400">
-                {t("matchIntro")}
-              </p>
-
-              <ContactForm institution={selected.name} />
             </div>
           )}
         </div>

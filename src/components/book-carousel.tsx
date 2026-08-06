@@ -2,11 +2,20 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { buttonClass } from "@/components/ui/button";
+import { LabelSwap, SwapLabel } from "@/components/ui/label-swap";
 
 export type BookEntry = {
   title: string;
   author: string;
   year: string;
+  /** Printing/translation, e.g. "3rd ed." — shown under the cover instead
+   * of the year when known. Omit rather than guess; the year alone is a
+   * true citation, a guessed edition isn't. */
+  edition?: string;
+  /** Publishing house. Omit rather than guess — several entries only have
+   * a verified publisher for their original-language edition. */
+  publisher?: string;
   /** Which panorama field the work belongs to; picks the cover's accent. */
   field: "museology" | "serviceDesign" | "informationDesign" | "intersection";
   /** Path to a real cover image under public/, once gathered. */
@@ -23,6 +32,27 @@ const FIELD_COLOR: Record<BookEntry["field"], string> = {
 /** Shared height every cover is shown at — width follows each cover's own
  * aspect ratio, like books of different thickness on one shelf. */
 const SLOT_HEIGHT = 288;
+
+/** Fixed row height in the list below, so the sliding indicator can move by
+ * simple arithmetic instead of measuring the DOM. Titles are truncated to
+ * hold to it. */
+const ROW_HEIGHT = 44;
+
+/** Same strong ease-in-out as `EASE_IN_OUT` in `lib/ease.ts`, as a CSS
+ * value: the indicator is on-screen movement, not an enter/exit. */
+const SLIDE_EASE = "cubic-bezier(0.77,0,0.175,1)";
+
+/** Edition, publisher and year, in whatever subset is known — the caption
+ * under the cover and the copied citation both build off this. */
+function printingDetails(entry: BookEntry): string {
+  return [entry.edition, entry.publisher, entry.year]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+function citation(entry: BookEntry): string {
+  return `${entry.title} — ${entry.author} (${printingDetails(entry)})`;
+}
 
 /**
  * The bibliography as a plate above a list, after the pattern designex.app
@@ -44,9 +74,16 @@ const SLOT_HEIGHT = 288;
 export function BookCarousel({ books }: { books: BookEntry[] }) {
   const t = useTranslations("BookCarousel");
   const [current, setCurrent] = useState(0);
+  const [copiedAll, setCopiedAll] = useState(false);
 
   if (books.length === 0) return null;
   const book = books[current];
+
+  const copyAll = async () => {
+    await navigator.clipboard.writeText(books.map(citation).join("\n"));
+    setCopiedAll(true);
+    setTimeout(() => setCopiedAll(false), 2000);
+  };
 
   return (
     <div
@@ -115,17 +152,36 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
         })}
       </div>
 
-      {/* The one line that changes with the plate. Title and field live in
-          the list below, so repeating them here would say everything
-          twice. */}
+      {/* The one line that changes with the plate. Author now lives on the
+          row below (see the list), so this carries whatever else is known
+          about the printing instead — edition and publisher where they've
+          been verified, falling back to the year alone rather than guess
+          at the rest. */}
       <p
         aria-live="polite"
         className="font-lato text-sm text-neutral-500 dark:text-neutral-400"
       >
-        {book.author} · {book.year}
+        {printingDetails(book)}
       </p>
 
-      <ul className="flex w-full flex-col">
+      {/* `relative` roots the sliding indicator below; each row holds to
+          `ROW_HEIGHT` so the indicator's offset is index * ROW_HEIGHT,
+          no measuring required. */}
+      <ul className="relative flex w-full flex-col">
+        {/* The one moving piece — an ease-in-out slide between rows rather
+            than each row snapping its own border colour on and off. Sits
+            above the static neutral tracks painted by every row's own
+            border-l. */}
+        <div
+          aria-hidden="true"
+          className="absolute left-0 z-10 w-0.5 bg-[var(--color-accent)] transition-transform duration-200"
+          style={{
+            height: ROW_HEIGHT,
+            transform: `translateY(${current * ROW_HEIGHT}px)`,
+            transitionTimingFunction: SLIDE_EASE,
+          }}
+        />
+
         {books.map((entry, index) => {
           const active = index === current;
 
@@ -135,35 +191,83 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
                 type="button"
                 aria-current={active}
                 onClick={() => setCurrent(index)}
-                className={`flex w-full items-baseline justify-between gap-4 border-l-2 py-2.5 pl-4 text-left transition-colors duration-150 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
-                  active
-                    ? "border-[var(--color-accent)]"
-                    : "border-neutral-200 hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
-                }`}
+                style={{ height: ROW_HEIGHT }}
+                className="flex w-full items-center justify-between gap-4 border-l-2 border-neutral-200 pl-4 text-left hover:border-neutral-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] dark:border-neutral-800 dark:hover:border-neutral-600"
               >
                 <span
-                  className={
+                  className={`min-w-0 flex-1 truncate ${
                     active ? "font-medium text-[var(--color-accent)]" : ""
-                  }
+                  }`}
                 >
                   {entry.title}
+                  {/* Field stays available to assistive tech even though
+                      the visual chip was dropped — the cover's coloured
+                      top bar is the sighted equivalent, and only carries
+                      that cue when there's no photographed cover to show
+                      instead. */}
+                  <span className="sr-only"> — {t(`field_${entry.field}`)}</span>
                 </span>
 
-                {/* Direct-labelled, with the field's colour as a second,
-                    redundant cue rather than the only one. */}
-                <span className="font-lato flex shrink-0 items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
-                  <span
-                    aria-hidden="true"
-                    className="h-1.5 w-1.5 rounded-full"
-                    style={{ backgroundColor: FIELD_COLOR[entry.field] }}
-                  />
-                  {t(`field_${entry.field}`)}
+                <span className="font-lato shrink-0 truncate text-xs text-neutral-500 dark:text-neutral-400">
+                  {entry.author}
                 </span>
               </button>
             </li>
           );
         })}
       </ul>
+
+      {/* `quiet` — text only, no raised plate or shadow; this is a small
+          utility action, not a call to action. `self-end` breaks it out of
+          the plate's centred column so it sits at the list's own edge.
+          `whitespace-nowrap` plus a fixed-width icon slot keep it one line
+          across both idle and copied labels. */}
+      <button
+        type="button"
+        onClick={copyAll}
+        className={buttonClass({
+          variant: "quiet",
+          size: "sm",
+          className: "flex items-center gap-1.5 self-end whitespace-nowrap",
+        })}
+      >
+        <LabelSwap>
+          <SwapLabel visible={!copiedAll}>
+            <svg
+              viewBox="0 0 16 16"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+              <path d="M3.5 10.5V4.5a1 1 0 0 1 1-1h6" />
+            </svg>
+          </SwapLabel>
+          <SwapLabel visible={copiedAll}>
+            <svg
+              viewBox="0 0 16 16"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3.5 8.5l3 3 6-7" />
+            </svg>
+          </SwapLabel>
+        </LabelSwap>
+
+        <LabelSwap>
+          <SwapLabel visible={!copiedAll}>{t("copyAll")}</SwapLabel>
+          <SwapLabel visible={copiedAll}>{t("listCopied")}</SwapLabel>
+        </LabelSwap>
+      </button>
     </div>
   );
 }

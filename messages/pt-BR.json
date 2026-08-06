@@ -75,7 +75,9 @@
     "field_museology": "Museologia",
     "field_serviceDesign": "Design de serviços",
     "field_informationDesign": "Design da informação",
-    "field_intersection": "Intersecção dos campos"
+    "field_intersection": "Intersecção dos campos",
+    "copyAll": "Copiar lista de leitura",
+    "listCopied": "Lista copiada"
   },
   "DocumentPile": {
     "label": "Pilha de documentos",
@@ -154,37 +156,23 @@
     "formIntro": "Conta pra gente onde você trabalha e como podemos conversar. Respondemos todo mundo."
   },
   "Cta": {
-    "title": "Seu museu faz parte dessa pesquisa?",
-    "intro": "O estudo tem um recorte: museus de Belo Horizonte. Busque pela instituição onde você trabalha — se ela estiver no recorte, é só falar com a gente.",
-    "searchLabel": "Nome da instituição",
-    "searchPlaceholder": "Busque pelo nome do museu",
+    "title": "Seu museu combina com essa pesquisa?",
+    "intro": "O estudo tem um escopo bem claro, estamos olhando para os museus de modelo tradicional de Belo Horizonte que oferecem atividades educativas e visitações escolares.",
+    "searchLabel": "Pesquise se sua instituição está na nossa lista",
+    "searchPlaceholder": "Busque pelo nome do museu em que você trabalha",
     "noMatch": "Não encontramos essa instituição no nosso recorte. A pesquisa começa por Belo Horizonte, mas queremos ouvir você mesmo assim — escreva para nicolysantos51@gmail.com.",
     "matchTitle": "{institution} está no nosso recorte.",
-    "matchIntro": "Conta pra gente como podemos conversar. Respondemos todo mundo.",
-    "searchAgain": "Buscar outra",
-    "asideTitle": "O que esperamos de quem participa",
-    "asideBody": "Uma conversa de cerca de uma hora, presencial ou remota, sobre como o público chega até a sua instituição e o que acontece depois. Nada de preparo prévio: as perguntas partem do trabalho que você já faz. Se houver espaço, pedimos também uma visita acompanhada para observar o percurso de visita.",
-    "asideReturnTitle": "O que você recebe de volta",
-    "asideReturnBody": "Um relatório com o que encontramos na sua instituição, antes da publicação final, e crédito nominal na pesquisa — ou anonimato, se preferir.",
+    "matchIntro": "Conte pra gente: que atividades educativas o museu já oferece, quantas turmas escolares vocês recebem por mês e qual o melhor jeito de seguir essa conversa.",
+    "readyTitle": "Com a aprovação da nossa tese de pesquisa, é hora de levar a pesquisa teórica de encontro com o mundo real.",
+    "readyHighlight": "Essa etapa pode acontecer no seu museu!",
+    "meetingIntro": "Vamos bater um papo inicial para entender quais ferramentas e metodologias nós podemos executar in-loco com a sua equipe e/ou os seus visitantes.",
     "timelineTitle": "Cronograma da pesquisa",
     "timelineYear": "2026",
-    "timelinePhases": [
-      {
-        "key": "theory",
-        "label": "Pesquisa teórica",
-        "span": "1º semestre"
-      },
-      {
-        "key": "field",
-        "label": "Pesquisa de campo",
-        "span": "3º trimestre"
-      },
-      {
-        "key": "publication",
-        "label": "Publicação final",
-        "span": "Dezembro"
-      }
-    ]
+    "timelineYearStart": "Jan",
+    "timelineYearEnd": "Dez",
+    "timelineTheoryLabel": "Pesquisa teórica",
+    "timelineFieldLabel": "Pesquisa de campo",
+    "timelineFinalDefenseLabel": "Defesa final"
   },
   "Contact": {
     "name": "Nome",

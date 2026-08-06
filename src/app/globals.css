@@ -761,9 +761,29 @@ body {
   }
 }
 
+/*
+ * The contact-match card: a state indication (the search resolved) rather
+ * than an enter/exit toggle, so it gets one direction only — there's no
+ * unmount transition to make symmetric, the card simply stops being
+ * rendered once the search resets.
+ */
+.match-card {
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+@starting-style {
+  .match-card {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   @starting-style {
-    .combobox-list {
+    .combobox-list,
+    .match-card {
       transform: none;
     }
   }

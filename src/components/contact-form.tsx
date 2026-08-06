@@ -67,16 +67,18 @@ export function ContactForm({ institution }: { institution?: string } = {}) {
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-3">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <label className="flex flex-col gap-1 text-sm">
-          {t("name")}
-          <input name="name" required className={FIELD_CLASS} />
-        </label>
-        <label className="flex flex-col gap-1 text-sm">
-          {t("email")}
-          <input name="email" type="email" required className={FIELD_CLASS} />
-        </label>
-      </div>
+      {/* Stacked rather than side by side: the CTA's own column is narrow
+          enough (max-w-md) that a two-up row left each field too tight to
+          hold what people actually type into it — a real name or email
+          address, not a two-word placeholder. */}
+      <label className="flex flex-col gap-1 text-sm">
+        {t("name")}
+        <input name="name" required className={FIELD_CLASS} />
+      </label>
+      <label className="flex flex-col gap-1 text-sm">
+        {t("email")}
+        <input name="email" type="email" required className={FIELD_CLASS} />
+      </label>
       {institution ? (
         <input type="hidden" name="institution" value={institution} />
       ) : (
