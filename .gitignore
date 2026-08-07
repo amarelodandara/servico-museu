@@ -42,3 +42,7 @@ next-env.d.ts
 
 # local machine permissions, not shared config
 .claude/settings.local.json
+
+# agent skills, installed via skills-lock.json — not app source
+/.agents/skills
+/.claude/skills
