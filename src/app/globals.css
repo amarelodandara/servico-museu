@@ -354,7 +354,7 @@ body {
  * invisible. Tile generated at build-authoring time, not runtime.
  */
 .photo-grain {
-  background-image: url("/grain.png");
+  background-image: url("/ui/grain.png");
   background-repeat: repeat;
   image-rendering: pixelated;
   mix-blend-mode: overlay;
@@ -374,7 +374,7 @@ body {
  * context: the blend needs the page wash behind it as its backdrop.
  */
 .footer-grain {
-  background-image: url("/grain.png");
+  background-image: url("/ui/grain.png");
   background-repeat: repeat;
   image-rendering: pixelated;
   mix-blend-mode: multiply;
@@ -555,7 +555,7 @@ body {
     linear-gradient(
       color-mix(in oklab, var(--raise-fill) 84%, transparent) 0 100%
     ),
-    url("/grain.png");
+    url("/ui/grain.png");
   background-blend-mode: normal, overlay;
   background-repeat: no-repeat, repeat;
   /* Half the tile's natural 128px, so the noise cell lands near a single
