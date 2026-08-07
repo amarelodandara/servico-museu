@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import uemgPhoto from "../../public/header/uemg.jpg";
+import uemgPhoto from "../../public/contributors/uemg.jpg";
 import nicolyPhoto from "../../public/contributors/nicoly-dandara.jpg";
 
 /*
