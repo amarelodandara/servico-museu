@@ -21,20 +21,19 @@ const GROUPS: Group[] = [
   {
     title: "Surface",
     blurb:
-      "The page wash runs from --background at the top to --background-light over the opening band.",
+      "The page wash runs from --background-start at the top to --background-end over the opening band.",
     tokens: [
-      { name: "--background", label: "Background (top of the wash)" },
-      { name: "--background-light", label: "Background light (rest of page)" },
+      { name: "--background-start", label: "Background start (top of the wash)" },
+      { name: "--background-end", label: "Background end (rest of page)" },
       { name: "--foreground", label: "Foreground (body text)" },
     ],
   },
   {
     title: "Accent",
     blurb:
-      "The “added content” blue, its tint, and the hairline blue the sidenote rules are drawn in.",
+      "The accent blue and the hairline blue the sidenote rules are drawn in.",
     tokens: [
-      { name: "--color-accent", label: "Accent" },
-      { name: "--color-added-tint", label: "Added tint" },
+      { name: "--accent", label: "Accent" },
       { name: "--rule-blue", label: "Rule blue (sidenote lines)" },
     ],
   },

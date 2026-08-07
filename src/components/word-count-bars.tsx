@@ -18,7 +18,7 @@ export async function WordCountBars() {
       key: "digest",
       label: t("wordCountDigest"),
       value: digestWords,
-      valueClassName: "text-[var(--color-accent)]",
+      valueClassName: "text-[var(--accent)]",
     }
 
   ];

@@ -13,7 +13,7 @@ import type { ComponentPropsWithoutRef } from "react";
 export function Blockquote(props: ComponentPropsWithoutRef<"blockquote">) {
   return (
     <blockquote
-      className="my-6 border-l-2 border-[var(--color-accent)] pl-4 text-neutral-700 italic [&>p]:text-2xl dark:text-neutral-300"
+      className="my-6 border-l-2 border-[var(--accent)] pl-4 text-neutral-700 italic [&>p]:text-2xl dark:text-neutral-300"
       {...props}
     />
   );

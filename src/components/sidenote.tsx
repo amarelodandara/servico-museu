@@ -100,7 +100,7 @@ export function Sidenote({ children }: { children: ReactNode }) {
     : undefined;
   const markerColor = highlighted
     ? "text-[var(--sidenote-highlight)]"
-    : "text-[var(--color-accent)]";
+    : "text-[var(--accent)]";
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
@@ -128,7 +128,7 @@ export function Sidenote({ children }: { children: ReactNode }) {
           }}
           className={
             "-m-1.5 inline cursor-pointer appearance-none rounded p-1.5 text-[0.7em] font-medium " +
-            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] " +
+            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] " +
             markerColor +
             (isDesktop ? "" : " underline decoration-dotted underline-offset-2")
           }
@@ -160,16 +160,16 @@ export function Sidenote({ children }: { children: ReactNode }) {
             aria-modal="true"
             aria-hidden={!open}
             data-open={open}
-            className="overlay-sheet fixed inset-x-0 bottom-0 z-50 max-h-[60vh] overflow-y-auto border-t border-neutral-300 bg-[var(--background)] p-4 shadow-[0_-4px_16px_rgba(0,0,0,0.15)] dark:border-neutral-700"
+            className="overlay-sheet fixed inset-x-0 bottom-0 z-50 max-h-[60vh] overflow-y-auto border-t border-neutral-300 bg-[var(--background-start)] p-4 shadow-[0_-4px_16px_rgba(0,0,0,0.15)] dark:border-neutral-700"
           >
             <div className="mx-auto flex max-w-2xl flex-col gap-3">
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 className={
-                  "w-fit text-sm font-medium text-[var(--color-accent)] " +
+                  "w-fit text-sm font-medium text-[var(--accent)] " +
                   "transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 " +
-                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                 }
               >
                 ← {t("back")}

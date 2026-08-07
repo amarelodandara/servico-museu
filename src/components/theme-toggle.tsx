@@ -64,7 +64,7 @@ export function ThemeToggle({
       onClick={toggle}
       aria-label={lit ? t("switchToDark") : t("switchToLight")}
       title={lit ? t("switchToDark") : t("switchToLight")}
-      className={`group rounded-[2px] transition-[border-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${shell}`}
+      className={`group rounded-[2px] transition-[border-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${shell}`}
       style={
         bare
           ? undefined

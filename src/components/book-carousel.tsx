@@ -174,7 +174,7 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
             border-l. */}
         <div
           aria-hidden="true"
-          className="absolute left-0 z-10 w-0.5 bg-[var(--color-accent)] transition-transform duration-200"
+          className="absolute left-0 z-10 w-0.5 bg-[var(--accent)] transition-transform duration-200"
           style={{
             height: ROW_HEIGHT,
             transform: `translateY(${current * ROW_HEIGHT}px)`,
@@ -192,11 +192,11 @@ export function BookCarousel({ books }: { books: BookEntry[] }) {
                 aria-current={active}
                 onClick={() => setCurrent(index)}
                 style={{ height: ROW_HEIGHT }}
-                className="flex w-full items-center justify-between gap-4 border-l-2 border-neutral-200 pl-4 text-left hover:border-neutral-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] dark:border-neutral-800 dark:hover:border-neutral-600"
+                className="flex w-full items-center justify-between gap-4 border-l-2 border-neutral-200 pl-4 text-left hover:border-neutral-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] dark:border-neutral-800 dark:hover:border-neutral-600"
               >
                 <span
                   className={`min-w-0 flex-1 truncate ${
-                    active ? "font-medium text-[var(--color-accent)]" : ""
+                    active ? "font-medium text-[var(--accent)]" : ""
                   }`}
                 >
                   {entry.title}

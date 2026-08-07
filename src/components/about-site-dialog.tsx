@@ -147,14 +147,14 @@ export function AboutSiteDialog() {
         aria-modal="true"
         aria-label={t("aboutTitle")}
         data-open={open}
-        className="overlay-panel fixed inset-x-4 top-1/2 z-50 max-h-[80vh] -translate-y-1/2 overflow-y-auto rounded-lg border border-neutral-300 bg-[var(--background)] p-8 text-left shadow-[var(--shadow-float)] sm:inset-x-auto sm:left-1/2 sm:w-[min(48rem,calc(100vw-3rem))] sm:-translate-x-1/2 sm:p-10 dark:border-neutral-700"
+        className="overlay-panel fixed inset-x-4 top-1/2 z-50 max-h-[80vh] -translate-y-1/2 overflow-y-auto rounded-lg border border-neutral-300 bg-[var(--background-start)] p-8 text-left shadow-[var(--shadow-float)] sm:inset-x-auto sm:left-1/2 sm:w-[min(48rem,calc(100vw-3rem))] sm:-translate-x-1/2 sm:p-10 dark:border-neutral-700"
       >
         <div className="flex justify-end">
           <button
             type="button"
             aria-label={t("aboutClose")}
             onClick={() => setOpen(false)}
-            className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] -mr-1 -mt-1 rounded-full p-2 text-neutral-500 transition-colors duration-150 ease-out hover:text-neutral-900 dark:hover:text-neutral-100"
+            className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] -mr-1 -mt-1 rounded-full p-2 text-neutral-500 transition-colors duration-150 ease-out hover:text-neutral-900 dark:hover:text-neutral-100"
           >
             <svg
               viewBox="0 0 16 16"

@@ -13,7 +13,7 @@ export type ButtonSurface = "page" | "light";
 const BASE =
   "font-lato inline-block rounded-lg text-sm " +
   "transition-[background-color,border-color,color,text-decoration-color,transform] duration-150 ease-out " +
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]";
 
 /*
  * Press recoil for the flat variants. Held apart from BASE because the

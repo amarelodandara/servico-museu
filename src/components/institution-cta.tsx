@@ -103,7 +103,7 @@ export function InstitutionCta() {
             <p className="text-2xl text-balance leading-tight">
               {t("readyTitle")}
               <br />
-              <span className="text-[var(--color-accent)]">
+              <span className="text-[var(--accent)]">
                 {t("readyHighlight")}
               </span>
             </p>
@@ -191,7 +191,7 @@ export function InstitutionCta() {
                 </span>
               )}
               {selected && (
-                <span className="font-medium text-[var(--color-accent)]">
+                <span className="font-medium text-[var(--accent)]">
                   {t("matchTitle", { institution: selected.name })}
                 </span>
               )}

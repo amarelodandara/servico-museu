@@ -70,7 +70,7 @@ export default function DigestPage() {
               </ScrollLink>
               {/* Blue here is a live test, not a decision — the other count
                   below is still the neutral it was, for comparison. */}
-              <span className="font-lato text-xs text-[var(--color-accent)]">
+              <span className="font-lato text-xs text-[var(--accent)]">
                 {digestWords.toLocaleString(locale)} {t("wordCountShort")}
               </span>
             </div>

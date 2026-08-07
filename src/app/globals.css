@@ -1,13 +1,98 @@
 @import "tailwindcss";
 
-/*
- * Dark mode is manual-with-a-system-default. `data-theme` on <html> is the
- * authority — the inline script in the locale layout resolves it before
- * first paint, and the lamp toggle rewrites it — while the media query
- * stays as the no-JS fallback, scoped to `:not([data-theme])` so it never
- * fights an explicit choice. Every `dark:` utility in the codebase routes
- * through this variant, so both paths stay in sync.
- */
+:root {
+
+  --neutral-50: #fdfdfe;
+  --neutral-100: #f4f6f8;
+  --neutral-200: #d9e0e9;
+  --neutral-300: #b5bdc8;
+  --neutral-400: #8b939e;
+  --neutral-500: #606771;
+  --neutral-600: #383f48;
+  --neutral-700: #171d25;
+  --neutral-800: #04060b;
+  --neutral-900: #000102;
+  --neutral-950: #000000;
+
+  --blue-50: #e3eefd;
+  --blue-100: #bad6fa;
+  --blue-200: #8fbcf7;
+  --blue-300: #62a2f4;
+  --blue-400: #2b87f1;
+  --blue-500: #2170ca;
+  --blue-600: #1859a3;
+  --blue-700: #10437e;
+  --blue-800: #082f5b;
+  --blue-900: #031c3a;
+  --blue-950: #010a1c;
+}
+
+
+:root {
+
+    --background-start: var(--neutral-100);
+    --background-end: var(--neutral-50);
+    --foreground: var(--neutral-700);
+    --dark-background-start: var(--neutral-800);
+    --dark-background-end: var(--neutral-700);
+    --dark-foreground: var(--neutral-100);
+
+    --accent: var(--blue-500);
+
+
+
+    --rule-blue: var(--blue-200);
+
+    --sidenote-tint: var(--blue-50);
+
+    --quote-ink: var(--blue-700);
+
+    --series-1: var(--blue-500);
+
+    --shadow-hairline: 0 0 0 1px rgb(0 0 0 / 0.06);
+    --shadow-inset-frame:
+      inset 0 0 0 1px rgb(0 0 0 / 0.035), inset 0 1px 4px rgb(0 0 0 / 0.02);
+    --shadow-mat: var(--shadow-hairline), var(--shadow-inset-frame);
+    --shadow-float: 0 8px 28px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.1);
+
+    --shadow-raise:
+      0 0 0 1px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04),
+      0 4px 4px -4px rgb(0 0 0 / 0.12);
+    --shadow-raise-high:
+      0 0 0 1px rgb(0 0 0 / 0.08), 0 2px 2px rgb(0 0 0 / 0.05),
+      0 8px 8px -6px rgb(0 0 0 / 0.16);
+    --shadow-raise-bare: var(--shadow-raise);
+    --shadow-raise-bare-high: var(--shadow-raise-high);
+
+    --raise-fill: var(--accent);
+    --raise-plate: #ffffff;
+
+
+    --dark-rule-blue: var(--blue-600);
+    --dark-sidenote-tint: var(--blue-900);
+
+    --dark-quote-ink: var(--blue-200);
+
+    --dark-series-1: var(--blue-400);
+
+    --dark-shadow-hairline: 0 0 0 1px rgb(255 255 255 / 0.12);
+    --dark-shadow-inset-frame:
+      inset 0 0 0 1px rgb(255 255 255 / 0.08),
+      inset 0 1px 4px rgb(255 255 255 / 0.035);
+    --dark-shadow-float: 0 8px 28px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
+
+    --dark-shadow-raise:
+      0 0 0 1px rgb(255 255 255 / 0.1), 0 1px 1px rgb(0 0 0 / 0.3),
+      0 4px 4px -4px rgb(0 0 0 / 0.4);
+    --dark-shadow-raise-high:
+      0 0 0 1px rgb(255 255 255 / 0.12), 0 2px 2px rgb(0 0 0 / 0.35),
+      0 8px 8px -6px rgb(0 0 0 / 0.5);
+    --dark-shadow-raise-bare: var(--dark-shadow-raise);
+    --dark-shadow-raise-bare-high: var(--dark-shadow-raise-high);
+
+    --dark-raise-plate: #202020;
+}
+
 @custom-variant dark {
   &:where([data-theme="dark"], [data-theme="dark"] *) {
     @slot;
@@ -19,193 +104,19 @@
   }
 }
 
-/*
- * Placeholder design tokens. Values here are intentionally neutral —
- * the font/color pass is reserved for later and should only require
- * editing this block, not hunting through components.
- */
-:root {
-  --background: #f2f6f7;
-  --background-light: #fcfdfd;
-  --foreground: #171717;
-
-  --color-accent: #2563eb; /* placeholder for the "added content" blue from the pitch doc */
-  --color-added-tint: #dbeafe;
-
-  /* Hairline blue for spec-drawing rules (the sidenote lines). */
-  --rule-blue: #9dbde8;
-
-  /* The wash behind a margin note — the palest step of the same blue as the
-     rule above it, so note and rule read as one drawn annotation. */
-  --sidenote-tint: #eef4fb;
-
-  /* Gold, not blue: the color a sidenote and its marker switch to together
-     once clicked, so the pair reads as "this one" against every other note
-     still in the default blue. Same value in both themes — its lightness
-     already sits far enough from either background. */
-  --sidenote-highlight: #c2a56d;
-
-  /*
-   * Pull-quote ink. Deliberately not --color-accent: that blue is sized for
-   * small marks on a light ground (sidenote numbers, focus rings), and at
-   * 24px across a full line it turns the quote into the loudest thing on
-   * the page. This is several steps down in lightness — still unmistakably
-   * the accent hue, dark enough to be read as text rather than as a
-   * highlight.
-   */
-  --quote-ink: #1a3a72;
-
-  /* dataviz categorical slots 1/2 (blue/orange), validated for CVD + contrast */
-  --series-1: #2a78d6;
-  --series-2: #eb6834;
-
-  /*
-   * IBRAM-figure palette: source-faithful pink/yellow/black/magenta from the
-   * TCC's Figuras 2 e 4, darkened from the originals to pass the dataviz
-   * validator's CVD + normal-vision checks against this surface. The ink
-   * slot is a deliberate neutral (the source genuinely uses black); every
-   * mark using these is direct-labeled, never color-alone. Final hues are
-   * part of the user's reserved palette pass.
-   */
-  --fig-pink: #e0559d;
-  --fig-yellow: #c2930f;
-  --fig-ink: #3d3a35;
-  --fig-magenta: #a8156b;
-  --fig-card: #ffffff;
-  --fig-grid: #e2e6e8;
-
-  /*
-   * Shadow tokens, calibrated after superlogical.com's frame treatment.
-   * The whole trick is restraint: every layer sits under 6% alpha, and
-   * depth comes from pairing a 1px hairline with a second, barely-there
-   * blurred layer rather than from one heavy shadow.
-   *
-   * hairline    — outset 1px ring; defines an edge where two light
-   *               surfaces meet (white mat on a near-white page).
-   * inset-frame — inset hairline + 1px-offset 4px blur; reads as the page
-   *               sinking into the mat.
-   * mat         — the two composed, for a recessed paper mat.
-   * float       — one wide soft shadow plus a tight contact shadow, for
-   *               elements genuinely lifted off the page.
-   */
-  --shadow-hairline: 0 0 0 1px rgb(0 0 0 / 0.06);
-  --shadow-inset-frame:
-    inset 0 0 0 1px rgb(0 0 0 / 0.035), inset 0 1px 4px rgb(0 0 0 / 0.02);
-  --shadow-mat: var(--shadow-hairline), var(--shadow-inset-frame);
-  --shadow-float: 0 8px 28px rgb(0 0 0 / 0.14), 0 1px 3px rgb(0 0 0 / 0.1);
-
-  /*
-   * The other end of the depth scale. The page frames its images the way a
-   * museum does — they sink through a paper mat into the wall (--shadow-mat),
-   * below the surface you're reading on. Interactive things go the other way:
-   * they sit *on top of* that surface, the one plane you can actually touch.
-   *
-   * Same recipe as the fields (`--shadow-inset-frame`'s sibling, not its
-   * opposite): a hairline doing the edge, at the same 8%/10% alpha as
-   * `FIELD_CLASS`'s border, plus a soft ambient layer with a negative
-   * spread doing the height. The hairline reads as a border without being
-   * one; the ambient layer is what actually lifts the control off the
-   * page. The whole scale, low to high:
-   *
-   *   --shadow-mat         artwork, sunk into the wall
-   *   (the page itself)    zero, and inputs — pressed in, not raised
-   *   --shadow-raise       a control at rest, just off the surface
-   *   --shadow-raise-high  the same control under the pointer
-   *
-   * The two raise steps are deliberately close. The lift should register as
-   * "this responded", not as an object jumping at the reader — the gap
-   * between them is about 4px of apparent height. `--shadow-raise-bare`
-   * used to drop the hairline for plate-filled buttons; now that the
-   * fields carry a visible border too, every raised surface gets the same
-   * edge, so it's just an alias.
-   */
-  --shadow-raise:
-    0 0 0 1px rgb(0 0 0 / 0.08), 0 1px 1px rgb(0 0 0 / 0.04),
-    0 4px 4px -4px rgb(0 0 0 / 0.12);
-  --shadow-raise-high:
-    0 0 0 1px rgb(0 0 0 / 0.08), 0 2px 2px rgb(0 0 0 / 0.05),
-    0 8px 8px -6px rgb(0 0 0 / 0.16);
-  --shadow-raise-bare: var(--shadow-raise);
-  --shadow-raise-bare-high: var(--shadow-raise-high);
-
-  /*
-   * Raised-surface fills. The primary takes the accent blue — it's the one
-   * colour the page already spends on "this was added, look here" — and the
-   * secondary takes a white plate, the same paper the mat is cut from, so the
-   * two raised tiers read as the same material at different heights.
-   */
-  --raise-fill: var(--color-accent);
-  --raise-plate: #ffffff;
-
-  /*
-   * Dark steps, parked in their own slots rather than written straight into
-   * a dark-mode rule. Two rules switch schemes — the `data-theme` one and
-   * the no-JS media fallback — and this way they share one source of truth:
-   * they only re-point the live token at the matching `--dark-*` value.
-   * Editing a dark colour means editing it here, once.
-   */
-  --dark-background: #0a0a0a;
-  --dark-background-light: #151515;
-  --dark-foreground: #ededed;
-  --dark-rule-blue: #3b5b86;
-  --dark-sidenote-tint: #141c26;
-  /* Inverted, necessarily: "darker" is a light-mode instruction. On a
-     near-black page the same job — quieter than the accent, still clearly
-     the accent hue — means going lighter, not deeper. */
-  --dark-quote-ink: #9dc0f0;
-
-  --dark-series-1: #3987e5;
-  --dark-series-2: #d95926;
-
-  /* Dark steps of the figure palette; ink flips to a light neutral. */
-  --dark-fig-pink: #ea75b1;
-  --dark-fig-yellow: #d4a41f;
-  --dark-fig-ink: #cfcac2;
-  --dark-fig-magenta: #d13a92;
-  --dark-fig-card: #1c1c1c;
-  --dark-fig-grid: #2e2e2e;
-
-  /* Same shapes, flipped: light hairlines catch the edge on dark. */
-  --dark-shadow-hairline: 0 0 0 1px rgb(255 255 255 / 0.12);
-  --dark-shadow-inset-frame:
-    inset 0 0 0 1px rgb(255 255 255 / 0.08),
-    inset 0 1px 4px rgb(255 255 255 / 0.035);
-  --dark-shadow-float: 0 8px 28px rgb(0 0 0 / 0.5), 0 1px 3px rgb(0 0 0 / 0.4);
-
-  /*
-   * Raise, flipped. Cast shadow alone can't lift anything off a near-black
-   * page — there's no light left to take away — so the height reads from the
-   * hairline instead: it brightens as the control rises, the way a lit edge
-   * catches more of the room the further it comes off the wall. Same 10%
-   * white as `FIELD_CLASS`'s dark border, plus the same ambient layer the
-   * light scheme uses, deepened for a darker ground.
-   */
-  --dark-shadow-raise:
-    0 0 0 1px rgb(255 255 255 / 0.1), 0 1px 1px rgb(0 0 0 / 0.3),
-    0 4px 4px -4px rgb(0 0 0 / 0.4);
-  --dark-shadow-raise-high:
-    0 0 0 1px rgb(255 255 255 / 0.12), 0 2px 2px rgb(0 0 0 / 0.35),
-    0 8px 8px -6px rgb(0 0 0 / 0.5);
-  --dark-shadow-raise-bare: var(--dark-shadow-raise);
-  --dark-shadow-raise-bare-high: var(--dark-shadow-raise-high);
-
-  /* The plate goes to a lifted neutral — white would glare at this size. */
-  --dark-raise-plate: #202020;
-}
-
 @theme {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-@property --background {
+@property --background-start {
   syntax: "<color>";
   inherits: true;
   initial-value: #f2f6f7;
 }
 
-@property --background-light {
+@property --background-end {
   syntax: "<color>";
   inherits: true;
   initial-value: #fcfdfd;
@@ -213,8 +124,8 @@
 
 :root {
   transition:
-    --background 300ms var(--ease-out),
-    --background-light 300ms var(--ease-out);
+    --background-start 300ms var(--ease-out),
+    --background-end 300ms var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -224,36 +135,20 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-background-light: var(--background-light);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--color-accent);
-  --color-added-tint: var(--color-added-tint);
-  --font-sans: var(--font-neuton);
+  --accent: var(--accent);
   --font-lato: var(--font-lato);
   --font-inter: var(--font-inter);
   --font-newsreader: var(--font-newsreader);
 }
 
-/*
- * The two scheme switches. Both do nothing but re-point the live tokens at
- * the `--dark-*` slots above; keep them identical when adding a token.
- */
 :root[data-theme="dark"] {
-  --background: var(--dark-background);
-  --background-light: var(--dark-background-light);
+  --background-start: var(--dark-background-start);
+  --background-end: var(--dark-background-end);
   --foreground: var(--dark-foreground);
   --rule-blue: var(--dark-rule-blue);
   --sidenote-tint: var(--dark-sidenote-tint);
   --quote-ink: var(--dark-quote-ink);
   --series-1: var(--dark-series-1);
-  --series-2: var(--dark-series-2);
-  --fig-pink: var(--dark-fig-pink);
-  --fig-yellow: var(--dark-fig-yellow);
-  --fig-ink: var(--dark-fig-ink);
-  --fig-magenta: var(--dark-fig-magenta);
-  --fig-card: var(--dark-fig-card);
-  --fig-grid: var(--dark-fig-grid);
   --shadow-hairline: var(--dark-shadow-hairline);
   --shadow-inset-frame: var(--dark-shadow-inset-frame);
   --shadow-float: var(--dark-shadow-float);
@@ -266,20 +161,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --background: var(--dark-background);
-    --background-light: var(--dark-background-light);
+    --background-start: var(--dark-background-start);
+    --background-end: var(--dark-background-end);
     --foreground: var(--dark-foreground);
     --rule-blue: var(--dark-rule-blue);
     --sidenote-tint: var(--dark-sidenote-tint);
     --quote-ink: var(--dark-quote-ink);
     --series-1: var(--dark-series-1);
-    --series-2: var(--dark-series-2);
-    --fig-pink: var(--dark-fig-pink);
-    --fig-yellow: var(--dark-fig-yellow);
-    --fig-ink: var(--dark-fig-ink);
-    --fig-magenta: var(--dark-fig-magenta);
-    --fig-card: var(--dark-fig-card);
-    --fig-grid: var(--dark-fig-grid);
     --shadow-hairline: var(--dark-shadow-hairline);
     --shadow-inset-frame: var(--dark-shadow-inset-frame);
     --shadow-float: var(--dark-shadow-float);
@@ -292,7 +180,7 @@
 }
 
 body {
-  background: var(--background-light);
+  background: var(--background-end);
   color: var(--foreground);
   font-family: var(--font-neuton), serif;
   transition: color 300ms var(--ease-out);
@@ -304,55 +192,21 @@ body {
   }
 }
 
-/*
- * Page wash. The surface starts at --background and lifts to the near-white
- * --background-light over the opening band (header + carousel), so the bulk
- * of the digest reads on the lighter ground. The gradient lives on the page
- * wrapper rather than on `body` on purpose: a background propagated from
- * `body` to the canvas is positioned against the *root* box, and `html` is
- * `h-full` here — one viewport tall — which would pin the stops to the
- * viewport instead of the document. The wrapper's own box spans the full
- * document height, so `--page-fade-end` measures from the top of the page.
- *
- * --page-fade-end is the single knob: raise it to push the transition
- * further down the page, lower it to finish the fade sooner.
- */
 .page-gradient {
   --page-fade-end: 100vh;
-  background-color: var(--background-light);
+  background-color: var(--background-end);
   background-image: linear-gradient(
     to bottom,
-    var(--background) 0,
-    var(--background-light) var(--page-fade-end)
+    var(--background-start) 0,
+    var(--background-end) var(--page-fade-end)
   );
   background-repeat: no-repeat;
 }
 
-/*
- * Recessed display: the page surface sinks into a white paper "paspateur"
- * (mat/passe-partout), then down again into the artwork itself. Used by the
- * bibliography shelf; the header photographs deliberately go mat-less and
- * carry only the inset hairline plus film grain.
- */
 .paspateur-bg {
   background-color: #ffffff;
 }
 
-.paspateur-noise {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-}
-
-/*
- * Film grain over photographs: a 128px raster tile of per-pixel hash
- * noise, held `pixelated` so it stays chunky when the browser upscales it
- * on retina instead of being smoothed away. Ported from
- * superlogical.com's treatment — their integer hash, ±80 depth around
- * mid-gray, 0.16 alpha over an `overlay` blend — at a smaller tile, since
- * white noise has no spatial correlation and the shorter repeat period is
- * invisible. Tile generated at build-authoring time, not runtime.
- */
 .photo-grain {
   background-image: url("/ui/grain.png");
   background-repeat: repeat;
@@ -361,18 +215,6 @@ body {
   opacity: 0.16;
 }
 
-/*
- * Footer tooth. Same grain tile as the photographs, but masked so it ramps
- * from nothing at the footer's top edge to full strength at the bottom of
- * the page — the footer separates itself from the wash by texture rather
- * than by a fill or a rule. The mask eases in (barely anything through the
- * first half) so the top edge genuinely reads as untextured.
- *
- * Multiply over the light surface, since overlay against a near-white
- * ground washes out; dark mode flips to overlay, where multiply would only
- * muddy an already-dark surface. Deliberately not inside an `isolate`
- * context: the blend needs the page wash behind it as its backdrop.
- */
 .footer-grain {
   background-image: url("/ui/grain.png");
   background-repeat: repeat;
@@ -405,25 +247,6 @@ body {
   }
 }
 
-/*
- * Raised controls. The page reads as a surface with the images set *into*
- * it; these are the things sitting *on* it, and they're the only elements
- * on the page that cast rather than catch a shadow.
- *
- * Both shadow steps live on pseudo-elements and crossfade by opacity rather
- * than being one animated `box-shadow`. Shadow is a paint-stage property —
- * transitioning it repaints the element every frame — while two stacked
- * pseudos crossfading are pure compositing, and they interrupt cleanly when
- * the pointer leaves mid-lift.
- *
- *   ::before  resting height, fades *down* on press
- *   ::after   hover height, fades up under the pointer, out again on press
- *
- * Press pulls both: the control drops back to the surface (translateY(0))
- * and gives under the finger (scale(0.97)) while its shadow tightens. It's
- * the one moment the height goes to zero, which is what makes it read as
- * contact rather than as a colour change.
- */
 .button-raised {
   position: relative;
   isolation: isolate;
@@ -451,11 +274,6 @@ body {
   opacity: 0;
 }
 
-/*
- * Hover is gated to real pointers: on touch it sticks after a tap, leaving
- * the control lifted with nothing hovering it. Keyboard focus lifts too —
- * arriving by Tab is as deliberate as arriving by pointer.
- */
 @media (hover: hover) and (pointer: fine) {
   .button-raised:hover {
     transform: translateY(-1px);
@@ -474,7 +292,6 @@ body {
   opacity: 1;
 }
 
-/* After the hover rules on purpose: equal specificity, so order decides. */
 .button-raised:active {
   transform: translateY(0) scale(0.97);
   transition-duration: 120ms;
@@ -490,11 +307,6 @@ body {
   transition-duration: 120ms;
 }
 
-/*
- * A disabled control still occupies its height but stops responding to
- * anything — no lift, no give. Last in the cascade so it outranks the hover
- * and press rules above regardless of which of them also match.
- */
 .button-raised:disabled,
 .button-raised:disabled:hover,
 .button-raised:disabled:active,
@@ -523,32 +335,6 @@ body {
   }
 }
 
-/*
- * The primary's surface: accent blue carrying the same grain tile as the
- * photographs. Same texture, same pixel-chunky treatment — the point is that
- * the raised plane is made of the page's material, not of some new one.
- *
- * Done with `background-blend-mode` rather than the overlay element the
- * photos use, because a button's box is already spoken for: `::before` and
- * `::after` are holding the two shadow steps. Layers, top down:
- *
- *   1. a veil of the fill at 78%, blended `normal`
- *   2. the grain tile, blended `overlay` against the colour beneath
- *   3. `background-color`, the flat fill
- *
- * The veil is what sets grain strength — it washes the blended result back
- * toward flat, leaving 16% of the texture, matching the 0.16 the
- * photographs carry. Raise the veil percentage for less grain, lower it for
- * more.
- *
- * Deliberately NOT `image-rendering: pixelated`, which is the one place
- * this parts ways with `.photo-grain`. Holding the tile chunky is right over
- * a photograph — the image's own detail absorbs the hard tile edges and what
- * survives reads as film. Over a flat fill there's no detail to absorb them,
- * so every noise pixel stays a visible square and the texture reads as
- * pixelation, worse the further the page is zoomed. Smoothing lets the same
- * tile resolve as grain at any scale.
- */
 .button-grain {
   background-color: var(--raise-fill);
   background-image:
@@ -558,32 +344,18 @@ body {
     url("/ui/grain.png");
   background-blend-mode: normal, overlay;
   background-repeat: no-repeat, repeat;
-  /* Half the tile's natural 128px, so the noise cell lands near a single
-     device pixel on retina — grain fine enough to sit under text. */
+
   background-size:
     auto,
     64px 64px;
   color: #ffffff;
 }
 
-/*
- * The secondary's surface: the plate, no texture. Grain is what marks the
- * primary out, so spending it here would flatten the difference between the
- * two tiers back to colour alone.
- */
 .button-plate {
   background-color: var(--raise-plate);
   color: var(--foreground);
 }
 
-/*
- * Same hairline-plus-lift recipe as the raised primary — `--shadow-raise`,
- * not the `-bare` alias, now that the fields carry a visible border of
- * their own and every raised surface reads off the same edge.
- *
- * These sit after `.button-raised` deliberately: same specificity, so the
- * cascade order is what lets them win.
- */
 .button-plate::before {
   box-shadow: var(--shadow-raise-bare);
 }
@@ -592,18 +364,6 @@ body {
   box-shadow: var(--shadow-raise-bare-high);
 }
 
-/*
- * The third tier: text lying flat on the page, with no height of its own
- * until you reach for it. Chrome like the language switch belongs here —
- * it's always present and rarely wanted, so giving it standing height would
- * have it competing with the page's actual actions from every scroll
- * position.
- *
- * Hover brings it up to the *resting* step and stops there, level with the
- * raised tier rather than above it: `.button-raised:hover::after` would
- * otherwise take it straight to the hover step, and jumping from flush to
- * the top of the scale in one move overshoots what a hover is saying.
- */
 .button-flush {
   background-color: transparent;
 }
@@ -638,7 +398,6 @@ body {
   opacity: 0;
 }
 
-/* Pressed from flush: it has no height to give up, so only the scale reads. */
 .button-flush:active::before {
   opacity: 1;
 }
@@ -761,12 +520,6 @@ body {
   }
 }
 
-/*
- * The contact-match card: a state indication (the search resolved) rather
- * than an enter/exit toggle, so it gets one direction only — there's no
- * unmount transition to make symmetric, the card simply stops being
- * rendered once the search resets.
- */
 .match-card {
   transition:
     opacity 220ms var(--ease-out),
@@ -789,33 +542,6 @@ body {
   }
 }
 
-/*
- * Margin column (desktop only). The reading column sits in a 20-col track
- * at col-start-4/col-span-8 (cols 4-11, 40% of the container), with 3
- * blank columns (15%) on either side so the whole reading-column-plus-
- * sidenote block sits centered rather than flush left. `.aside-float`
- * pulls an element out of that col-span-8 track into cols 12-17 (6 cols,
- * 30% of the container) via a negative margin sized as a percentage of its
- * own containing block (the col-span-8 track) — 75% of that track's width
- * is exactly three quarters of the reading column's width, so the sidenote
- * reads as clearly subordinate to the body text instead of a same-size
- * column. This tracks the grid's actual ratio instead of a fixed rem guess
- * that drifts out of alignment as the viewport (and so the column's px
- * width) changes. Resizing the reading column just needs this percentage
- * kept at whatever fraction of it the sidenote should be (currently three
- * quarters, 75%).
- *
- * `#digest-content` is plain block flow (not flex), specifically so this
- * works: flex/grid items ignore `float` entirely per spec, so anything
- * meant to float into the margin — `Sidenote`, `Figure` — must either be
- * nested inside a normal-flow ancestor (Sidenote, inside its paragraph) or
- * itself be a plain block-flow child (Figure, direct child of
- * `#digest-content`).
- *
- * Below 1024px neither applies: Sidenote falls back to a tap-to-jump
- * panel via its own `isDesktop` check, and Figure just renders inline at
- * full width, since `.aside-float` only exists inside this query.
- */
 @media (min-width: 1024px) {
   .aside-float {
     float: right;
@@ -824,12 +550,6 @@ body {
     margin-right: -75%;
   }
 
-  /*
-   * Lato, not the body serif. A margin note is apparatus rather than prose —
-   * the same register as the page's other labels — and setting it in a
-   * different voice is what keeps the eye from reading it as a continuation
-   * of the sentence it hangs off.
-   */
   .sidenote-desktop {
     display: block;
     padding-left: 2.5rem;
@@ -841,13 +561,6 @@ body {
     opacity: 0.75;
   }
 
-  /*
-   * Spec-drawing rule over each margin note: a hairline that says which
-   * body text the note answers to. `width: fit-content` is the whole
-   * trick — the line measures the note's rendered text (shrink-to-fit, so
-   * a one-line note gets a short rule) and only reaches the column's edge
-   * when the text itself wraps that far.
-   */
   .digest-unfold {
     transform: translateX(0);
     transition: transform 700ms var(--ease-in-out);
@@ -891,32 +604,14 @@ body {
     display: block;
     width: fit-content;
     border-top: 1px solid var(--rule-blue);
-    /*
-     * The fill fades out downward rather than sitting as a flat block: the
-     * note is anchored by its rule at the top, so the tint is strongest
-     * where the rule meets it and has given out entirely by the last line.
-     * It reads as a wash bleeding down from the line instead of a box the
-     * text has been put inside.
-     */
+
     background-image: linear-gradient(
       to bottom,
       var(--sidenote-tint) 0%,
       color-mix(in oklab, var(--sidenote-tint) 35%, transparent) 55%,
       transparent 100%
     );
-    /*
-     * The horizontal padding costs something worth naming: the box is
-     * `fit-content`, so the rule on top now overhangs the text it measures
-     * by 0.75rem at each end rather than ending exactly where the line
-     * does. That precision was the right call when the note was untinted
-     * and the rule was the only mark on it — but a filled panel whose text
-     * runs into its own edges reads as clipped, and legibility of the note
-     * beats exactness of the rule.
-     *
-     * Pulled back left by the same amount so the note's first character
-     * still lines up with where it sat before the fill existed; the panel
-     * grows outward into the margin instead of shoving the text right.
-     */
+
     padding: 0.6rem 0.75rem;
     margin-left: -0.75rem;
   }

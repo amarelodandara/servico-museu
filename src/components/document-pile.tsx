@@ -141,7 +141,7 @@ export function DocumentPile({ documents }: { documents: PileDocument[] }) {
                   className={
                     "absolute inset-0 cursor-pointer overflow-hidden rounded-sm border border-neutral-200 bg-white shadow-md " +
                     "transition-[transform,opacity] ease-out " +
-                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] " +
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] " +
                     "motion-reduce:transition-[opacity] " +
                     "dark:border-neutral-700 " +
                     style

@@ -5,7 +5,6 @@ import { Blockquote } from "@/components/blockquote";
 import { Quote } from "@/components/quote";
 import { Sidenote } from "@/components/sidenote";
 import { GlossaryTerm } from "@/components/glossary-term";
-import { Figure } from "@/components/figure";
 import { Aside } from "@/components/aside";
 import { Stat } from "@/components/stat";
 import { TodoNote } from "@/components/todo-note";
@@ -31,7 +30,6 @@ const components: MDXComponents = {
   Quote,
   Sidenote,
   GlossaryTerm,
-  Figure,
   Aside,
   Stat,
   TodoNote,

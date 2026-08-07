@@ -142,7 +142,7 @@ export function ResearchTimeline() {
             y1="8"
             x2={FIELD_SPAN.to * 100}
             y2="8"
-            stroke="var(--color-accent)"
+            stroke="var(--accent)"
             strokeWidth="4"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
@@ -167,7 +167,7 @@ export function ResearchTimeline() {
           />
           <SpanShadow
             span={FIELD_SPAN}
-            className="text-[var(--color-accent)]"
+            className="text-[var(--accent)]"
           />
 
           <span
@@ -178,7 +178,7 @@ export function ResearchTimeline() {
           </span>
 
           <span
-            className="absolute top-0 -translate-x-1/2 font-medium whitespace-nowrap text-[var(--color-accent)]"
+            className="absolute top-0 -translate-x-1/2 font-medium whitespace-nowrap text-[var(--accent)]"
             style={{ left: `${fieldMid}%` }}
           >
             {t("timelineFieldLabel")}

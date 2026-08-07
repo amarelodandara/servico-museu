@@ -170,7 +170,7 @@ const INPUT_VARIANTS: { name: string; note: string; className: string }[] = [
       "font-lato w-full rounded-lg bg-white px-4 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 " +
       "shadow-[inset_0_1px_1px_rgb(0_0_0_/_0.05),0_0_0_1px_rgb(0_0_0_/_0.08),0_2px_2px_-1px_rgb(0_0_0_/_0.1)] " +
       "transition-[box-shadow,background-color] duration-150 ease-out " +
-      "focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-accent)] " +
+      "focus:outline-2 focus:outline-offset-2 focus:outline-[var(--accent)] " +
       "dark:bg-neutral-900 dark:text-neutral-100 dark:shadow-[inset_0_1px_1px_rgb(255_255_255_/_0.04),0_0_0_1px_rgb(255_255_255_/_0.1),0_2px_2px_-1px_rgb(0_0_0_/_0.3)]",
   },
 ];

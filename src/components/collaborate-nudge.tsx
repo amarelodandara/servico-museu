@@ -82,7 +82,7 @@ export function CollaborateNudge() {
         role="status"
         data-open={open}
         style={{ "--popover-origin": "top right" } as React.CSSProperties}
-        className="overlay-popover absolute top-4 right-0 z-20 w-72 rounded-2xl bg-[var(--background-light)] p-5 text-left shadow-[var(--shadow-float)]"
+        className="overlay-popover absolute top-4 right-0 z-20 w-72 rounded-2xl bg-[var(--background-end)] p-5 text-left shadow-[var(--shadow-float)]"
       >
         <p className="text-lg tracking-tight text-balance">{t("title")}</p>
         <p className="font-lato mt-2 text-sm text-neutral-600 dark:text-neutral-400">

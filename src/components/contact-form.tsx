@@ -18,7 +18,7 @@ const FIELD_BASE =
   "font-lato w-full rounded-lg border border-black/8 bg-white px-4 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 " +
   "shadow-[inset_0_1px_1px_rgb(0_0_0_/_0.05)] " +
   "transition-[box-shadow,background-color] duration-150 ease-out " +
-  "focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-accent)] " +
+  "focus:outline-2 focus:outline-offset-2 focus:outline-[var(--accent)] " +
   "dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-100";
 
 export const FIELD_CLASS = FIELD_BASE;
@@ -117,7 +117,7 @@ export function ContactForm({ institution }: { institution?: string } = {}) {
               {t("notConfigured")}{" "}
               <a
                 href="mailto:nicolysantos51@gmail.com"
-                className="text-[var(--color-accent)] underline"
+                className="text-[var(--accent)] underline"
               >
                 nicolysantos51@gmail.com
               </a>

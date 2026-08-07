@@ -114,7 +114,7 @@ export function GlossaryTerm({
         aria-expanded={open}
         aria-controls={panelId}
         onClick={handleOpen}
-        className="inline appearance-none whitespace-nowrap cursor-help underline decoration-[var(--color-accent)] decoration-dotted underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+        className="inline appearance-none whitespace-nowrap cursor-help underline decoration-[var(--accent)] decoration-dotted underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         {children}
       </button>
@@ -143,7 +143,7 @@ export function GlossaryTerm({
                 "--popover-origin": origin,
               } as CSSProperties
             }
-            className="overlay-popover absolute z-50 rounded-md border border-neutral-300 bg-[var(--background)] p-4 text-sm shadow-lg dark:border-neutral-700"
+            className="overlay-popover absolute z-50 rounded-md border border-neutral-300 bg-[var(--background-start)] p-4 text-sm shadow-lg dark:border-neutral-700"
           >
             <p className="mb-1 font-semibold">{entry.term}</p>
             <p className="text-neutral-600 dark:text-neutral-400">
@@ -157,7 +157,7 @@ export function GlossaryTerm({
             <Drawer.Overlay className="fixed inset-0 z-40 bg-neutral-900/40" />
             <Drawer.Content
               id={panelId}
-              className="fixed inset-x-0 bottom-0 z-50 rounded-t-lg border-t border-neutral-300 bg-[var(--background)] p-4 pb-8 text-sm outline-none dark:border-neutral-700"
+              className="fixed inset-x-0 bottom-0 z-50 rounded-t-lg border-t border-neutral-300 bg-[var(--background-start)] p-4 pb-8 text-sm outline-none dark:border-neutral-700"
             >
               {/* Vaul draws the handle itself; the override is only to take
                   it off its own hardcoded grey and onto ours. Its injected
